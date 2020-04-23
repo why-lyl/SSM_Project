@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+    http://www.springframework.org/schema/mvc 
+    http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.3.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+        
+        <!-- 扫描控制层和业务层 -->
+        <context:component-scan base-package="com.team.erp.framework.controller"></context:component-scan>
+        <context:component-scan base-package="com.team.erp.framework.service.serviceImpl"></context:component-scan>
+        
+        <!-- 配置spring整合mabatis开始 -->
+        
+        <!-- 用数据源连接数据库的好处：连接复用（道理和线程池差不多，线程复用） -->
+        	<!-- 配置用数据源连接数据库,可在依赖中找相关文件名,将ComboPooledDataSource类的单例对象注入到IOC容器 -->
+        	<bean id = "dataSource" class = "com.mchange.v2.c3p0.ComboPooledDataSource">
+        		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+        		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/ssm-erp?userUnicode=true&amp;characterEncoding=UTF-8"></property>
+        		<property name="user" value="root"></property>
+        		<property name="password" value="512512335"></property>
+        	</bean>
+        	
+        	<!-- 将sqlSessionFactory注入到ioc容器 -->
+        	<bean id = "sqlSessionFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
+        		<!-- 引入配置好的数据源 用ref引用id名-->
+        		<property name="dataSource" ref = "dataSource"></property>
+        		<!-- 扫描mybatis.xml -->
+        		<property name="configLocation" value = "classpath:mybatis.xml"></property>
+        		<!-- 扫描实现了mapper层接口的所有xml文件位置 -->
+        		<property name="mapperLocations" value = "classpath:com/team/erp/framework/mapper/mapperxml/*.xml"></property>
+        	</bean>	
+        	
+        	<bean class = "org.mybatis.spring.mapper.MapperScannerConfigurer">
+        		<!-- 扫描mapper层 -->
+        		<property name = "basePackage" value = "com.team.erp.framework.mapper"></property>
+        		<!-- 指定sqlSessionFactory -->
+        		<property name = "sqlSessionFactoryBeanName" value = "sqlSessionFactory"></property>
+        	</bean>
+        <!-- 配置spring整合mabatis结束 -->
+        
+        
+        <!-- 配置spring mvc 只需要配置视图解析器（spring-webmvc依赖中有相关配置）  开始-->
+        	<!-- p:prefix = "/WEB-INF/" p:suffix = ".jsp" -->
+        	<bean class = "org.springframework.web.servlet.view.InternalResourceViewResolver" >
+        		<!-- 指定前后缀亦可写成  -->
+        	    <property name = "prefix" value = "/WEB-INF/"></property>
+        		<property name = "suffix" value = ".jsp"></property>	 
+        	</bean>
+        <!-- 配置spring mvc 只需要配置视图解析器（spring-webmvc依赖中有相关配置）  结束-->
+        
+        <!-- 开启注解 -->
+        <context:annotation-config></context:annotation-config>
+        <mvc:annotation-driven></mvc:annotation-driven>
+
+</beans>

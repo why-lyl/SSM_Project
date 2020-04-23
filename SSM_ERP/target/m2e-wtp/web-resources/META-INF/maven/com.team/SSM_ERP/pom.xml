@@ -1,0 +1,97 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.team</groupId>
+  <artifactId>SSM_ERP</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>SSM_ERP Webapp</name>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+  
+   	<!--spring spring mvc整合开始  -->
+   	<!--需要依赖：spring-context  spring-web  spring-mvc  -->
+   	<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context</artifactId>
+		    <version>5.2.2.RELEASE</version>
+		</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-web</artifactId>
+		    <version>5.2.2.RELEASE</version>
+		</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-webmvc</artifactId>
+		    <version>5.2.2.RELEASE</version>
+		</dependency>
+   	<!--spring spring mvc整合结束  -->
+   	
+   	<!-- spring整合mybatis开始 -->
+   		<!--mysql-connector  mybatis  mybatis-spring  spring-jdbc  c3p0 -->
+   		<dependency>
+		    <groupId>mysql</groupId>
+		    <artifactId>mysql-connector-java</artifactId>
+		    <version>5.1.21</version>
+		</dependency>
+		
+	<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+	<!--mybatis，用来加载SqlSessionFactoryBean和MapperScannerConfigurer -->
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis</artifactId>
+		    <version>3.4.1</version>
+		</dependency>
+		
+	<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis-spring</artifactId>
+		    <version>1.3.0</version>
+		</dependency>
+		
+	<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+	<!--配置spring jdbc,用来加载DataSourceTransactionManager -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-jdbc</artifactId>
+		    <version>4.3.13.RELEASE</version>
+		</dependency>
+		<!--数据源 -->
+		<dependency>
+		    <groupId>com.mchange</groupId>
+		    <artifactId>c3p0</artifactId>
+		    <version>0.9.5.2</version>
+		</dependency>
+   	<!-- spring整合mybatis结束 -->
+   	<!--以上就是搭建最基本ssm框架的依赖 -->
+   	
+   	<!--其他依赖开始  -->
+		<!--spring相关测试需要  -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-test</artifactId>
+		    <version>4.3.11.RELEASE</version>
+		    <scope>test</scope>
+		</dependency>
+		
+		<!--junit测试需要  -->
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>4.12</version>
+		    <scope>test</scope>
+		</dependency>
+   	   <!--其他依赖结束  -->
+   	   
+</dependencies>
+  <build>
+    <finalName>SSM_ERP</finalName>
+  </build>
+</project>
