@@ -16,7 +16,7 @@
 	</resultMap>
 	<!-- sql片段的封装，可根据实际情况来改写 -->
     <sql id="Base_Column_List">
-      	user_id, user_name, user_password
+      	user_id, user_name, password
     </sql>
     <!-- 根据id查询user -->
 	<select id="selectUserByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">

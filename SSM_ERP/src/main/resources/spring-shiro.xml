@@ -53,7 +53,7 @@ Authentication(认证),Authorization(授权),Cache(缓存)等的管理,可以理
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager"/>
 		<!-- 未授权也可访问的页面（重定向） -->
-		<property name="loginUrl" value="/login.jsp"/>
+		<property name="loginUrl" value="/userController/goLogin.do"/>
 		<!-- 通过授权才能正常访问的页面 -->
 		<property name="successUrl" value="/success.jsp"/>
 		<!-- 未通过授权将会跳转的页面 -->
@@ -69,7 +69,7 @@ Authentication(认证),Authorization(授权),Cache(缓存)等的管理,可以理
 	-->
 		<property name="filterChainDefinitions">
 			<value>
-			  /login.jsp = anon
+			  /userController/goLogin.do = anon
 			  /auth/login = anon
 			  /userController/checkLogin.ajax = anon
               /css/** = anon
@@ -78,6 +78,7 @@ Authentication(认证),Authorization(授权),Cache(缓存)等的管理,可以理
               /images/** = anon
               /lib/** = anon
               /logout=logout 
+              /webapp/** = anon
 			  <!-- 其他所有内容都需要身份验证： -->
 			  /** = authc 
 			</value>

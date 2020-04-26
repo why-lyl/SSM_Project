@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html;  charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%  String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" 
+    + request.getServerPort()+ path + "/";%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
-<%-- <base href="<%=basePath%>" /> --%>
+<base href="<%=basePath%>" />  
 <meta charset="UTF-8">
 <title>xxx管理系统</title>
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
@@ -16,8 +19,7 @@
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" href="css/font.css">
 <link rel="stylesheet" href="./css/xadmin.css">
-<script type="text/javascript"
-	src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/xadmin.js"></script>
 <script src="lib/layui/layui.all.js" charset="utf-8"></script>
 <script type="text/javascript">
@@ -34,16 +36,25 @@
 		var password = $("#password").val();
 		// 2.)取得复选框（checkbox）的状态(true 或者 false)
 		var checkObj = $("#memoryuser").prop("checked");
+		
 		/* alert(username);
 		alert(checkObj);//alert()方法在页面上弹出一个窗口（对话框），阻碍程序的运行
-		alert(typeof(checkObj));//typeof(checkObj)查看类型  */
+		alert(typeof(checkObj));//typeof(checkObj)查看类型   */
 		
 		// 3.)给定一个变量区分是否被选中
 		var selectionBox = "NO";
 		if (checkObj) { //if()，()中为true则会执行{}中的语句
 			selectionBox = "YES";//表示被选中
-		}
+		};
 		
+		//前端验证
+		if (username == null || username == "") {
+			layer.msg("请输入用户名",{icon:2});
+			alter();//此处我原本只是想阻碍一下线程的运行，没想到直接达到了效果
+		}else if (password == null || password == ""){
+			layer.msg("请输入用户密码",{icon:2});
+			alter();
+		}
 		// 4.)使用ajax来完成访问后台登录验证 此处使用jQuery封装的ajax（不同公司可能使用不同的js框架来封装ajax，如vue）
 		$.ajax({//键值对来表示设置的属性
 			//请求方式
@@ -62,7 +73,12 @@
 			
 			//成功的回调函数，此处的info有待理解
 			success:function(info){
-				
+				if (info=="ERROR"){
+					layer.msg("用户名或者密码错误",{icon:2})
+				}else{
+					//跳转到主页面(最好后台跳转)
+					window.location.href = "userController/index.do"
+				}
 			},
 			
 			//失败的回调函数
@@ -89,7 +105,7 @@
 		<div id="darkbannerwrap"></div>
 		<form  class="layui-form">
 			<input id="username" placeholder="用户名" type="text" 
-				class="layui-input">
+				class="layui-input" >
 			<hr class="hr15">
 			<input id="password" placeholder="密码" type="password"
 				class="layui-input">
