@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--表明是实现mapper接口层的xml文件  -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <!-- namespace命名空间，作用就是对sql进行分类化管理，即sql隔离
+       注意：使用mapper代理方法开发的话，namespace就有特殊重要的作用了-->
+<mapper namespace = "com.team.erp.framework.mapper.UserMapper">
+    <!-- resultMap是对要查询表的部分属性或全部属性的封装，可以是多个连表查询的属性封装，
+    resultMap可以根据实际情况封装无数个，但是id名不能重复  type 是封装类的路径-->
+	<resultMap type="com.team.erp.framework.model.User" id="BaseResultMap">
+	    <!--id column 是数据表中主键名，result column 是数据表中属性名 ;
+	    jdbcType 是数据表中的数据类型，注意要全部大写 ;property 是实体类名 -->
+		<id column="user_id" jdbcType="INTEGER" property="userId"/>
+	    <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+	    <result column="password" jdbcType="VARCHAR" property="password"/>
+	    <result column="create_date" jdbcType="DATE" property="createdate"/>
+	</resultMap>
+	<!-- sql片段的封装，可根据实际情况来改写 -->
+    <sql id="Base_Column_List">
+      	user_id, user_name, user_password
+    </sql>
+    <!-- 根据id查询user -->
+	<select id="selectUserByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from t_user
+		where user_id = #{userId,jdbcType=INTEGER}
+	</select>
+	<!-- 根据姓名查询user -->
+	<select id="selectUserByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from t_user
+		where user_name= #{userName,jdbcType=VARCHAR}
+	</select>
+	<!-- 添加用户 -->
+    <insert id="addUser" parameterType="com.team.erp.framework.model.User" useGeneratedKeys="true" keyProperty="userId">
+  	    INSERT INTO t_user values (null,#{userName},#{userPassword})
+    </insert>
+     <!-- 删除用户 -->
+    <delete id="deleteUserByUserId" parameterType="java.lang.Integer">
+	    delete from t_user
+	    where user_id = #{userId,jdbcType=INTEGER}
+    </delete>
+    <!--更新用户1 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.team.erp.framework.model.User">
+	    update t_user
+	    <set>
+	      <if test="userName != null">
+	        user_name = #{userName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="userPassword != null">
+	        user_password = #{userPassword,jdbcType=VARCHAR},
+	      </if>
+	    </set>
+	    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <!--更新用户2-->
+  <update id="updateByPrimaryKey" parameterType="com.team.erp.framework.model.User">
+	    update t_user
+	    set user_name = #{userName,jdbcType=VARCHAR},
+	        user_password = #{userPassword,jdbcType=VARCHAR}
+	    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

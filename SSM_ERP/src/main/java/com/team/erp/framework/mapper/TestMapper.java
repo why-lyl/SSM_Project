@@ -3,14 +3,15 @@ package com.team.erp.framework.mapper;
 
 /**
  * Description:
- * ²âÊÔMapper
+ * æµ‹è¯•Mapper
+ * æ­¤å±‚ç”¨æ¥å†™æ–¹æ³•çš„å®šä¹‰ï¼ŒåŠéœ€è¦ä¼ å…¥çš„å‚æ•°å®šä¹‰
  * @className TestMapper
  * @author @liuYL
- * @createDate 2020Äê4ÔÂ23ÈÕ
+ * @createDate 2020å¹´4æœˆ23æ—¥
  */
 public interface TestMapper {
 	
-	//¸ù¾İÓÃ»§id²éÕÒÓÃ»§ĞÕÃû
+	//æ ¹æ®ç”¨æˆ·idæŸ¥æ‰¾ç”¨æˆ·å§“å
 	String getUserNameByUserId(int userId);
 
 }

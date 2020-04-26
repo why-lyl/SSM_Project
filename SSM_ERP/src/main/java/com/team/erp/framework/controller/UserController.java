@@ -1,19 +1,28 @@
 package com.team.erp.framework.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.team.erp.util.controller.BaseController;
+
 @Controller
 @RequestMapping("/userController")
-public class UserController {
+public class UserController extends BaseController{
 	
 	@RequestMapping("/checkLogin.ajax")
 	@ResponseBody
-	public String checkLogin() {
-		System.out.println("连接后台成功");
+	public String checkLogin(String username, String password, String selectionBox, HttpServletRequest req, HttpServletResponse response) {
+     // System.out.println("杩炴帴鍚庡彴鎴愬姛");
 		
-		return null;
+     //	System.out.println(username +" "+ password +" "+ selectionBox);
+		//System.out.println(us);
+		//璋冪敤涓氬姟灞傛潵瀹屾垚鐧诲綍楠岃瘉
+		String info = us.checkLogin(username,password,selectionBox);
+		return info;
 		
 	}
 	

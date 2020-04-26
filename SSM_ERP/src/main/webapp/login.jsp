@@ -62,7 +62,7 @@
 			
 			//成功的回调函数，此处的info有待理解
 			success:function(info){
-				layer.msg("ajax莫名成功!",{icon:1})
+				
 			},
 			
 			//失败的回调函数
@@ -71,7 +71,6 @@
 				layer.msg("ajax请求失败!",{icon:2})
 				
 			}
-			
 			
 			
 		});

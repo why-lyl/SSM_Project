@@ -10,20 +10,20 @@ import com.team.erp.framework.service.TestService;
 
 /**
  * Description:
- * ²âÊÔService²ã
+ * æµ‹è¯•Serviceå±‚
  * @className TestServiceSSM
  * @author @liuYL
- * @createDate 2020Äê4ÔÂ23ÈÕ
+ * @createDate 2020å¹´4æœˆ23æ—¥
  */
 
-//¼ÓÉÏÏà¹Ø×¢½â±íÊ¾spring²âÊÔ
+//åŠ ä¸Šç›¸å…³æ³¨è§£è¡¨ç¤ºspringæµ‹è¯•
 @RunWith(SpringJUnit4ClassRunner.class)
-//É¨ÃèÏà¹Øxml
+//æ‰«æç›¸å…³xml
 @ContextConfiguration({"classpath:spring.xml"})
 
 public class TestServiceSSM {
 	
-	//×Ô¶¯×¢Èë½Ó¿Ú¶ÔÏóÒÔ±ãÓÚ²âÊÔ
+	//è‡ªåŠ¨æ³¨å…¥æ¥å£å¯¹è±¡ä»¥ä¾¿äºæµ‹è¯•
 		@Autowired
 		private TestService ts;
 		

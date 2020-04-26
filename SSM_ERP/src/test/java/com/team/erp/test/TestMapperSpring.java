@@ -10,27 +10,27 @@ import com.team.erp.framework.mapper.TestMapper;
 
 /**
  * Description:
- * ²âÊÔmybatisºÍspringÊÇ·ñÅäÖÃ³É¹¦
+ * æµ‹è¯•mybatiså’Œspringæ˜¯å¦é…ç½®æˆåŠŸ
  * @className TestMapper
  * @author @liuYL
- * @createDate 2020Äê4ÔÂ23ÈÕ
+ * @createDate 2020å¹´4æœˆ23æ—¥
  */
 
-//¼ÓÉÏÏà¹Ø×¢½â±íÊ¾spring²âÊÔ
+//åŠ ä¸Šç›¸å…³æ³¨è§£è¡¨ç¤ºspringæµ‹è¯•
 @RunWith(SpringJUnit4ClassRunner.class)
-//É¨ÃèÏà¹Øxml
+//æ‰«æç›¸å…³xml
 
 @ContextConfiguration({"classpath:spring.xml"})
 public class TestMapperSpring {
 	
-	//×Ô¶¯×¢Èë½Ó¿Ú¶ÔÏóÒÔ±ãÓÚ²âÊÔ
+	//è‡ªåŠ¨æ³¨å…¥æ¥å£å¯¹è±¡ä»¥ä¾¿äºæµ‹è¯•
 	@Autowired
 	private TestMapper tm;
 	
 	@Test
 	public void m() {
-		//ibatisÊÇÃ»ÓĞmybatisµÄÇ°Éí
-		//System.out.println(tm);//org.apache.ibatis.binding.MapperProxy@78641d23 ËµÃ÷ÊÇTestMapperµÄ´úÀí¶ÔÏó
+		//ibatisæ˜¯æ²¡æœ‰mybatisçš„å‰èº«
+		//System.out.println(tm);//org.apache.ibatis.binding.MapperProxy@78641d23 è¯´æ˜æ˜¯TestMapperçš„ä»£ç†å¯¹è±¡
 		System.out.println(tm.getUserNameByUserId(2));
 		System.out.println(tm.getUserNameByUserId(1));
 	}

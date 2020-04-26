@@ -4,15 +4,13 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authz.AuthorizationInfo;
-import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.util.ByteSource;
 
-public class MyRealm extends AuthorizingRealm{//AuthorizingRealm³éÏóÀà
+public class MyRealm extends AuthorizingRealm{//AuthorizingRealmæŠ½è±¡ç±»
     
 	/**
-	 *shrioÊÚÈ¨
+	 *shrioæˆæƒ
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
@@ -21,11 +19,11 @@ public class MyRealm extends AuthorizingRealm{//AuthorizingRealm³éÏóÀà
 	}
     
 	/**
-	 *shrioÈÏÖ¤
+	 *shrioè®¤è¯
 	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-		// TODO Auto-generated method stub
+		System.out.println("myrealmè¢«è®¿é—®äº†ï¼");
 		return null;
 	}
 	

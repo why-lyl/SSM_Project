@@ -8,7 +8,7 @@ import com.team.erp.framework.service.TestService;
 public class TsetServiceImpl implements TestService {
 
 	public void DemoTest() {
-		System.out.println("service±»Õý³£µ÷ÓÃ");
+		System.out.println("serviceè¢«æ­£å¸¸è°ƒç”¨");
 		
 	}
 
