@@ -59,4 +59,13 @@ public class UserController extends BaseController{
 		
 		return "welcome";
 	}
+	
+	@RequestMapping("/queryCookie.ajax")
+	@ResponseBody
+	public String queryCookie(HttpServletRequest request, HttpServletResponse response) {
+		
+		//查询是否有指定的cookie
+		String info = us.queryCookie( request, response);
+		return info;
+	}
 }

@@ -1,5 +1,6 @@
 package com.team.erp.framework.service.serviceImpl;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,7 +12,9 @@ import org.apache.shiro.web.servlet.SimpleCookie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.Gson;
 import com.team.erp.framework.mapper.UserMapper;
+import com.team.erp.framework.model.User;
 import com.team.erp.framework.service.UserService;
 
 @Service
@@ -63,15 +66,44 @@ public class UserServiceImpl implements UserService {
 //				c2.saveTo(request, response);
 				
 				SimpleCookie c1 = new SimpleCookie();
+				SimpleCookie c2 = new SimpleCookie();
+				SimpleCookie c3 = new SimpleCookie();
 				c1.setName("USERID"); //设置名字
+				c2.setName("NEWPASSWORD"); //设置名字
+				c3.setName("SELECTIONBOX");//设置登录页面复选框的名字
 			    //String s = String.valueOf(3);//将int类型的值转换为String类型的值
 				String userId = String.valueOf(um.selectUserByUserName(username).getUserId());//将int类型的值转换为String类型的值
 				c1.setValue(userId);
+				c2.setValue(username + password);
+				c3.setValue(selectionBox);
 				//设置cookie的储存时间
 				c1.setMaxAge(60*60*3); //60秒 60分钟 3小时
+				c2.setMaxAge(60*60*3); 
+				c3.setMaxAge(60*60*3); 
 				//回写给浏览器
 				c1.saveTo(request, response);
-				
+				c2.saveTo(request, response);
+				c3.saveTo(request, response);
+			}else {//此种情况为selectionBox.equals("NO")的情况，为了记住密码的展示功能而设计
+				SimpleCookie c1 = new SimpleCookie();
+				SimpleCookie c2 = new SimpleCookie();
+				SimpleCookie c3 = new SimpleCookie();
+				c1.setName("USERID"); //设置名字
+				c2.setName("NEWPASSWORD"); //设置名字
+				c3.setName("SELECTIONBOX");//设置登录页面复选框的名字
+			    //String s = String.valueOf(3);//将int类型的值转换为String类型的值
+				String userId = String.valueOf(um.selectUserByUserName(username).getUserId());//将int类型的值转换为String类型的值
+				c1.setValue(userId);
+				c2.setValue(username + password);
+				c3.setValue(selectionBox);
+				//设置cookie的储存时间
+				c1.setMaxAge(60*60*3); //60秒 60分钟 3小时
+				c2.setMaxAge(60*60*3); 
+				c3.setMaxAge(60*60*3); 
+				//回写给浏览器
+				c1.saveTo(request, response);
+				c2.saveTo(request, response);
+				c3.saveTo(request, response);
 			}
 			
 			
@@ -83,6 +115,95 @@ public class UserServiceImpl implements UserService {
 			//System.out.println("登录失败");
 			return "ERROR";
 		}
+		//return null;
+	}
+	
+	/**
+     * 查询指定的cookie
+     */
+	@Override
+	public String queryCookie(HttpServletRequest request, HttpServletResponse response) {
+		User user = new User();
+		Gson gson = new Gson();
+		//1、拿到所有的cookie对象 -->通过request
+		Cookie[] cookies = request.getCookies();
+		
+		//2、遍历数组
+		/*
+		 * //返回值只能返回一个，所以这次尝试失败 if(cookies!=null) { for (Cookie cookie : cookies) {
+		 * if(cookie.getName().equals("SELECTIONBOX")){ String selectionBox =
+		 * cookie.getValue(); String selectionBoxs = gson.toJson(selectionBox);
+		 * System.out.println(selectionBoxs); return selectionBoxs; } }
+		 * 
+		 * }
+		 */
+		
+		if (cookies!=null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("USERID")) {
+					//um.selectUserByUserId(Integer.parseInt(cookie.getValue())).getUserName() 通过id获得用户名
+					//Integer.parseInt()将String类型转化为int类
+					//下面一行代码是设置用户名
+					//System.out.println("想要获得的cookie储存的值" + cookie.getValue());
+					user.setUserName(um.selectUserByUserId(Integer.parseInt(cookie.getValue())).getUserName());
+					String username = user.getUserName();//设置用户名
+					//System.out.println(username);
+					//此处的user只设置了userName，所以打印的值为
+					//User [userId=0, userName=cpa, password=null, createdate=null]
+					//因此在此处加上userId的设置
+					user.setUserId(Integer.parseInt(cookie.getValue()));//此处为设置userId
+					//System.out.println(user);
+					if(cookie.getName().equals("SELECTIONBOX")){
+						String selectionBox = cookie.getValue();
+						String selectionBoxs = gson.toJson(selectionBox);
+						System.out.println(selectionBoxs);
+						return selectionBoxs;
+					}
+				}
+			}
+		}
+		
+		if (cookies!=null) {
+			for (Cookie cookie : cookies) {
+			    if (cookie.getName().equals("NEWPASSWORD")) {
+			    	//System.out.println("对密码的分离执行");
+					//获得cookie中NEWPASSWORD的值
+					String newPassword = cookie.getValue();
+					//System.out.println(newPassword);
+					//将真正的密码分割出来 使用字符串substring方法
+					//下列代码是将获得的newPassword从username的长度开始隔断，只剩下password部分，（还需要在理解）
+					String password = newPassword.substring(user.getUserName().length());
+					//对分理出的密码进行设置，将密码传入user中，然后才进行json字符串的转换
+					user.setPassword(password);
+					
+				}
+			}
+		}
+		//System.out.println(user);
+		
+		if (user.getUserName()!=null) {
+			//将这个对象转换为json字符串，使用gson
+			String userString = gson.toJson(user);
+			System.out.println(userString);
+		    userString = userString.replace("}", ",");
+			for (Cookie cookie : cookies) {
+				if(cookie.getName().equals("SELECTIONBOX")){
+					String selectionBox =cookie.getValue(); 
+					//将SELECTIONBOX加入到user的json对象中
+					userString = userString +"\"" + "selectionBox"+"\"" +":" +"\""+selectionBox+"\"" + "}";
+				    System.out.println(userString);
+				   // return userString + selectionBoxs;
+				}
+			}
+			return userString;
+		}else {
+			User userNull = new User(0,"","");
+			String userString = gson.toJson(user);
+			System.out.println(userString);
+			return userString;
+		}
+		
+			
 		//return null;
 	}
 

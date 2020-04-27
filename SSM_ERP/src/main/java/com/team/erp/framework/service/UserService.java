@@ -11,4 +11,6 @@ public interface UserService {
 	String checkLogin(String username, String password, String selectionBox, HttpServletRequest request,
 			HttpServletResponse response);
 
+	String queryCookie(HttpServletRequest request, HttpServletResponse response);
+
 }

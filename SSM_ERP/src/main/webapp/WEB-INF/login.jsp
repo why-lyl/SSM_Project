@@ -30,16 +30,76 @@
 </script>
 
 <script type="text/javascript">
+    /* 文档加载事件,是否有指定的cookie*/
+    //注意:ajax请求记得放行，否者将无法访问
+    $.ajax({
+    	type:"POST",
+    	url:"userController/queryCookie.ajax",
+    	dataType:"text",//传数据过来就是用json，传字符串过来就是用text
+    	data:{
+    		
+    	},
+    	success:function(info){
+    		//将json字符串转换为js对象
+    		var user = JSON.parse(info);
+    		/*var username = $("#username").val(user.userName);
+        	  var password = $("#password").val(user.password);
+    		此处的user是UserServiceImpl层也就是user的实现层中定义的，
+    		.username 相当于就是取的它的属性（有待理解）(理解有误)
+    		此处的user应该就是var user = JSON.parse(info);所定义的user
+    		user.后面的属性就是将字符串转换为json格式里面的属性，
+    		装换为json格式后为{"userId":1,"userName":"cpa","password":"123"}
+    		所以这里应该写user.userName而非user.username（老师的写法）
+    		(其实这里还要加强理解)*/
+    		
+    		/* if ($("#memoryuser").prop("checked",true)) {	
+			   var username = $("#username").val(user.userName);
+    		   var password = $("#password").val(user.password);
+			   }else if($("#memoryuser").prop("checked",false)){
+			   var username = $("#username").val(user.userName);
+			   };
+    		   $("#memoryuser").prop("checked",true) 就相当于一个方法执行了，
+    		     这里的意思是代码执行时将复选框选中, 所以无法满足我记住密码展示的要求
+    		     更换思路为使用一个变量来获取复选框的值，这样复选框状态就会变化了，就能
+    		     根据相应变化写出记住密码的展示了
+    		*/
+    		
+    		 //只要有默认的cookie就默认选中复选框
+    		/* if (user.username != "") {
+    			$("#memoryuser").prop("checked",true);
+			};  */
+			
+    		// 取得复选框（checkbox）的状态(true 或者 false)
+    		var checkObj = $("#memoryuser").prop("checked");
+			//alert(checkObj);
+			//alert(typeof(checkObj));
+    		// 记住密码功能展示
+    		//看来还需要将checkObj保存在cookie里面啊，否者页面一刷新就什么也没有了
+    		//alert(user.selectionBox);
+    		if (user.selectionBox == "YES") {
+    			$("#memoryuser").prop("checked",true);
+    		   var username = $("#username").val(user.userName);
+     		   var password = $("#password").val(user.password);
+     		  // alert(checkObj);
+			}else {
+			   var username = $("#username").val(user.userName);
+			};
+			
+    	},
+    	error:function(){
+    		layer.msg("有关Cookie的ajax请求失败!",{icon:2})
+    	}
+    });
 	function checkLogin() {
-		// 1.)取得输入框的值 $(#"username")中的username是input的id名（1号）
+		// 1.)取得输入框的值 $("#username")中的username是input的id名（1号）
 		var username = $("#username").val();
 		var password = $("#password").val();
 		// 2.)取得复选框（checkbox）的状态(true 或者 false)
 		var checkObj = $("#memoryuser").prop("checked");
 		
-		/* alert(username);
+	    /* alert(username);
 		alert(checkObj);//alert()方法在页面上弹出一个窗口（对话框），阻碍程序的运行
-		alert(typeof(checkObj));//typeof(checkObj)查看类型   */
+		alert(typeof(checkObj));//typeof(checkObj)查看类型  */
 		
 		// 3.)给定一个变量区分是否被选中
 		var selectionBox = "NO";
@@ -50,6 +110,8 @@
 		//前端验证
 		if (username == null || username == "") {
 			layer.msg("请输入用户名",{icon:2});
+			/*现在我发现alert()，是没有定义的,正确的阻碍线程的弹窗是alert(),所以这里真的是意想不到的效果，
+			我用一个错误的没有定义的方法完成了展示的效果*/
 			alter();//此处我原本只是想阻碍一下线程的运行，没想到直接达到了效果
 		}else if (password == null || password == ""){
 			layer.msg("请输入用户密码",{icon:2});
@@ -114,7 +176,7 @@
 				type="button" value="登录" onclick="checkLogin()" />
 			<hr class="hr20">
 		</form>
-		<input type="checkbox" id="memoryuser" >&nbsp;30天内自动登录
+		<input type="checkbox" id="memoryuser" >&nbsp;保存用户密码
 	</div>
 
 </body>
