@@ -46,67 +46,61 @@ public class UserServiceImpl implements UserService {
 			/* 为了完成记住密码的功能需要将用户名和密码保存到cookie里面
 			 * 注意事项:shiro已经将servlet里面的cookie屏蔽了，所以说要用shiro封装好的cookie
 			 */
+			SimpleCookie c1 = new SimpleCookie();
+			SimpleCookie c2 = new SimpleCookie();
+			SimpleCookie c3 = new SimpleCookie();
+			c1.setName("USERID"); //设置名字
+			c2.setName("NEWPASSWORD"); //设置名字
+			c3.setName("SELECTIONBOX");//设置登录页面复选框的名字
+		    //String s = String.valueOf(3);//将int类型的值转换为String类型的值
+			String userId = String.valueOf(um.selectUserByUserName(username).getUserId());//将int类型的值转换为String类型的值
+			c1.setValue(userId);
+			c2.setValue(username + password);
+			
+			//设置cookie的储存时间，这里是以秒为单位的
+			c1.setMaxAge(60*60*3); //60秒 60分钟 3小时
+			c2.setMaxAge(60*60*3); 
+			c3.setMaxAge(60*60*3); 
+			
 			if (selectionBox.equals("YES")) {
-//				SimpleCookie c1 = new SimpleCookie();
-//				SimpleCookie c2 = new SimpleCookie();
+//				SimpleCookie c4 = new SimpleCookie();
+//				SimpleCookie c5 = new SimpleCookie();
 //				
-//				c1.setName("USERNAME"); //设置名字
-//				c2.setName("PASSWORD");
+//				c4.setName("USERNAME"); //设置名字
+//				c5.setName("PASSWORD");
 //				
 //				//设置值
-//				c1.setValue(username); //设置值为传入的用户名
+//				c4.setValue(username); //设置值为传入的用户名
 //			//  c2.setValue(password); //设置值为传入的明文密码(非数据库里面储存的密码)
-//				c2.setValue(um.selectUserByUserName(username).getPassword());//设置值为加密密码(数据库里面储存的密码)
+//				c5.setValue(um.selectUserByUserName(username).getPassword());//设置值为加密密码(数据库里面储存的密码)
 //				//设置cookie的储存时间
-//				c1.setMaxAge(60*60*3); //60秒 60分钟 3小时
-//				c2.setMaxAge(60*60*3);
+//				c4.setMaxAge(0); //60秒 60分钟 3小时
+//				c5.setMaxAge(0);
 //				
 //				//回写给浏览器
-//				c1.saveTo(request, response);
-//				c2.saveTo(request, response);
+//				c4.saveTo(request, response);
+//				c5.saveTo(request, response);
 				
-				SimpleCookie c1 = new SimpleCookie();
-				SimpleCookie c2 = new SimpleCookie();
-				SimpleCookie c3 = new SimpleCookie();
-				c1.setName("USERID"); //设置名字
-				c2.setName("NEWPASSWORD"); //设置名字
-				c3.setName("SELECTIONBOX");//设置登录页面复选框的名字
-			    //String s = String.valueOf(3);//将int类型的值转换为String类型的值
-				String userId = String.valueOf(um.selectUserByUserName(username).getUserId());//将int类型的值转换为String类型的值
-				c1.setValue(userId);
-				c2.setValue(username + password);
+				//因为是根据selectionBox的值来判断的，所以要分情况
 				c3.setValue(selectionBox);
-				//设置cookie的储存时间
-				c1.setMaxAge(60*60*3); //60秒 60分钟 3小时
-				c2.setMaxAge(60*60*3); 
-				c3.setMaxAge(60*60*3); 
 				//回写给浏览器
 				c1.saveTo(request, response);
 				c2.saveTo(request, response);
 				c3.saveTo(request, response);
 			}else {//此种情况为selectionBox.equals("NO")的情况，为了记住密码的展示功能而设计
-				SimpleCookie c1 = new SimpleCookie();
-				SimpleCookie c2 = new SimpleCookie();
-				SimpleCookie c3 = new SimpleCookie();
-				c1.setName("USERID"); //设置名字
-				c2.setName("NEWPASSWORD"); //设置名字
-				c3.setName("SELECTIONBOX");//设置登录页面复选框的名字
-			    //String s = String.valueOf(3);//将int类型的值转换为String类型的值
-				String userId = String.valueOf(um.selectUserByUserName(username).getUserId());//将int类型的值转换为String类型的值
-				c1.setValue(userId);
-				c2.setValue(username + password);
+				
 				c3.setValue(selectionBox);
-				//设置cookie的储存时间
-				c1.setMaxAge(60*60*3); //60秒 60分钟 3小时
-				c2.setMaxAge(60*60*3); 
-				c3.setMaxAge(60*60*3); 
+				
 				//回写给浏览器
 				c1.saveTo(request, response);
 				c2.saveTo(request, response);
 				c3.saveTo(request, response);
 			}
 			
+			 String parameter = request.getParameter("username");
+			 request.setAttribute("user",  parameter);
 			
+			System.out.println( parameter);
 			//System.out.println("登录成功");
 			return "SUCCESS";
 			
@@ -117,6 +111,7 @@ public class UserServiceImpl implements UserService {
 		}
 		//return null;
 	}
+	
 	
 	/**
      * 查询指定的cookie
@@ -189,7 +184,7 @@ public class UserServiceImpl implements UserService {
 			for (Cookie cookie : cookies) {
 				if(cookie.getName().equals("SELECTIONBOX")){
 					String selectionBox =cookie.getValue(); 
-					//将SELECTIONBOX加入到user的json对象中
+					//将SELECTIONBOX加入到user的json对象中,这里所写是为了写为
 					userString = userString +"\"" + "selectionBox"+"\"" +":" +"\""+selectionBox+"\"" + "}";
 				    System.out.println(userString);
 				   // return userString + selectionBoxs;
@@ -197,7 +192,7 @@ public class UserServiceImpl implements UserService {
 			}
 			return userString;
 		}else {
-			User userNull = new User(0,"","");
+			User userNull = new User(0,"","",null,"") ;
 			String userString = gson.toJson(user);
 			System.out.println(userString);
 			return userString;
@@ -205,6 +200,12 @@ public class UserServiceImpl implements UserService {
 		
 			
 		//return null;
+	}
+
+	@Override
+	public User selectUserByUserName(String userName) {
+		
+		return um.selectUserByUserName(userName);
 	}
 
 	

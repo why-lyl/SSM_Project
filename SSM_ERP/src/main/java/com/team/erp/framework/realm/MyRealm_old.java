@@ -11,55 +11,40 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.team.erp.framework.mapper.UserMapper;
 import com.team.erp.framework.model.User;
-import com.team.erp.framework.service.AuthorityService;
-import com.team.erp.framework.service.UserService;
 
 /*
- * MyRealm的配置步骤
- * 1、首先注入要用到的Service层
- * 2、授权
- * 
- * 3、认证
- * 1) 将AuthenticationToken对象强制装换成令牌类对象
- * 2) 判断数据库中是否有输入用户名相关的参数配置认证的密码
- * 3) 准备四大参数
- * 4) 开始进行shiro认证
- * 
+ * 这个MyRealm调用的是UserMapper层的东西来进行验证的，
+ * 而新写的是调用Service层来进行验证的，不知道两者是否都能实现验证功能，
+ * 为了节约时间，还是就用新的Myrealm了这里等有时间才进行理解了
  */
-public class MyRealm extends AuthorizingRealm{
+public class MyRealm_old extends AuthorizingRealm{//AuthorizingRealm抽象类
 	
 	@Autowired
-	private UserService us;
-	
-	@Autowired
-	private AuthorityService as;
-	
+	private UserMapper um;
+    
 	/**
-	 * 授权
+	 *shrio授权
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		// TODO Auto-generated method stub
-		
 		return null;
 	}
-	
+    
 	/**
-	 * 认证
+	 *shrio认证
+	 *开始登录验证
 	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-		
+		//System.out.println("myrealm被访问了！");
 		//1、将AuthenticationToken对象强制装换成令牌类对象
-	    UsernamePasswordToken myToken = (UsernamePasswordToken)token;
-	    
-	    //2、判断数据库中是否有输入用户名相关的参数配置认证的密码
-  		User user = us.selectUserByUserName(myToken.getUsername());
-  	    System.out.println("myrealm被访问了！");
-  		//System.out.println(myToken.getUsername());//通过令牌获得名字
-  		//System.out.println(user);
-  		if (user != null) {
+		UsernamePasswordToken myToken = (UsernamePasswordToken)token;
+		//2、判断数据库中是否有输入用户名相关的参数
+		User user = um.selectUserByUserName(myToken.getUsername());
+		if (user != null) {
 			//3、准备四大参数
 			//(1) 得到身份
 			Object principal = myToken.getPrincipal();//一般来说账号就是身份
@@ -76,9 +61,14 @@ public class MyRealm extends AuthorizingRealm{
 			 * 如果都成功比对，则认证成功，否者就抛出异常
 			 */
 			return new SimpleAuthenticationInfo(principal, hashedCredentials, credentialsSalt, realmName);
-		}else{
-  			throw new AuthenticationException();
-  		}
+		}else {
+			//return (AuthenticationInfo) new AuthenticationException();//此为老师讲解，不知道是否确实如此，
+			//我使用时总是有异常
+			throw new AuthenticationException();//此为网上的参考，不知是否正确，目前无法验证
+		}
+		
+		//return null;
+		
 	}
-
+	    
 }

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <!-- namespace命名空间，作用就是对sql进行分类化管理，即sql隔离
+       注意：使用mapper代理方法开发的话，namespace就有特殊重要的作用了-->
+    <mapper namespace = "com.team.erp.framework.mapper.AuthorityMapper">
+    <!-- resultMap是对要查询表的部分属性或全部属性的封装，可以是多个连表查询的属性封装，
+    resultMap可以根据实际情况封装无数个，但是id名不能重复  type 是封装类的路径-->
+	<resultMap type="com.team.erp.framework.model.Authority" id="SelectAuthorityMap">
+	    <!--id column 是数据表中主键名，result column 是数据表中属性名 ;
+	    jdbcType 是数据表中的数据类型，注意要全部大写 ;property 是实体类名 -->
+		<id column="authority_id" jdbcType="INTEGER" property="authorityId"/>
+	    <result column="authority_name" jdbcType="VARCHAR" property="authorityName"/>
+	    <result column="authority_desc" jdbcType="VARCHAR" property="authorityDesc"/>
+	</resultMap>
+	<!-- sql片段的封装，可根据实际情况来改写 -->
+    <sql id="Base_Authority_List">
+      	authority_id, authority_name, authority_desc
+    </sql>
+	
+    <!-- 根据id查询authority信息 -->
+    <!--parameterType 表示传入参数类型;  resultType 表示返回值类型; resultMap表示返回
+     #{userId}中为AuthorityMapper接口中定义的传入变量名 -->
+	<select id="selectAuthorityByAuthoritById" parameterType="java.lang.Integer" resultMap="SelectAuthorityMap">
+		select 
+		<include refid="Base_Authority_List" />
+		from t_authority
+		where authority_id = #{authorityId,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 根据name查询authority信息 -->
+	<select id="selectAuthorityByAuthoritByName" parameterType="java.lang.String" resultMap="SelectAuthorityMap">
+		select 
+		<include refid="Base_Authority_List" />
+		from t_authority
+		where authority_name = #{authorityName,jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 查询authority的所有信息装入封装集 -->
+	<select id="selectAuthorityAll"  resultMap="SelectAuthorityMap">
+		select* from t_authority
+	</select>
+	
+	<!-- 添加权限 -->
+    <insert id="addAuthority" parameterType="com.team.erp.framework.model.Authority" useGeneratedKeys="true" keyProperty="authorityId">
+  	    INSERT INTO t_authority values (null,#{authorityName},#{authorityDesc})
+    </insert>
+    
+     <!-- 删除权限 -->
+    <delete id="deleteAuthorityByAuthorityId" parameterType="java.lang.Integer">
+	    delete from t_authority
+	    where authority_id = #{authorityId,jdbcType=INTEGER}
+    </delete>
+    
+     <!--更新权限1 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.team.erp.framework.model.Authority">
+	    update t_authority
+	    <set>
+	      <if test="authorityName != null">
+	        authority_name = #{authorityName,jdbcType=VARCHAR},
+	      </if>
+	    </set>
+	    where authority_id = #{authorityId,jdbcType=INTEGER}
+  </update>
+  <!--更新权限2-->
+  <update id="updateByPrimaryKey" parameterType="com.team.erp.framework.model.Authority">
+	    update t_authority
+	    set authority_name = #{authorityName,jdbcType=VARCHAR},
+	        authority_desc = #{authorityDesc,jdbcType=VARCHAR}
+	    where authority_id = #{authorityId,jdbcType=INTEGER}
+  </update>
+	
+	</mapper>

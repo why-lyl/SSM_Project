@@ -31,12 +31,12 @@ public interface UserMapper {
 	 * 添加方法
 	 */
 	
-	int addUser(User user);//根据用户信息更新用户
+	int addUser(User user);//根据用户信息插入用户
 	
 	/**
 	 * 删除方法
 	 */
 	
 	int deleteUserByUserId(Integer userId);//根据用户id删除用户
-	int deleteUserByUserName(String userName);//根据用户id删除用户
+	int deleteUserByUserName(String userName);//根据用户name删除用户
 }

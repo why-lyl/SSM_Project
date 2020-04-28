@@ -9,7 +9,7 @@
 
 <base href="<%=basePath%>" />  
 <meta charset="UTF-8">
-<title>xxx管理系统</title>
+<title>医药管理系统</title>
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
@@ -161,11 +161,11 @@
 <body class="login-bg">
 
 	<div class="login" >
-		<div class="message">XXX管理系统-用户登录</div>
+		<div class="message">医药管理系统-用户登录</div>
 		
 		<font  id="error" size="15" class="text-align:center" color="red"></font>
 		<div id="darkbannerwrap"></div>
-		<form  class="layui-form">
+		<form id = "user" class="layui-form">
 			<input id="username" placeholder="用户名" type="text" 
 				class="layui-input" >
 			<hr class="hr15">
@@ -176,7 +176,7 @@
 				type="button" value="登录" onclick="checkLogin()" />
 			<hr class="hr20">
 		</form>
-		<input type="checkbox" id="memoryuser" >&nbsp;保存用户密码
+		<input type="checkbox" id="memoryuser" >&nbsp;记住用户密码
 	</div>
 
 </body>

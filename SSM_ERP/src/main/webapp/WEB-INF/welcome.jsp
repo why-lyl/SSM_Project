@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+	pageEncoding="UTF-8" import = "com.team.erp.framework.model.User"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%><!-- 这行是为了引入EL标签库  -->
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -11,7 +11,7 @@
 <head>
 <base href="<%=basePath%>">
 <meta charset="UTF-8">
-<title>欢迎进入本系统</title>
+<title>欢迎进入医药系统</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
@@ -22,10 +22,43 @@
 <link rel="stylesheet" href="css/cutsom-style.css">
 <script type="text/javascript"
 	src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	
+<script type="text/javascript">
+/* 文档加载事件,是否有指定的cookie*/
+//注意:ajax请求记得放行，否者将无法访问
+$.ajax({
+	type:"POST",
+	url:"userController/queryCookie.ajax",
+	dataType:"text",//传数据过来就是用json，传字符串过来就是用text
+	data:{
+		
+	},
+	success:function(info){
+		//将json字符串转换为js对象
+		var user = JSON.parse(info);
+	    alert("成功到达welcome");
+		
+		alert(user.userName);
+		var username = $("#username").val(user.userName);
+		
+		
+		
+	},
+	error:function(){
+		layer.msg("有关Cookie的ajax请求失败!",{icon:2})
+	}
+});
+
+
+
+
+</script>
 </head>
 <body>
+<% User user = (User)request.getAttribute("user");%>
+<!-- %<user.getUserName();%> 现在获得的userName是空值，所以会报空指针异常 -->
 	<div class="x-body">
-		<blockquote class="layui-elem-quote">欢迎进入企业资产管理系统！v1.0；登录时间：${LOGINTIME }；</blockquote>
+		<blockquote class="layui-elem-quote">欢迎进入医药管理系统！v1.0；登录时间：${LOGINTIME }；</blockquote>
 		<fieldset class="layui-elem-field">
 			<legend>信息总览</legend>
 			<div class="layui-field-box">
@@ -38,11 +71,11 @@
 					<tbody>
 						<tr>
 							<th width="30%">您的账号</th>
-							<td><span>${user.accountNumber }</span></td>
+							<td><span id = "username"></span></td>
 						</tr>
 						<tr>
 							<td>您的姓名</td>
-							<td>${user.userName }</td>
+							<td>${user}</td>
 						</tr>
 						<tr>
 							<td>您的登录时间</td>
@@ -79,7 +112,8 @@
 						</tr>
 						<tr class="spanLinkTr">
 							<td>当前在线人数</td>
-							<td><span id="sasd">加载中...</span>&nbsp; <span id="ronBtn" onclick="reOnlineNum()" class="spanLink">点击刷新</span>
+							<td><span id="sasd">加载中...</span>&nbsp; 
+							<span id="ronBtn" onclick="reOnlineNum()" class="spanLink">点击刷新</span>
 							</td>
 						</tr>
 						<tr>
@@ -100,8 +134,8 @@
 		<blockquote class="layui-elem-quote layui-quote-nm">
 			本系统前端框架支持：X-admin（<a
 				onclick="parent.x_admin_show('X-admin主页','http://x.xuebingsi.com/')">http://x.xuebingsi.com/</a>）；
-			前端框架整合：舒松（ss112476@163.com）； 项目开发：企业资产管理系统（<a
-				onclick="parent.x_admin_show('企业资产管理系统主页','http://localhost:8080/00.08_AssetsManagementSystem/indexController/entryIndex.do')">http://localhost:8080/00.08_AssetsManagementSystem/indexController/entryIndex.do</a>）java
+			前端框架调整：liu（liuyulonggz@163.com）； 项目开发：医药管理系统（<a
+				onclick="parent.x_admin_show('医药管理系统主页','http://localhost:8080/SSM_ERP/userController/index.do')">http://localhost:8080/SSM_ERP/userController/index.do</a>）java
 			EE项目组
 		</blockquote>
 	</div>

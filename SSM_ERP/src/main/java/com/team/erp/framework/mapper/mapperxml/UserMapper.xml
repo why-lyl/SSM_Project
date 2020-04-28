@@ -14,6 +14,23 @@
 	    <result column="password" jdbcType="VARCHAR" property="password"/>
 	    <result column="create_date" jdbcType="DATE" property="createdate"/>
 	</resultMap>
+	<!-- SelectUserMap用于放User和Authority连表查询封装的集合  -->
+	<resultMap type="com.team.erp.framework.model.User" id="SelectUserMap">
+		<id column="user_id" jdbcType="INTEGER" property="userId"/>
+	    <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+	    <result column="password" jdbcType="VARCHAR" property="password"/>
+	    <result column="create_date" jdbcType="DATE" property="createdate"/>
+	<!-- collection标签用于引入连表查询的表
+	property是属性名，可以自己取，但最好是相关的(这里的理解是错误的)
+	property是List表名，存在于User表中，还是要前后统一
+	ofType是实体类名，必须要统一,现在好像要写全路径才可以，不然会报错can't find  -->
+	<collection property="authorities" ofType="com.team.erp.framework.model.Authority">
+    	<id column="authority_id" jdbcType="INTEGER" property="authorityId" />
+    	<result column="authority_name" jdbcType="VARCHAR" property="authorityName" />
+    	<result column="authority_desc" jdbcType="VARCHAR" property="authorityDesc" />
+    </collection>
+	</resultMap>
+	
 	<!-- sql片段的封装，可根据实际情况来改写 -->
     <sql id="Base_Column_List">
       	user_id, user_name, password

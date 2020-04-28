@@ -11,7 +11,7 @@
 <head>
 <base href="<%=basePath%>">
 <meta charset="UTF-8">
-<title>xxxxx管理系统</title>
+<title>医药管理系统主页</title>
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -51,7 +51,7 @@
 	<!-- 顶部开始 -->
 	<div class="container">
 		<div class="logo">
-			<a href="index.jsp">企业资产管理系统</a>
+			<a href="index.jsp">医药管理系统</a>
 		</div>
 		<div class="left_open">
 			<i title="展开左侧栏" class="iconfont">&#xe699;</i>
@@ -85,7 +85,7 @@
 						<a href="userController/loginOut.do">退出登录</a>
 					</dd>
 				</dl></li>
-			<li class="layui-nav-item to-index"><a href="index.jsp">系统首页</a></li>
+			<li class="layui-nav-item to-index"><a href="userController/index.do">系统首页</a></li>
 		</ul>
 
 	</div>
@@ -134,8 +134,8 @@
 				
 				<li><a href="javascript:;"> 
 				<i class="iconfont">&#xe607;</i> 
-				<cite>我的资产</cite> <i
-						class="iconfont nav_right">&#xe697;</i>
+				<cite>资产查看</cite> 
+				<i class="iconfont nav_right">&#xe697;</i>
 				</a>
 					<ul class="sub-menu">
 						<li><a _href="applyController/showApplyByUserName.do"> <i class="iconfont">&#xe6a7;</i> <cite>在用资产</cite>
@@ -152,7 +152,7 @@
 				
 				<li><a href="javascript:;"> 
 				<i class="iconfont">&#xe602;</i> 
-				 <cite>流程管理</cite> <i
+				 <cite>采购管理</cite> <i
 						class="iconfont nav_right">&#xe697;</i>
 				</a>
 					<ul class="sub-menu">
@@ -205,7 +205,7 @@
 		<div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
 			<!-- 打开的标签页，无需手动添加 -->
 			<ul class="layui-tab-title">
-				<li>欢迎进入本系统</li>
+				<li>欢迎进入医药系统</li>
 			</ul>
 			<div class="layui-tab-content">
 				<div class="layui-tab-item layui-show">
@@ -221,8 +221,8 @@
 	<!-- 中部结束 -->
 	<!-- 底部开始 -->
 	<div class="footer">
-		<div class="copyright">舒松©2017 前端：x-admin v2.3
-			后端：舒松-java EE项目</div>
+		<div class="copyright">liu©2020 前端：x-admin v2.3
+			后端：liu-java EE项目</div>
 	</div>
 	<!-- 底部结束 -->
 	
