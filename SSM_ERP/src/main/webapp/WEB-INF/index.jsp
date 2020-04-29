@@ -98,13 +98,13 @@
 				
 				<!-- 示例：这是一个下拉菜单 -->
 				<shiro:hasRole name="stm">
-				<li><img  src=""><a href="javascript:;"> <i class="iconfont">&#xe6b8;</i> <cite>职工管理</cite> <i
+				<li><img  src=""><a href="javascript:;"> <i class="iconfont">&#xe6b8;</i> <cite>用户管理</cite> <i
 						class="iconfont nav_right">&#xe697;</i>
 				</a>
 					<ul class="sub-menu">
 						<!-- 这是一个普通按钮 -->
-						<li><a _href="userController/toUserList.do"> <i
-								class="iconfont">&#xe6a7;</i> <cite>用户管理</cite>
+						<li><a _href="staffController/goStaff.do"> <i
+								class="iconfont">&#xe6a7;</i> <cite>职工管理</cite>
 						</a></li>
 						<!-- 按钮结束 -->
 						<li><a _href="ztree.jsp"> <i

@@ -64,23 +64,26 @@
         </form>
       </div>
       <xblock>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','manageEmeController/toUserAdd.do')"><i class="layui-icon"></i>入职添加</button>
+        <button class="layui-btn" onclick="x_admin_show('添加用户','staffController/goUserAdd.do')"><i class="layui-icon"></i>入职添加</button>
         <span class="x-right" style="line-height:40px">共有数据：<a id="total">88</a> 条</span>
       </xblock>
       <table class="layui-table">
         <thead>
           <tr>
             <th>姓名</th>
-            <th>所属部门</th>
+           <!--  <th>所属部门</th>
             <th>职位</th>
             <th>加入时间</th>
-            <th>出生日期</th>
-            <th>联系方式</th>
-            <th>邮箱</th>
+            <th>出生日期</th> -->
+            <th>性别</th>
+            <th>年龄</th>
+            <th>生日</th>
+            <th>电话号码</th>
+            <th>邮箱地址</th>
             <th >操作</th>
             </tr>
         </thead>
-        <tbody id="users">
+        <tbody id="staffs">
           <tr>
           
             <td colspan=8> 加载中<i class="layui-icon" >&#xe63e;</i></td>
@@ -98,7 +101,7 @@ var userDepart=null;
 var EntryStart=null;
 var EntryEnd=null;
 var birthRange=null;
-var userName=null;
+var staffName=null;
 var total=0;
 //删除操作
 function delUser(userId){
@@ -172,7 +175,7 @@ form.verify({
       console.log(data);
       userDepart=$("#userDepart").val();
       birthRange=$("#birthRange").val();
-       userName=$("#userName").val();
+       staffName=$("#staffName").val();
     	EntryStart=start;
     	EntryEnd=end;
        showPage(-1);
@@ -206,43 +209,38 @@ form.verify({
 		type : "POST",
 		async:false,
 		data : {
-			userDepart:userDepart,
-			EntryStart:EntryStart,
-			EntryEnd:EntryEnd,
-			birthRange:birthRange,
-			userName:userName,
-			index:n
+			currentPage:n
 		},
 		dataType : "text",
-		url : "manageEmeController//getUsersDB.ajax",
+		url : "staffController/selectStaff.ajax",
 		success : function(result) {
 			console.log(result);
+			//alert(result);
 			var tl = eval("(" + result + ")");
 			if(n==-1){
 				total=tl.total;
 				$("#total").text(total);
 			}
-			$("#users").html("");
+			$("#staffs").html("");
 			//json遍历
-			if(tl.data.length>0){
-				$.each(tl.data, function(n,val){
-					console.log(val.userEntrytime);
-					console.log(typeof(val.userEntrytime));
+			if(tl.list.length>0){
+				$.each(tl.list, function(n,val){
+					/* console.log(val.userEntrytime);
+					console.log(typeof(val.userEntrytime)); */
 					var str="";
 				    str+="<tr>";
-				    str+="<td>"+val.userName+"</td>"
-				    str+="<td>"+val.userDepartement+"</td>"
-				    str+="<td>"+val.userPosition+"</td>"
-				    str+="<td>"+new Date(val.userEntrytime).format("yyyy-MM-dd hh:mm")+"</td>"
-				    str+="<td>"+new Date(val.userBirthday).format("yyyy-MM-dd hh:mm")+"</td>"
-				    str+="<td>"+val.userTelephone+"</td>"
-				    str+="<td>"+val.userEmail+"</td>"
-				    str+="<td><a class=\"layui-btn  layui-btn-mini\" onclick=\"x_admin_show('修改','manageEmeController/toUserEdit.do?userId="+val.userId+"')\" ><i class=\"layui-icon\">&#xe642;</i>编辑</a> <button onclick=\"delUser('"+val.userId+"')\" class=\"layui-btn  layui-btn-mini layui-btn-danger\"><i class=\"layui-icon\">&#xe640;</i>删除</button></td>"
+				    str+="<td>"+val.staffName+"</td>"
+				    str+="<td>"+val.staffSex+"</td>"
+				    str+="<td>"+val.staffAge+"</td>"
+				    str+="<td>"+new Date(val.staffBirthday).format("yyyy-MM-dd")+"</td>"
+				    str+="<td>"+val.staffTel+"</td>"
+				    str+="<td>"+val.staffEmail+"</td>"
+				    str+="<td><a class=\"layui-btn  layui-btn-mini\" onclick=\"x_admin_show('修改','staffController/goUserEdit.do?staffId="+val.staffId+"')\" ><i class=\"layui-icon\">&#xe642;</i>编辑</a> <button onclick=\"delUser('"+val.staffId+"')\" class=\"layui-btn  layui-btn-mini layui-btn-danger\"><i class=\"layui-icon\">&#xe640;</i>删除</button></td>"
 				    str+="</tr>";
-					$("#users").append(str);
+					$("#staffs").append(str);
 				})
 			}else{
-				$("#users").append("<tr><td colspan=8 align=\"center\">暂时没有数据哦，快去添加一条吧</td></tr>");
+				$("#staffs").append("<tr><td colspan=8 align=\"center\">暂时没有数据哦，快去添加一条吧</td></tr>");
 			}
 			
 		},

@@ -32,6 +32,7 @@ public class UserController extends BaseController{
 		 * 2、必须要有方法重写
 		 * 3、父类引用指向子类对象或者接口引用指向实现类对象
 		 */
+		
 		String info = us.checkLogin(username,password,selectionBox, request, response);//接口引用指向实现类对象
 		return info;
 	}
@@ -106,5 +107,6 @@ public class UserController extends BaseController{
 //			
 //			return formatDate;
 //		}
+	
 	
 }

@@ -209,7 +209,7 @@ $.ajax({
 	});
 	
 	
-	 var T = document.getElementById("st")
+	/*  var T = document.getElementById("st")
 	 getFNTime();
 	 function getFNTime(){	
 			var nd = new Date();
@@ -238,7 +238,7 @@ $.ajax({
 			}
 			   T.innerHTML = ntime;
 			   setInterval(function(){getFNTime()},1000);
-			}   
+			}    */
 </script>
 
 

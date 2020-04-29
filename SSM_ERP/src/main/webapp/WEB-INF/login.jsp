@@ -48,7 +48,7 @@
     		.username 相当于就是取的它的属性（有待理解）(理解有误)
     		此处的user应该就是var user = JSON.parse(info);所定义的user
     		user.后面的属性就是将字符串转换为json格式里面的属性，
-    		装换为json格式后为{"userId":1,"userName":"cpa","password":"123"}
+    		转换为json格式后为{"userId":1,"userName":"cpa","password":"123"}
     		所以这里应该写user.userName而非user.username（老师的写法）
     		(其实这里还要加强理解)*/
     		

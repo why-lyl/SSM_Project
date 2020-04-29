@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 //指定访问该控制层的路由（差不多就是路径的意思，待加深理解）
 @RequestMapping("/testController")
 public class TestController {
-	
 	/**
 	 * @ResponseBody理解:返回给接口时，需要添加次注解，返回给页面时，则不需要
 	 * 谁发送了请求就把结果返回给谁-->浏览器发送了请求就把结果返回给浏览器，ajax发送了请求就把结果返回给ajax

@@ -75,6 +75,11 @@ Authentication(认证),Authorization(授权),Cache(缓存)等的管理,可以理
 			  /userController/goLogin.do = anon
 			  /userController/queryCookie.ajax = anon
 			  /userController/getServerTime.ajax = anon
+			 <!--  /staffController/selectStaff.ajax = anon
+			  /staffController/goStaff.do = anon
+			  /staffController/goUserEdit.do = anon
+			  /staffController/goUserAdd.do = anon -->
+			  /staffController/** = anon
 			  /auth/login = anon
 			  /userController/checkLogin.ajax = anon
               /css/** = anon

@@ -37,6 +37,18 @@
         		<property name="configLocation" value = "classpath:mybatis.xml"></property>
         		<!-- 扫描实现了mapper层接口的所有xml文件位置 -->
         		<property name="mapperLocations" value = "classpath:com/team/erp/framework/mapper/mapperxml/*.xml"></property>
+        		<!-- 分页插件 -->
+				<!-- 注意其他配置 -->
+				<property name="plugins">
+					<array>
+						<bean class="com.github.pagehelper.PageInterceptor">
+							<property name="properties">
+								<!--使用下面的方式配置参数，一行配置一个 -->
+								<value>helperDialect=mysql</value>												
+							</property>
+						</bean>
+					</array>
+				</property>
         	</bean>	
         	
         	<bean class = "org.mybatis.spring.mapper.MapperScannerConfigurer">
@@ -56,11 +68,11 @@
         		<property name = "suffix" value = ".jsp"></property>	 
         	</bean>
         <!-- 配置spring mvc 只需要配置视图解析器（spring-webmvc依赖中有相关配置）  结束-->
-      
-       <aop:config proxy-target-class="true"></aop:config>
-		    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-		        <property name="securityManager" ref="securityManager"/>
-		    </bean>
+      <!-- 
+            <aop:config proxy-target-class="true"></aop:config>
+			    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+			        <property name="securityManager" ref="securityManager"/>
+			    </bean> -->
         <!-- 开启注解 -->
         <context:annotation-config></context:annotation-config>
 	    <mvc:annotation-driven></mvc:annotation-driven>

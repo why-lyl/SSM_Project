@@ -8,5 +8,5 @@ encoding//src/main/java/com/team/erp/framework/service/serviceImpl/TsetServiceIm
 encoding//src/main/resources/log4j.properties=UTF-8
 encoding//src/test/java/com/team/erp/test/TestMapperSpring.java=UTF-8
 encoding//src/test/java/com/team/erp/test/TestServiceSSM.java=UTF-8
-encoding//src/test/java/onetime/MyRealm_old.java=UTF-8
+encoding//src/test/java/onetime/MyRealm.java=UTF-8
 encoding/<project>=UTF-8

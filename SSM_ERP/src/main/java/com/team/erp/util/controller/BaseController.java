@@ -3,6 +3,7 @@ package com.team.erp.util.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.team.erp.framework.service.AuthorityService;
+import com.team.erp.framework.service.StaffService;
 import com.team.erp.framework.service.UserService;
 
 /**
@@ -20,5 +21,8 @@ public class BaseController {
 	
 	@Autowired
 	public AuthorityService as;
+	
+	@Autowired
+	public StaffService ss;
 
 }

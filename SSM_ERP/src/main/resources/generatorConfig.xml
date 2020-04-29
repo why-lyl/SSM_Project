@@ -20,13 +20,13 @@
 			userId="root" password="512512335" />
 		<!-- 这写上你要把数据表映射的Bean生成在哪 -->
 		<javaModelGenerator targetPackage="com.team.erp.framework.model"
-			targetProject="SSM_ERP" />
+			targetProject="src/main/java" />
 		<!-- 这写上你要把查询映射的XML生成在哪 -->
 		<sqlMapGenerator targetPackage="com.team.erp.framework.mapper.mapperxml"
-			targetProject="SSM_ERP" />
+			targetProject="src/main/java" />
 		<!-- 这写上你要把查询映射的接口生成在哪 -->
 		<javaClientGenerator targetPackage="com.team.erp.framework.mapper"
-			targetProject="SSM_ERP" type="XMLMAPPER" />
+			targetProject="src/main/java" type="XMLMAPPER" />
 
 		<!-- 这一部分写你要把哪张表生成Bean，参数名浅显易懂，下面可以写多个table -->
 		<!-- 后面那一大串false的意思是是否生成增删改查的例子，一般来说可以生成 
@@ -53,7 +53,7 @@
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false"></table>-->
-		<table tableName="t_user" domainObjectName="User"
+		<table tableName="t_staff" domainObjectName="Staff"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false"></table>
