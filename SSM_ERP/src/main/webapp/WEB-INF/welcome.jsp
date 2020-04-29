@@ -28,7 +28,7 @@
 //注意:ajax请求记得放行，否者将无法访问
 $.ajax({
 	type:"POST",
-	url:"userController/queryCookie.ajax",
+	url:"userController/checkLogin.ajax",
 	dataType:"text",//传数据过来就是用json，传字符串过来就是用text
 	data:{
 		
@@ -58,7 +58,7 @@ $.ajax({
 <% User user = (User)request.getAttribute("user");%>
 <!-- %<user.getUserName();%> 现在获得的userName是空值，所以会报空指针异常 -->
 	<div class="x-body">
-		<blockquote class="layui-elem-quote">欢迎进入医药管理系统！v1.0；登录时间：${LOGINTIME }；</blockquote>
+		<blockquote class="layui-elem-quote">欢迎${userName}进入医药管理系统v1.0！登录时间:${LOGINTIME}；祝您拥有美好的一天！</blockquote>
 		<fieldset class="layui-elem-field">
 			<legend>信息总览</legend>
 			<div class="layui-field-box">
@@ -71,11 +71,11 @@ $.ajax({
 					<tbody>
 						<tr>
 							<th width="30%">您的账号</th>
-							<td><span id = "username"></span></td>
+							<td>${name}</td>
 						</tr>
 						<tr>
 							<td>您的姓名</td>
-							<td>${user}</td>
+							<td>${userName}</td>
 						</tr>
 						<tr>
 							<td>您的登录时间</td>
@@ -87,7 +87,7 @@ $.ajax({
 						</tr>
 						<tr>
 							<td>您的IP地址</td>
-							<td>${userIp }</td>
+							<td>${userIp}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -104,11 +104,11 @@ $.ajax({
 						</tr>
 						<tr>
 							<td>服务器名称</td>
-							<td>${serverName }</td>
+							<td>${serverName}</td>
 						</tr>
 						<tr>
 							<td>服务器ip地址</td>
-							<td>${localIp }</td>
+							<td>${localIp}</td>
 						</tr>
 						<tr class="spanLinkTr">
 							<td>当前在线人数</td>
@@ -122,8 +122,9 @@ $.ajax({
 						</tr>
 						<tr class="spanLinkTr">
 							<td>服务器当前时间</td>
+							<!-- 点击刷新 -->
 							<td><span id="st">加载中...</span>&nbsp; <span id="rstBtn"
-								onclick="reServerTime()" class="spanLink">点击刷新</span>
+								onclick="reServerTime()" class="spanLink"></span>
 							</td>
 						</tr>
 					</tbody>
@@ -153,7 +154,7 @@ $.ajax({
 		//执行获取服务器时间的方法……
 		$.ajax({
 			type:"POST",
-			url:"indexController/getServerTime.ajax",
+			url:"userController/getServerTime.ajax",
 			data:{
 				
 			},
@@ -166,7 +167,7 @@ $.ajax({
 			}
 		});
 		//回弹按钮
-		setTimeout("popRstBtn()", 5000);
+		setTimeout("popRstBtn()", 1000);
 	}
 
 	function popRstBtn() {
@@ -206,5 +207,39 @@ $.ajax({
 		reOnlineNum();
 		reServerTime();
 	});
+	
+	
+	 var T = document.getElementById("st")
+	 getFNTime();
+	 function getFNTime(){	
+			var nd = new Date();
+			var ntime = "";
+			ntime += nd.getFullYear()+"年";
+			if(nd.getMonth()+1 >9){
+				ntime += (nd.getMonth()+1)+"月";
+			}else{
+				ntime += "0"+(nd.getMonth()+1)+"月";
+			}
+			if(nd.getDate() >9){
+				ntime += nd.getDate()+"日";
+			}else{
+				ntime += "0"+nd.getDate()+"日";
+			}
+			ntime += nd.getHours()+"时";
+			if(nd.getMinutes() >9){
+				ntime += nd.getMinutes()+"分";
+			}else{
+				ntime += "0"+(nd.getMonth()+1)+"分";
+			}
+			if(nd.getSeconds() >9){
+			   ntime += nd.getSeconds()+"秒";
+			}else{
+			   ntime += "0"+nd.getSeconds()+"秒";
+			}
+			   T.innerHTML = ntime;
+			   setInterval(function(){getFNTime()},1000);
+			}   
 </script>
+
+
 </html>

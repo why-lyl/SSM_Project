@@ -45,7 +45,9 @@ Authentication(认证),Authorization(授权),Cache(缓存)等的管理,可以理
 	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
 		<property name="securityManager" ref="securityManager"/>
 	</bean>
- 
+	
+          
+		    
 <!--6. 配置 ShiroFilter.
 	6.1 id 必须和 web.xml 文件中配置的 DelegatingFilterProxy 的 <filter-name> 一致.
 	若不一致, 则会抛出: NoSuchBeanDefinitionException. 因为 Shiro 会来 IOC 容器中查找和 <filter-name> 
@@ -72,6 +74,7 @@ Authentication(认证),Authorization(授权),Cache(缓存)等的管理,可以理
 			<!--注意:添加了路径后千万要把后面的页面权限加上，否者会报错，甚至会认为一切都是写对了的  -->
 			  /userController/goLogin.do = anon
 			  /userController/queryCookie.ajax = anon
+			  /userController/getServerTime.ajax = anon
 			  /auth/login = anon
 			  /userController/checkLogin.ajax = anon
               /css/** = anon

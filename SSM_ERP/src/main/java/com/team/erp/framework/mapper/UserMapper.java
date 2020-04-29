@@ -19,7 +19,6 @@ public interface UserMapper {
 	
 	User selectUserByUserId(Integer userId); //根据用户id查询用户
 	User selectUserByUserName(String userName);//根据用户名字查询用户
-	
 	/**
 	 * 更新方法
 	 */

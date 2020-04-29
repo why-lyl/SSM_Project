@@ -56,7 +56,11 @@
         		<property name = "suffix" value = ".jsp"></property>	 
         	</bean>
         <!-- 配置spring mvc 只需要配置视图解析器（spring-webmvc依赖中有相关配置）  结束-->
-        
+      
+       <aop:config proxy-target-class="true"></aop:config>
+		    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		        <property name="securityManager" ref="securityManager"/>
+		    </bean>
         <!-- 开启注解 -->
         <context:annotation-config></context:annotation-config>
 	    <mvc:annotation-driven></mvc:annotation-driven>

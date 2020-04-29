@@ -40,4 +40,10 @@ public class AuthorityServiceImpl implements AuthorityService{
 		return am.selectAuthorityAll();
 	}
 
+	@Override
+	public List<Authority> selectAuthoritysByUserName(String string) {
+		
+		return am.selectAuthoritysByUserName(string);
+	}
+
 }

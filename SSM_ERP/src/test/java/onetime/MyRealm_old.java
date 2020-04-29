@@ -1,4 +1,4 @@
-package com.team.erp.framework.realm;
+package onetime;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;

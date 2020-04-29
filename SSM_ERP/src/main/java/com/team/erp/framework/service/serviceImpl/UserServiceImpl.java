@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 	public String checkLogin(String username, String password, String selectionBox, HttpServletRequest request,HttpServletResponse response) {
 		// shiro拿到当前用户
 		Subject subject = SecurityUtils.getSubject();
-		
+		//System.out.println(subject);
 		//将用户名操作保存在sesssion里
 		subject.getSession().setAttribute("USERNAME", username);
 		
@@ -96,11 +96,9 @@ public class UserServiceImpl implements UserService {
 				c2.saveTo(request, response);
 				c3.saveTo(request, response);
 			}
-			
-			 String parameter = request.getParameter("username");
-			 request.setAttribute("user",  parameter);
-			
-			System.out.println( parameter);
+//			 String parameter = request.getParameter("username");
+//			 request.setAttribute("user",  parameter);
+//			 System.out.println( parameter);
 			//System.out.println("登录成功");
 			return "SUCCESS";
 			
@@ -120,6 +118,7 @@ public class UserServiceImpl implements UserService {
 	public String queryCookie(HttpServletRequest request, HttpServletResponse response) {
 		User user = new User();
 		Gson gson = new Gson();
+		
 		//1、拿到所有的cookie对象 -->通过request
 		Cookie[] cookies = request.getCookies();
 		

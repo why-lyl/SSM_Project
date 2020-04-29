@@ -21,6 +21,7 @@ public interface AuthorityMapper {
 	Authority selectAuthorityByAuthoritById(Integer AuthorityId);//根据AuthorityId查询数据
 	Authority selectAuthorityByAuthoritByName(Integer AuthorityName);//根据AuthorityName查询数据
 	List<Authority> selectAuthorityAll();//用一个集合将装Authority的信息装下
+	List<Authority> selectAuthoritysByUserName(String userName);
 	/**
 	 * 更新方法
 	 */

@@ -97,6 +97,7 @@
 			<ul id="nav">
 				
 				<!-- 示例：这是一个下拉菜单 -->
+				<shiro:hasRole name="stm">
 				<li><img  src=""><a href="javascript:;"> <i class="iconfont">&#xe6b8;</i> <cite>职工管理</cite> <i
 						class="iconfont nav_right">&#xe697;</i>
 				</a>
@@ -113,10 +114,11 @@
 								class="iconfont">&#xe6a7;</i> <cite>部门管理</cite>
 						</a></li>
 					</ul></li>
-				
+				</shiro:hasRole>
 				<!-- 这组下拉菜单结束 -->
 				
 				<!-- 这是另一组菜单示例 -->
+				<shiro:hasRole name="autm">
 				<li><a href="javascript:;"> <i class="iconfont">&#xe629;</i> 
 				<cite>权限管理</cite> <i
 						class="iconfont nav_right">&#xe697;</i>
@@ -127,11 +129,11 @@
 						<li><a _href="roleController/toDepart.do"> <i class="iconfont">&#xe6a7;</i> <cite>部门权限分配</cite>
 						</a></li>
 					</ul></li>
-		
+				</shiro:hasRole>
 				<!-- 示例结束 -->
 				
 				<!-- 这是另一组菜单示例 -->
-				
+				<shiro:hasRole name="assr">
 				<li><a href="javascript:;"> 
 				<i class="iconfont">&#xe607;</i> 
 				<cite>资产查看</cite> 
@@ -145,11 +147,11 @@
 						<li><a _href="porchaseController/showPorchaseByUserName.do"> <i class="iconfont">&#xe6a7;</i> <cite>采购资产</cite>
 						</a></li>
 					</ul></li>
-				
+				</shiro:hasRole>
 				<!-- 示例结束 -->
 				
 				<!-- 这是另一组菜单示例 -->
-				
+				<shiro:hasRole name="prom">
 				<li><a href="javascript:;"> 
 				<i class="iconfont">&#xe602;</i> 
 				 <cite>采购管理</cite> <i
@@ -163,11 +165,11 @@
 						<li><a _href="maintainController/showallmaintain.do"> <i class="iconfont">&#xe6a7;</i> <cite>申请报废批准</cite>
 						</a></li>
 					</ul></li>
-			
+			    </shiro:hasRole>
 				<!-- 示例结束 -->
 				
 					<!-- 这是另一组菜单示例 -->
-				
+				<shiro:hasRole name="fac">
 				<li><a href="javascript:;"> 
 				<i class="iconfont">&#xe68f;</i> 
 				 <cite>资金核算</cite> <i
@@ -177,15 +179,16 @@
 						<li><a _href="view/porchase/quary_bill.jsp"> <i class="iconfont">&#xe6a7;</i> <cite>采购核算</cite>
 						</a></li>
 					</ul></li>
-			
+			    </shiro:hasRole>
 				<!-- 示例结束 -->
 				
 				
-					<!-- 这是另一组菜单示例 -->
+				<!-- 这是另一组菜单示例 -->
+				<shiro:hasRole name="invm">
 				<li><a href="javascript:;"> 
 				<i class="iconfont">&#xe613;</i> 
-				<cite>库存管理</cite> <i
-						class="iconfont nav_right">&#xe697;</i>
+				<cite>库存管理</cite> 
+				<i class="iconfont nav_right">&#xe697;</i>
 				</a>
 					<ul class="sub-menu">
 						<li><a _href="propertyController/showAllProperty.do"> <i class="iconfont">&#xe6a7;</i> <cite>库存资产</cite>
@@ -193,8 +196,8 @@
 						<li><a _href="propertyController/showBorrowreturn.do"> <i class="iconfont">&#xe6a7;</i> <cite>资产流动记录</cite>
 						</a></li>
 					</ul></li>
+					</shiro:hasRole>
 				<!-- 示例结束 -->
-
 			</ul>
 		</div>
 	</div>
