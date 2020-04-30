@@ -107,10 +107,10 @@
 								class="iconfont">&#xe6a7;</i> <cite>职工管理</cite>
 						</a></li>
 						<!-- 按钮结束 -->
-						<li><a _href="ztree.jsp"> <i
+						<li><a _href="departmentController/goDepartment.do"> <i
 								class="iconfont">&#xe6a7;</i> <cite>组织结构</cite>
 						</a></li>
-						<li><a _href="manageEmeController/toDepartList.do"> <i
+						<li><a _href="departmentController/goDepartment.do"> <i
 								class="iconfont">&#xe6a7;</i> <cite>部门管理</cite>
 						</a></li>
 					</ul></li>
@@ -124,9 +124,9 @@
 						class="iconfont nav_right">&#xe697;</i>
 				</a>
 					<ul class="sub-menu">
-						<li><a _href="roleController/toUserRole.do"> <i class="iconfont">&#xe6a7;</i> <cite>职工权限分配</cite>
+						<li><a _href="roleController/goUserRole.do"> <i class="iconfont">&#xe6a7;</i> <cite>职工权限分配</cite>
 						</a></li>
-						<li><a _href="roleController/toDepart.do"> <i class="iconfont">&#xe6a7;</i> <cite>部门权限分配</cite>
+						<li><a _href="roleController/goDepartsRole.do"> <i class="iconfont">&#xe6a7;</i> <cite>部门权限分配</cite>
 						</a></li>
 					</ul></li>
 				</shiro:hasRole>
@@ -158,11 +158,11 @@
 						class="iconfont nav_right">&#xe697;</i>
 				</a>
 					<ul class="sub-menu">
-						<li><a _href="porchaseController/showPorchase.do"> <i class="iconfont">&#xe6a7;</i> <cite>采购批准</cite>
+						<li><a _href="purchaseController/goPurchase.do"> <i class="iconfont">&#xe6a7;</i> <cite>采购批准</cite>
 						</a></li>
 						<li><a _href="applyController/showAllapply.do"> <i class="iconfont">&#xe6a7;</i> <cite>申请批准</cite>
 						</a></li>
-						<li><a _href="maintainController/showallmaintain.do"> <i class="iconfont">&#xe6a7;</i> <cite>申请报废批准</cite>
+						<li><a _href="assetsController/goAllAsseets.do"> <i class="iconfont">&#xe6a7;</i> <cite>申请报废批准</cite>
 						</a></li>
 					</ul></li>
 			    </shiro:hasRole>

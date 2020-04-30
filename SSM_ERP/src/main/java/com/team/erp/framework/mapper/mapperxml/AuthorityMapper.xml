@@ -60,23 +60,24 @@
 	      </if>
 	    </set>
 	    where authority_id = #{authorityId,jdbcType=INTEGER}
-  </update>
+   </update>
   <!--更新权限2-->
-  <update id="updateByPrimaryKey" parameterType="com.team.erp.framework.model.Authority">
+   <update id="updateByPrimaryKey" parameterType="com.team.erp.framework.model.Authority">
 	    update t_authority
 	    set authority_name = #{authorityName,jdbcType=VARCHAR},
 	        authority_desc = #{authorityDesc,jdbcType=VARCHAR}
 	    where authority_id = #{authorityId,jdbcType=INTEGER}
-  </update>
-	
-<select id="selectAuthoritysByUserName" parameterType="java.lang.String" resultMap="SelectAuthorityMap">
-		select t_authority.authority_id,t_authority.authority_name,t_authority.authority_desc
-		FROM t_user,t_authority,t_user_authority
-		where 
-		t_user.user_id = t_user_authority.user_id 
-		and 
-		t_authority.authority_id = t_user_authority.authority_id
-		and
-		t_user.user_name= #{userName,jdbcType=VARCHAR}
-  </select>
+   </update>
+   
+   <!--根据用户名查询出权限表中的属性-->
+   <select id="selectAuthoritysByUserName" parameterType="java.lang.String" resultMap="SelectAuthorityMap">
+			select t_authority.authority_id,t_authority.authority_name,t_authority.authority_desc
+			FROM t_user,t_authority,t_user_authority
+			where 
+			t_user.user_id = t_user_authority.user_id 
+			and 
+			t_authority.authority_id = t_user_authority.authority_id
+			and
+			t_user.user_name= #{userName,jdbcType=VARCHAR}
+	</select>
 	</mapper>

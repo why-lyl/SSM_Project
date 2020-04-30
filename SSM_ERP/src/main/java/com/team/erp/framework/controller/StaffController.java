@@ -1,14 +1,10 @@
 package com.team.erp.framework.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
-import com.google.gson.Gson;
 import com.team.erp.framework.model.Staff;
 import com.team.erp.framework.model.vo.SearchInfo;
 import com.team.erp.util.controller.BaseController;
@@ -16,8 +12,6 @@ import com.team.erp.util.controller.BaseController;
 @Controller
 @RequestMapping("/staffController")
 public class StaffController extends BaseController{
-	Staff Staff = new Staff();
-	Gson gson = new Gson();
 	
    @RequestMapping("selectStaff.ajax")
    @ResponseBody

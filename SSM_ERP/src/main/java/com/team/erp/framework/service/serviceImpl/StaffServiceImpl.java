@@ -21,7 +21,7 @@ public class StaffServiceImpl implements StaffService {
 	public PageInfo<Staff> selectStaffAll(int pageNum) {
 		System.out.println(pageNum);
 		PageHelper ph = new PageHelper();
-		ph.startPage(pageNum, 6);
+		ph.startPage(pageNum, 8);//这里修改每页展示的条数
 		List<Staff> staffs = sm.selectStaffAll();
 		PageInfo<Staff> info = new PageInfo<>(staffs);
 

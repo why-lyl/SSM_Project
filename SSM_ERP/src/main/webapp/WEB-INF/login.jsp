@@ -177,6 +177,7 @@
 			<hr class="hr20">
 		</form>
 		<input type="checkbox" id="memoryuser" >&nbsp;记住用户密码
+		<div style="float:right;"><a href="userController/goRegister.do" style="color:blue ">注册</a></div>
 	</div>
 
 </body>

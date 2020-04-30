@@ -74,21 +74,26 @@ Authentication(认证),Authorization(授权),Cache(缓存)等的管理,可以理
 			<!--注意:添加了路径后千万要把后面的页面权限加上，否者会报错，甚至会认为一切都是写对了的  -->
 			  /userController/goLogin.do = anon
 			  /userController/queryCookie.ajax = anon
-			  /userController/getServerTime.ajax = anon
+			  /userController/getServerTime.ajax = authc
+			  /userController/checkLogin.ajax = anon
+			  /userController/checkRegister.ajax = anon
+			  /userController/index.do = authc
 			 <!--  /staffController/selectStaff.ajax = anon
 			  /staffController/goStaff.do = anon
 			  /staffController/goUserEdit.do = anon
 			  /staffController/goUserAdd.do = anon -->
 			  /staffController/** = anon
+			  /roleController/** = anon
+			  /purchaseController/** = anon
+			  /**Controller/** = anon 
 			  /auth/login = anon
-			  /userController/checkLogin.ajax = anon
               /css/** = anon
               /fonts/** = anon
               /js/** = anon
               /images/** = anon
               /lib/** = anon
               /logout=logout 
-              /webapp/** = anon
+              <!-- /webapp/** = anon -->
 			  <!-- 其他所有内容都需要身份验证： -->
 			  /** = authc 
 			</value>

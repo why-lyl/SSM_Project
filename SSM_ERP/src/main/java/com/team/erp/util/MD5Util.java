@@ -1,22 +1,15 @@
 package com.team.erp.util;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
-import org.apache.shiro.util.ByteSource;
 
 public class MD5Util {
-	
-	        //模拟将数据库里面的密码进行加密
-			public static void main(String[] args) {
-				//加密方式 
-				String algorithmName = "MD5";
-				//原密码
-				Object source = "123";
-				//设置加盐方式
-				ByteSource salt = ByteSource.Util.bytes("yl");
-				//设置加密多少次
-				int hashIterations = 520;
-				SimpleHash shash = new SimpleHash(algorithmName, source, salt, hashIterations);
-				System.out.println(shash);
-			}
-
+	// 在注册的时候输入的密码
+	private String userPassword;
+	// 将用户名用作盐
+	private String userName;
+    //数字表示加密次数
+	public String getPasswordByMD5(String password, String salt) {
+		String simpleHash = new SimpleHash("MD5", password, salt, 520).toString();
+		return simpleHash;
+	}
 }

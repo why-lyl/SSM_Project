@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.team.erp.framework.mapper.UserMapper;
 import com.team.erp.framework.model.User;
 import com.team.erp.framework.service.UserService;
+import com.team.erp.util.MD5Util;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -37,6 +38,8 @@ public class UserServiceImpl implements UserService {
 		//拿到令牌(将账号和密码放到令牌里面)
 		//此处因为在sping-shiro配置文件中配置了对密码的加密方式和加密次数。所以会对传进去的密码进行加密
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+		//System.out.println("是加密后的密码吗？"+token);
+		//System.out.println("是加密后的密码吗？"+token.getPassword());
 		token.setRememberMe(true);
 		try {
 			//认证过程放在try里面 认证失败会抛出异常 去自定义的realm类里面认证 
@@ -110,6 +113,42 @@ public class UserServiceImpl implements UserService {
 		//return null;
 	}
 	
+	/**
+     * 注册认证
+     */
+	@Override
+	public String checkRegister(String username, String password, String repassword) {
+		System.out.println(username + password + repassword);
+		User temp = um.selectUserByUserName(username);//通过用户名得到用户
+		if (temp != null) {//因为有用户名才能查出，所以可以判断是否有用户名
+			System.out.println("存在相同的用户名");
+			return "REPEATNAME";//ERROR1
+		}else if(!password.equals(repassword)){
+			System.out.println("两次密码不一致");
+			return "DIFFERENTPASSWARD";//ERROR2
+		}
+		String userPassword = new MD5Util().getPasswordByMD5(password, username);
+		System.out.println(userPassword);
+		System.out.println(username);
+		int num = um.addUserByProperty(null,username, userPassword);
+		System.out.println(num);
+		Subject subject = SecurityUtils.getSubject();// shiro拿到当前用户
+		//将用户名操作保存在sesssion里，页面展示时需要用到
+		subject.getSession().setAttribute("USERNAME", username);
+		//进行认证
+		//拿到令牌(将账号和密码放到令牌里面)
+		//此处因为在sping-shiro配置文件中配置了对密码的加密方式和加密次数。所以会对传进去的密码进行加密
+		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+		try {
+			//认证过程放在try里面 认证失败会抛出异常 去自定义的realm类里面认证 
+			subject.login(token);//因为spring-shrio.xml配置，所以会到自定义的realm去认证
+			return "SUCCESS";
+		} catch (AuthenticationException e) {
+			// 登录失败
+			//System.out.println("登录失败");
+			return "ERROR";
+		}
+	}
 	
 	/**
      * 查询指定的cookie
@@ -206,7 +245,5 @@ public class UserServiceImpl implements UserService {
 		
 		return um.selectUserByUserName(userName);
 	}
-
-	
 
 }

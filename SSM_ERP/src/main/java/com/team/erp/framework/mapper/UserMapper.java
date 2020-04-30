@@ -1,5 +1,7 @@
 package com.team.erp.framework.mapper;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.team.erp.framework.model.User;
 
 /**
@@ -29,8 +31,8 @@ public interface UserMapper {
 	/**
 	 * 添加方法
 	 */
-	
 	int addUser(User user);//根据用户信息插入用户
+	int addUserByProperty(@Param("userId")String userId,@Param("userName")String userName,@Param("userPassword")String password);//根据属性添加用户
 	
 	/**
 	 * 删除方法

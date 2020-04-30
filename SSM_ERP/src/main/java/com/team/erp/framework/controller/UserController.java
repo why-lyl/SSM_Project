@@ -9,9 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.team.erp.framework.model.User;
+import com.team.erp.framework.model.vo.Result;
 import com.team.erp.util.controller.BaseController;
 
 @Controller
@@ -38,7 +42,7 @@ public class UserController extends BaseController{
 	}
 	
 	@RequestMapping("index.do")
-	public String goIndex(HttpServletRequest req, HttpServletResponse response) {
+	public String goIndex() {
         //返回至主页面
 		return "index";
 	}
@@ -51,9 +55,23 @@ public class UserController extends BaseController{
 		return "login";
 	}
 	@RequestMapping("goLogin.do")
-	public String goLogin(HttpServletRequest req, HttpServletResponse response) {
+	public String goLogin() {
         //跳转登录页面
 		return "login";
+	}
+	
+	@RequestMapping("goRegister.do")
+	public String goRegister() {
+        //跳转注册页面
+		return "register";
+	}
+	
+	@RequestMapping("checkRegister.ajax")
+	@ResponseBody
+	public String checkRegister(String username, String password,String repassword) {
+        //返回注册页面的值
+		String info = us.checkRegister(username,password,repassword);//接口引用指向实现类对象
+		return info;
 	}
 	
 	@RequestMapping("goWelcome.do")
