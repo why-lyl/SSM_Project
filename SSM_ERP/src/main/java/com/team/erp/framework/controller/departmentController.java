@@ -14,11 +14,16 @@ public class departmentController {
 		
 	}
 	
-	@RequestMapping("goOrganization.ajax")
+	@RequestMapping("goOrganization.do")
 	public String goOrganization() {
-		System.out.println("前往部门展示");
+		System.out.println("前往组织展示");
 		return "Organization/organization-list";
 		
 	}
-
+	
+	@RequestMapping("goDepartAdd.do")
+	public String goDepartAdd() {
+		System.out.println("前往部门添加");
+		return "Department/departsUpdate";
+	}
 }

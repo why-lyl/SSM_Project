@@ -13,8 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
+import com.team.erp.framework.mapper.StaffMapper;
 import com.team.erp.framework.mapper.UserMapper;
+import com.team.erp.framework.model.Staff;
 import com.team.erp.framework.model.User;
+import com.team.erp.framework.model.vo.UserAndAuthority;
 import com.team.erp.framework.service.UserService;
 import com.team.erp.util.MD5Util;
 
@@ -23,6 +26,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserMapper um;
+	
+	@Autowired
+	private StaffMapper sm;
     /**
      * 登录认证
      */
@@ -128,10 +134,28 @@ public class UserServiceImpl implements UserService {
 			return "DIFFERENTPASSWARD";//ERROR2
 		}
 		String userPassword = new MD5Util().getPasswordByMD5(password, username);
-		System.out.println(userPassword);
-		System.out.println(username);
-		int num = um.addUserByProperty(null,username, userPassword);
-		System.out.println(num);
+		//System.out.println(userPassword);
+		//System.out.println(username);
+		int num = um.addUserByProperty(null,username, userPassword);//添加用户，num==1，表示添加用户成功
+		//System.out.println(num);
+		if (num == 1) {
+			/*初始化权限*/
+			User user = um.selectUserByUserName(username);
+			UserAndAuthority uaa = new UserAndAuthority();
+			uaa.setUserId(user.getUserId());
+			uaa.setAuthorityId(1); //对应Authority里的值
+			int num2 = um.addUserAndAuthority(uaa);//添加权限
+			int num3 =  sm.addStaffAccountIdByUserId(user.getUserId());
+			if (num3 == 1) {
+				Staff staff = sm.selectStaffByAccountId(user.getUserName());
+				sm.updateStaffDpartmentByDepartmentId(staff.getStaffId());
+			}
+			if (num2 != 1 ) {
+				return "FAILDAUT";
+			}
+		}else {
+			return "FAILDAUT";
+		}
 		Subject subject = SecurityUtils.getSubject();// shiro拿到当前用户
 		//将用户名操作保存在sesssion里，页面展示时需要用到
 		subject.getSession().setAttribute("USERNAME", username);
@@ -144,8 +168,6 @@ public class UserServiceImpl implements UserService {
 			subject.login(token);//因为spring-shrio.xml配置，所以会到自定义的realm去认证
 			return "SUCCESS";
 		} catch (AuthenticationException e) {
-			// 登录失败
-			//System.out.println("登录失败");
 			return "ERROR";
 		}
 	}

@@ -71,13 +71,13 @@
         <thead>
           <tr>
             <th>姓名</th>
-           <!--  <th>所属部门</th>
-            <th>职位</th>
-            <th>加入时间</th>
-            <th>出生日期</th> -->
             <th>性别</th>
-            <th>年龄</th>
+            <th>所属部门</th>
+            <!-- <th>职位</th> -->
+            <th>入职时间</th>
             <th>生日</th>
+            <th>年龄</th>
+            <th>登录账号</th>
             <th>电话号码</th>
             <th>邮箱地址</th>
             <th >操作</th>
@@ -229,12 +229,15 @@ form.verify({
 					console.log(typeof(val.userEntrytime)); */
 					var str="";
 				    str+="<tr>";
-				    str+="<td>"+val.staffName+"</td>"
-				    str+="<td>"+val.staffSex+"</td>"
-				    str+="<td>"+val.staffAge+"</td>"
-				    str+="<td>"+new Date(val.staffBirthday).format("yyyy-MM-dd")+"</td>"
-				    str+="<td>"+val.staffTel+"</td>"
-				    str+="<td>"+val.staffEmail+"</td>"
+				    str+="<td>"+val.staffName+"</td>";
+				    str+="<td>"+val.staffSex+"</td>";
+				    str+="<td>"+val.staffDepart+"</td>";
+				    str+="<td>"+new Date(val.staffJoin).format("yyyy-MM-dd")+"</td>";
+				    str+="<td>"+new Date(val.staffBirthday).format("yyyy-MM-dd")+"</td>";
+				    str+="<td>"+val.staffAge+"</td>";
+				    str+="<td>"+val.accountId+"</td>";
+				    str+="<td>"+val.staffTel+"</td>";
+				    str+="<td>"+val.staffEmail+"</td>";
 				    str+="<td><a class=\"layui-btn  layui-btn-mini\" onclick=\"x_admin_show('修改','staffController/goUserEdit.do?staffId="+val.staffId+"')\" ><i class=\"layui-icon\">&#xe642;</i>编辑</a> <button onclick=\"delUser('"+val.staffId+"')\" class=\"layui-btn  layui-btn-mini layui-btn-danger\"><i class=\"layui-icon\">&#xe640;</i>删除</button></td>"
 				    str+="</tr>";
 					$("#staffs").append(str);

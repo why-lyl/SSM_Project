@@ -107,7 +107,7 @@
 								class="iconfont">&#xe6a7;</i> <cite>职工管理</cite>
 						</a></li>
 						<!-- 按钮结束 -->
-						<li><a _href="departmentController/goDepartment.do"> <i
+						<li><a _href="departmentController/goOrganization.do"> <i
 								class="iconfont">&#xe6a7;</i> <cite>组织结构</cite>
 						</a></li>
 						<li><a _href="departmentController/goDepartment.do"> <i

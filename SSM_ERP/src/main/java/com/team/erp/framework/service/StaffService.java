@@ -8,4 +8,10 @@ public interface StaffService {
 	
 	PageInfo<Staff> selectStaffAll(int pageNum);
 	
+	Staff selectStaffByStaffId(Integer StaffId);
+	
+	int addStaffAll(Staff Staff);
+	
+	int updateStaffDpartmentByDepartmentId(int staffId);
+	
 }

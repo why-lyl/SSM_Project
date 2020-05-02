@@ -11,13 +11,17 @@
 	    <result column="staff_birthday" jdbcType="DATE" property="staffBirthday"/>
 	    <result column="staff_tel" jdbcType="VARCHAR" property="staffTel"/>
 	    <result column="staff_email" jdbcType="VARCHAR" property="staffEmail"/>
+	    <result column="staff_join" jdbcType="DATE" property="staffJoin"/>
+	    <result column="staff_depart" jdbcType="VARCHAR" property="staffDepart"/>
+	    <result column="account_id" jdbcType="VARCHAR" property="accountId"/>
 	</resultMap>
 	
     <sql id="Base_Column_List">
-      	staff_id, staff_name, staff_sex, staff_age, staff_birthday, staff_tel, staff_email
+      	staff_id, staff_name, staff_sex, staff_age, staff_birthday, staff_tel, 
+      	staff_email,staff_join,staff_depart,account_id
     </sql>
     <!-- 根据id查询staff -->
-	<select id="selectStaffBystaffId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+	<select id="selectStaffByStaffId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
 		select 
 		<include refid="Base_Column_List" />
 		from t_staff
@@ -32,15 +36,33 @@
 		where staff_name= #{staffName,jdbcType=VARCHAR}
 	</select>
 	
+	<!-- 根据用户姓名查询Staff -->
+	<select id="selectStaffByAccountId" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from t_staff
+		where account_id= #{userName,jdbcType=VARCHAR}
+	</select>
+	
 	<!-- 查出staff的所有有关信息 -->
 	<select id="selectStaffAll" resultMap="BaseResultMap">
 		select 
 		*
 		from t_staff
 	</select>
-	<!-- 添加用户 -->
+	<!-- 添加员工1 -->
     <insert id="addStaff" parameterType="com.team.erp.framework.model.Staff" useGeneratedKeys="true" keyProperty="staffId">
   	    INSERT INTO t_staff values (null,#{staffName},#{staffPassword})
+    </insert>
+    <!-- 添加员工2 -->
+    <insert id="addStaffAll" parameterType="com.team.erp.framework.model.Staff" useGeneratedKeys="true" keyProperty="staffId">
+  	    INSERT INTO t_staff values (null,#{staffName},#{staffSex},#{staffAge},
+  	    #{staffBirthday},#{staffTel},#{staffEmail},#{staffJoin},#{staffDepart},#{accountId})
+    </insert>
+    <!-- 添加员工3 -->
+    <insert id="addStaffAccountIdByUserId" parameterType="java.lang.Integer" useGeneratedKeys="true" keyProperty="staffId">
+  	    INSERT INTO t_staff(account_id) SELECT user_name FROM t_user
+        where user_id = #{userId}
     </insert>
      <!-- 删除用户 -->
     <delete id="deleteStaffBystaffId" parameterType="java.lang.Integer">
@@ -65,6 +87,12 @@
 	    update t_staff
 	    set staff_name = #{staffName,jdbcType=VARCHAR},
 	        staff_password = #{staffPassword,jdbcType=VARCHAR}
+	    where staff_id = #{staffId,jdbcType=INTEGER}
+  </update>
+  <!--更新职员3 暂定 #{departmentName,jdbcType=VARCHAR}-->
+  <update id="updateStaffDpartmentByDepartmentId" parameterType="java.lang.Integer">
+	    update t_staff
+	    set staff_depart = "未分配"
 	    where staff_id = #{staffId,jdbcType=INTEGER}
   </update>
 </mapper>

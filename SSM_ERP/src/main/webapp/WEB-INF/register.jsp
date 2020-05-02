@@ -81,12 +81,16 @@
     					layer.msg("用户名已存在",{icon:2})
     				}else if (info=="DIFFERENTPASSWARD"){
     					layer.msg("两次密码不一致",{icon:2})
+    				}else if(info=="FAILDAUT"){
+    					layer.msg("权限初始化失败",{icon:2})
     				}else if(info=="SUCCESS"){
-    					//alert("注册成功");
+    					alert("注册成功");
     					layer.msg("注册成功",{icon:1})
-    					sleep(1000);
+    					sleep(2000);
     					//跳转到主页面(最好后台跳转)
     					window.location.href = "userController/index.do"
+    				}else if(info=="ERROR"){
+    					layer.msg("注册失败",{icon:2})
     				}
     			},
     			

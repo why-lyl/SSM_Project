@@ -3,6 +3,7 @@ package com.team.erp.framework.mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.team.erp.framework.model.User;
+import com.team.erp.framework.model.vo.UserAndAuthority;
 
 /**
  * Description:
@@ -33,7 +34,7 @@ public interface UserMapper {
 	 */
 	int addUser(User user);//根据用户信息插入用户
 	int addUserByProperty(@Param("userId")String userId,@Param("userName")String userName,@Param("userPassword")String password);//根据属性添加用户
-	
+	int addUserAndAuthority(UserAndAuthority userAndAuthority);//插入user和authority的中间表信息，控制权限
 	/**
 	 * 删除方法
 	 */

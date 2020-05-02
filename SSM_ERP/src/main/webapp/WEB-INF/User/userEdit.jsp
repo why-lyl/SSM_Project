@@ -32,7 +32,7 @@
                   <span class="x-red">*</span>姓名
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="username" value="${user.userName }" name="userName" required="" lay-verify="required"
+                  <input type="text" id="staffname" value="${sta.staffName}" name="staffName" required="" lay-verify="required"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
@@ -41,8 +41,8 @@
                   <span class="x-red">*</span>性别
               </label>
               <div class="layui-input-inline">
-                  <input name="userSex" ${user.userSex=='男'? 'checked':''}  type="radio" value="男" lay-skin="primary" title="男">
-                  <input name="userSex" ${user.userSex=='女'? 'checked':''} type="radio" value="女" lay-skin="primary" title="女">
+                  <input name="userSex" ${sta.staffSex=='男'? 'checked':''}  type="radio" value="男" lay-skin="primary" title="男">
+                  <input name="userSex" ${sta.staffSex=='女'? 'checked':''} type="radio" value="女" lay-skin="primary" title="女">
               </div>
           </div>
           <div class="layui-form-item">
@@ -50,7 +50,7 @@
                   <span class="x-red">*</span>手机
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="phone" value="${user.userTelephone }" name="userTelephone" required="" lay-verify="phone"
+                  <input type="text" id="phone" value="${sta.staffTel}" name="userTelephone" required="" lay-verify="phone"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
@@ -59,7 +59,7 @@
                   <span class="x-red">*</span>电子邮箱
               </label>
               <div class="layui-input-inline">
-                  <input type="text"  value="${user.userEmail }" name="userEmail" required="" lay-verify="email"
+                  <input type="text"  value="${sta.staffEmail }" name="userEmail" required="" lay-verify="email"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
@@ -77,7 +77,7 @@
                   <span class="x-red">*</span>出生日期
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="date1" value="${user.userBirthday }" name="userBirthday" required="" lay-verify="required"
+                  <input type="text" id="date1" value="${sta.staffBirthday }" name="userBirthday" required="" lay-verify="required"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
@@ -86,7 +86,7 @@
                   <span class="x-red">*</span>入职时间
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="date2" value="${user.userEntrytime }" name="userEntrytime" required="" lay-verify="required"
+                  <input type="text" id="date2" value="${sta.staffJoin }" name="userEntrytime" required="" lay-verify="required"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
@@ -184,17 +184,18 @@
     </div>
     <script>
     
+   /*这里是对时间的格式化,精确到秒  format("yyyy-MM-dd  hh:mm:ss"));*/
     $(function(){
 		if($("#date2").val()!=""){
 			$("#date2").val(new Date($("#date2").val()).format("yyyy-MM-dd"));
 		}
 		$("div [name='pwd']").hide();
 		if($("#date1").val()!=""){
-			$("#date1").val(new Date($("#date1").val()).format("yyyy-MM-dd hh:mm:ss"))	
+			$("#date1").val(new Date($("#date1").val()).format("yyyy-MM-dd"))	
 		}
 	})
 	
-    
+     /*这里是对相关格式的验证*/
     	function onlyUser(doms){
     		if($("#userAccount").val().length<3){
     			$("#userAccount").select();

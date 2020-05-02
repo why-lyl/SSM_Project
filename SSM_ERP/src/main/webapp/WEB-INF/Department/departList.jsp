@@ -80,7 +80,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">添加新的部门</div>
 					<div class="panel-body" style="height: 110px;">
-							<div style="text-align: center;cursor: pointer;" onclick="x_admin_show('添加新部门','manageEmeController/toDepartAdd.do')">
+							<div style="text-align: center;cursor: pointer;" onclick="x_admin_show('添加新部门','departmentController/goDepartAdd.do')">
 								<i class="layui-icon" style="font-size: 80px; color: #1E9FFF;">&#xe61f;</i>  
 							</div>
 					</div>

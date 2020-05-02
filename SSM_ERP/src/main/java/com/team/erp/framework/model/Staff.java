@@ -1,36 +1,35 @@
 package com.team.erp.framework.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Staff {
-	
+import org.springframework.format.annotation.DateTimeFormat;
+
+public class Staff implements Serializable{
+	//精确到秒的时间装换格式("yyyy-MM-dd  hh:mm:ss")
 	private int staffId;
 	private String staffName;
 	private String staffSex;
 	private int staffAge;
+	@DateTimeFormat(pattern = "yyyy-MM-dd") 
 	private Date staffBirthday;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date staffJoin;
 	private String staffTel;
 	private String staffEmail;
+	private String staffDepart;
+	private String accountId;
+	
 	
 	//无参构造
 	public Staff() {
 		super();
 	}
 	
-	//无生日构造
-	public Staff(int staffId, String staffName, String staffSex, int staffAge, String staffTel, String staffEmail) {
-		super();
-		this.staffId = staffId;
-		this.staffName = staffName;
-		this.staffSex = staffSex;
-		this.staffAge = staffAge;
-		this.staffTel = staffTel;
-		this.staffEmail = staffEmail;
-	}
-    
-	//有生日构造
+	//有参构造
+	
 	public Staff(int staffId, String staffName, String staffSex, int staffAge, Date staffBirthday, String staffTel,
-			String staffEmail) {
+			String staffEmail, String staffDepart, Date staffJoin, String accountId) {
 		super();
 		this.staffId = staffId;
 		this.staffName = staffName;
@@ -39,11 +38,16 @@ public class Staff {
 		this.staffBirthday = staffBirthday;
 		this.staffTel = staffTel;
 		this.staffEmail = staffEmail;
+		this.staffDepart = staffDepart;
+		this.staffJoin = staffJoin;
+		this.accountId = accountId;
 	}
-
+	
 	public int getStaffId() {
 		return staffId;
 	}
+
+	
 
 	public void setStaffId(int staffId) {
 		this.staffId = staffId;
@@ -96,12 +100,38 @@ public class Staff {
 	public void setStaffEmail(String staffEmail) {
 		this.staffEmail = staffEmail;
 	}
+    
+	
+	public String getStaffDepart() {
+		return staffDepart;
+	}
+
+	public void setStaffDepart(String staffDepart) {
+		this.staffDepart = staffDepart;
+	}
+
+	public Date getStaffJoin() {
+		return staffJoin;
+	}
+
+	public void setStaffJoin(Date staffJoin) {
+		this.staffJoin = staffJoin;
+	}
+
+	public String getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(String accountId) {
+		this.accountId = accountId;
+	}
 
 	@Override
 	public String toString() {
 		return "Staff [staffId=" + staffId + ", staffName=" + staffName + ", staffSex=" + staffSex + ", staffAge="
 				+ staffAge + ", staffBirthday=" + staffBirthday + ", staffTel=" + staffTel + ", staffEmail="
-				+ staffEmail + "]";
+				+ staffEmail + ", staffDepart=" + staffDepart + ", staffJoin=" + staffJoin + ", accountId=" + accountId
+				+ "]";
 	}
-	
+
 }

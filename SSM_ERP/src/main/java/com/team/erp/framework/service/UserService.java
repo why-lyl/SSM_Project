@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.team.erp.framework.model.User;
 import com.team.erp.framework.model.vo.Result;
+import com.team.erp.framework.model.vo.UserAndAuthority;
 
 public interface UserService {
 
@@ -19,7 +20,6 @@ public interface UserService {
 	User selectUserByUserName(String userName);
 
 	String checkRegister(String username, String password, String repassword);
-	
 	
 
 }

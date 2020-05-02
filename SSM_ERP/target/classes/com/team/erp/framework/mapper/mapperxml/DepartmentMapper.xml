@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <!-- namespace命名空间，作用就是对sql进行分类化管理，即sql隔离
+       注意：使用mapper代理方法开发的话，namespace就有特殊重要的作用了-->
+    <mapper namespace = "com.team.erp.framework.mapper.DepartmentMapper">
+	    <resultMap type="com.team.erp.framework.model.Department" id="BaseResultMap">
+		    <!--id column 是数据表中主键名，result column 是数据表中属性名 ;
+		    jdbcType 是数据表中的数据类型，注意要全部大写 ;property 是实体类名 -->
+			<id column="department_id" jdbcType="INTEGER" property="departmentId"/>
+		    <result column="department_name" jdbcType="VARCHAR" property="departmentName"/>
+		</resultMap>
+	
+	</mapper>

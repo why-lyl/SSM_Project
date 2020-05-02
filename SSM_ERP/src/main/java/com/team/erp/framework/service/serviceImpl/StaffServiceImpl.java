@@ -29,4 +29,22 @@ public class StaffServiceImpl implements StaffService {
 		return info;
 	}
 
+	@Override
+	public Staff selectStaffByStaffId(Integer StaffId) {
+		
+		return sm.selectStaffByStaffId(StaffId);
+	}
+
+	@Override
+	public int addStaffAll(Staff Staff) {
+		//相当于对mapper层的封装
+		return sm.addStaffAll(Staff);
+	}
+
+	@Override
+	public int updateStaffDpartmentByDepartmentId(int staffId) {
+		
+		return sm.updateStaffDpartmentByDepartmentId(staffId);
+	}
+
 }

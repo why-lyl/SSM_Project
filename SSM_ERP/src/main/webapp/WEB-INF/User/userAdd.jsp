@@ -28,42 +28,42 @@
     <div class="x-body">
         <form id="form1" class="layui-form">
           <div class="layui-form-item">
-              <label for="username" class="layui-form-label">
+              <label for="staffname" class="layui-form-label">
                   <span class="x-red">*</span>姓名
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="username" name="userName" required="" lay-verify="required"
+                  <input type="text" id="staffname" name="staffName" required="" lay-verify="required"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
-          <div class="layui-form-item">
-              <label for="username" class="layui-form-label">
+           <div class="layui-form-item">
+              <label for="staffsex" class="layui-form-label">
                   <span class="x-red">*</span>性别
               </label>
               <div class="layui-input-inline">
-                  <input name="userSex" checked="" type="radio" value="男" lay-skin="primary" title="男">
-                  <input name="userSex" type="radio" value="女" lay-skin="primary" title="女">
+                  <input name="staffSex" checked="" type="radio" value="男" lay-skin="primary" title="男">
+                  <input name="staffSex" type="radio" value="女" lay-skin="primary" title="女">
               </div>
           </div>
-          <div class="layui-form-item">
+         <div class="layui-form-item">
               <label for="phone" class="layui-form-label">
                   <span class="x-red">*</span>手机
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="phone" name="userTelephone" required="" lay-verify="phone"
+                  <input type="text" id="phone" name="staffTel" required="" lay-verify="phone"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
-          <div class="layui-form-item">
+         <div class="layui-form-item">
               <label for="phone" class="layui-form-label">
                   <span class="x-red">*</span>电子邮箱
               </label>
               <div class="layui-input-inline">
-                  <input type="text"  name="userEmail" required="" lay-verify="email"
+                  <input type="text"  name="staffEmail" required="" lay-verify="email"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
-          <div class="layui-form-item">
+         <%--   <div class="layui-form-item">
               <label for="username" class="layui-form-label">
                   <span class="x-red">*</span>家庭地址
               </label>
@@ -71,26 +71,26 @@
                   <input type="text"  name="userAddress" required="" lay-verify="required"
                   autocomplete="off" class="layui-input">
               </div>
-          </div>
+          </div>--%>
           <div class="layui-form-item">
-              <label for="username" class="layui-form-label">
+              <label for="staffBirthday" class="layui-form-label">
                   <span class="x-red">*</span>出生日期
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="date1" name="userBirthday" required="" lay-verify="required"
+                  <input type="text" id="date1" name="staffBirthday" required="" lay-verify="required"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
           <div class="layui-form-item">
-              <label for="username" class="layui-form-label">
+              <label for="staffjoin" class="layui-form-label">
                   <span class="x-red">*</span>入职时间
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="date2" name="userEntrytime" required="" lay-verify="required"
+                  <input type="text" id="date2" name="staffJoin" required="" lay-verify="required"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
-          <div class="layui-form-item">
+         <%--  <div class="layui-form-item">
               <label for="username" class="layui-form-label">
                   <span class="x-red">*</span>学历
               </label>
@@ -159,7 +159,7 @@
                <div id="confire" class="layui-form-mid layui-word-aux ">
                   	两次密码必须一致
               </div> 
-          </div>
+          </div> --%>
           
           <div class="layui-form-item">
               <label for="L_repass" class="layui-form-label">
@@ -229,7 +229,7 @@
         laydate.render({
     		elem: '#date2'
   		});
-          //自定义验证规则
+        /*   //自定义验证规则
           form.verify({
             nikename: function(value){
               if(value.length < 3){
@@ -242,7 +242,7 @@
                     return '两次密码不一致';
                 }
             }
-          });
+          }); */
           //监听提交
           form.on('submit(add)', function(data){
             console.log(data);
@@ -252,7 +252,7 @@
         		type : "POST",
         		data : $('#form1').serialize(),
         		dataType : "text",
-        		url :"manageEmeController/userAdd.ajax",
+        		url :"staffController/staffAdd.ajax",
         		success : function(result) {
         		 //发异步，把数据提交给php
                  layer.msg("添加成功",{
