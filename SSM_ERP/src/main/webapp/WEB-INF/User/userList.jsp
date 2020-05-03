@@ -39,8 +39,8 @@
           <div class="layui-input-inline">
             <select id="userDepart">
               <option value="">员工所在部门</option>
-              <c:forEach items="${departs}" var="depart">
-              		<option value="${depart.departId }">${depart.departName} </option>
+              <c:forEach items="${departs}" var="department">
+              		<option value="${department.departmentName}">${department.departmentName} </option>
               </c:forEach>
               
             </select>
@@ -57,14 +57,14 @@
             </select>
           </div>
           <div class="layui-input-inline">
-           <input type="text" id="userName"  placeholder="员工姓名" autocomplete="off" class="layui-input">
+           <input type="text" id="staffName"  placeholder="员工姓名" autocomplete="off" class="layui-input">
           </div>
           
           <a class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></a>
         </form>
       </div>
       <xblock>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','staffController/goUserAdd.do')"><i class="layui-icon"></i>入职添加</button>
+        <button class="layui-btn" onclick="x_admin_show('添加职工','staffController/goUserAdd.do')"><i class="layui-icon"></i>入职添加</button>
         <span class="x-right" style="line-height:40px">共有数据：<a id="total">88</a> 条</span>
       </xblock>
       <table class="layui-table">
@@ -76,7 +76,7 @@
             <!-- <th>职位</th> -->
             <th>入职时间</th>
             <th>生日</th>
-            <th>年龄</th>
+           <!--  <th>年龄</th> -->
             <th>登录账号</th>
             <th>电话号码</th>
             <th>邮箱地址</th>
@@ -169,13 +169,13 @@ form.verify({
     ,content: function(value){
       layedit.sync(editIndex);
     }
-});
-//
+}); 
+//查询分页（功能暂不完善）
   form.on('submit(sreach)', function(data){
-      console.log(data);
+      console.log("sreach数据"+data);
       userDepart=$("#userDepart").val();
       birthRange=$("#birthRange").val();
-       staffName=$("#staffName").val();
+      staffName=$("#staffName").val();
     	EntryStart=start;
     	EntryEnd=end;
        showPage(-1);
@@ -185,8 +185,8 @@ form.verify({
     		  ,limit:1
     		  ,jump: function(obj, first){
     		    //obj包含了当前分页的所有参数，比如：
-    		    console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-    		    console.log(obj.limit); //得到每页显示的条数
+    		    console.log("sreach当前页"+obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+    		    console.log("sreach每页显示的条数"+obj.limit); //得到每页显示的条数
     		    //首次不执行
     		    if(!first){
     		    	showPage(obj.curr);
@@ -209,12 +209,17 @@ form.verify({
 		type : "POST",
 		async:false,
 		data : {
+			userDepart:userDepart,
+			EntryStart:EntryStart,
+			EntryEnd:EntryEnd,
+			birthRange:birthRange,
+			staffName:staffName,
 			currentPage:n
 		},
 		dataType : "text",
 		url : "staffController/selectStaff.ajax",
 		success : function(result) {
-			console.log(result);
+			console.log("从后台拿到的值"+result);
 			//alert(result);
 			var tl = eval("(" + result + ")");
 			if(n==-1){
@@ -226,19 +231,33 @@ form.verify({
 			if(tl.list.length>0){
 				$.each(tl.list, function(n,val){
 					/* console.log(val.userEntrytime);
-					console.log(typeof(val.userEntrytime)); */
+					console.log(typeof(val.userEntrytime)); 
+					
+				   
+				    */
 					var str="";
+					var jionTime = new Date(val.staffJoin).format("yyyy-MM-dd");
+					var birthday = new Date(val.staffBirthday).format("yyyy-MM-dd");
+					//alert(jionTime);
+					if (jionTime == "NaN-aN-aN") {
+						jionTime = "未入职";
+					}
+					//alert(jionTime);
+					if (birthday == "NaN-aN-aN") {
+						birthday = "未填写生日";
+					}
+					//alert(typeof(jionTime));
 				    str+="<tr>";
 				    str+="<td>"+val.staffName+"</td>";
 				    str+="<td>"+val.staffSex+"</td>";
 				    str+="<td>"+val.staffDepart+"</td>";
-				    str+="<td>"+new Date(val.staffJoin).format("yyyy-MM-dd")+"</td>";
-				    str+="<td>"+new Date(val.staffBirthday).format("yyyy-MM-dd")+"</td>";
-				    str+="<td>"+val.staffAge+"</td>";
+				    str+="<td>"+jionTime+"</td>";
+				    str+="<td>"+birthday+"</td>";
+				   /*  str+="<td>"+val.staffAge+"</td>"; */
 				    str+="<td>"+val.accountId+"</td>";
 				    str+="<td>"+val.staffTel+"</td>";
 				    str+="<td>"+val.staffEmail+"</td>";
-				    str+="<td><a class=\"layui-btn  layui-btn-mini\" onclick=\"x_admin_show('修改','staffController/goUserEdit.do?staffId="+val.staffId+"')\" ><i class=\"layui-icon\">&#xe642;</i>编辑</a> <button onclick=\"delUser('"+val.staffId+"')\" class=\"layui-btn  layui-btn-mini layui-btn-danger\"><i class=\"layui-icon\">&#xe640;</i>删除</button></td>"
+				    str+="<td><a class=\"layui-btn  layui-btn-mini\" onclick=\"x_admin_show('职工信息修改','staffController/goUserEdit.do?staffId="+val.staffId+"')\" ><i class=\"layui-icon\">&#xe642;</i>编辑</a> <button onclick=\"delUser('"+val.staffId+"')\" class=\"layui-btn  layui-btn-mini layui-btn-danger\"><i class=\"layui-icon\">&#xe640;</i>删除</button></td>"
 				    str+="</tr>";
 					$("#staffs").append(str);
 				})
@@ -252,7 +271,7 @@ form.verify({
 		}
 	});
 }
-  //分页
+  //分页,展示的时候分页
   showPage(-1);
   laypage.render({
 	  elem: 'test1'
@@ -260,8 +279,8 @@ form.verify({
 	  ,limit: 8 //这是理论上每页展示的条数，前后端要一致，否者，会多出空白页，或者展示不全
 	  ,jump: function(obj, first){
 	    //obj包含了当前分页的所有参数，比如：
-	    console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-	    console.log(obj.limit); //得到每页显示的条数
+	    console.log("分页展示当前页"+obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+	    console.log("分页展示显示条数"+obj.limit); //得到每页显示的条数
 	    
 	    //首次不执行
 	    if(!first){

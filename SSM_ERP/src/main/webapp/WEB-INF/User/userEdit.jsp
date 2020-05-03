@@ -63,7 +63,7 @@
                   autocomplete="off" class="layui-input">
               </div>
           </div>
-          <div class="layui-form-item">
+         <%--  <div class="layui-form-item">
               <label for="username" class="layui-form-label">
                   <span class="x-red">*</span>家庭地址
               </label>
@@ -71,7 +71,7 @@
                   <input type="text" value="${user.userAddress }"  name="userAddress" required="" lay-verify="required"
                   autocomplete="off" class="layui-input">
               </div>
-          </div>
+          </div> --%>
           <div class="layui-form-item">
               <label for="username" class="layui-form-label">
                   <span class="x-red">*</span>出生日期
@@ -90,7 +90,7 @@
                   autocomplete="off" class="layui-input">
               </div>
           </div>
-          <div class="layui-form-item">
+          <%-- <div class="layui-form-item">
               <label for="username" class="layui-form-label">
                   <span class="x-red">*</span>学历
               </label>
@@ -102,20 +102,20 @@
                     <option value="博士" ${user.userDiploma=='博士'? 'selected':'' }>博士</option>
                   </select>
               </div>
-          </div>
+          </div> --%>
           <div class="layui-form-item">
               <label for="username" class="layui-form-label">
                   <span class="x-red">*</span>部门安排
               </label>
               <div class="layui-input-inline">
                   <select name="userDepartement">
-                    <c:forEach items="${departs}" var="depart">
-              		<option ${user.userDepartement==depart.departId? 'selected':'' } value="${depart.departId }">${depart.departName} </option>
+                    <c:forEach items="${departs}" var="department">
+              		<option ${sta.staffDepart==department.departmentName? 'selected':'' } value="${department.departmentName }">${department.departmentName} </option>
               </c:forEach>
                   </select>
               </div>
           </div>
-          <div class="layui-form-item">
+          <%-- <div class="layui-form-item">
               <label for="L_email" class="layui-form-label">
                   <span class="x-red">*</span>职位
               </label>
@@ -123,13 +123,13 @@
                   <input type="text" id="L_email" value="${user.userPosition }" name="userPosition" required="" lay-verify=""
                   autocomplete="off" class="layui-input">
               </div>
-          </div>
+          </div> --%>
            <div class="layui-form-item">
               <label for="L_username" class="layui-form-label">
                   <span class="x-red">*</span>账号
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="userAccount" value="${user.accountNumber }" name="accountNumber" required="" onchange="onlyUser(this)" lay-verify="nikename"
+                  <input type="text" id="staffAccount" value="${sta.accountId }" name="accountNumber" required="" onchange="onlyUser(this)" lay-verify="nikename"
                   autocomplete="off" class="layui-input">
               </div>
               <div id="account" class="layui-form-mid layui-word-aux">
@@ -173,7 +173,7 @@
           <div class="layui-form-item">
               <label for="L_repass" class="layui-form-label">
               </label>
-              <button  class="layui-btn" lay-filter="add" lay-submit="">
+              <button  class="layui-btn" lay-filter="eidt" lay-submit="">
                   确定
               </button>
               <a  class="layui-btn" onclick="x_admin_close()"  lay-submit="">
@@ -288,7 +288,7 @@
   			
 }); 
           //监听提交
-          form.on('submit(add)', function(data){
+          form.on('submit(eidt)', function(data){
             console.log(data);
             //发异步，把数据提交给php
             console.log(data);

@@ -21,5 +21,7 @@ public interface UserService {
 
 	String checkRegister(String username, String password, String repassword);
 	
+	String showWelcome(HttpServletRequest request, HttpServletResponse response);
+	
 
 }

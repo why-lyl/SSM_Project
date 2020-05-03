@@ -1,5 +1,8 @@
 package com.team.erp.framework.service.serviceImpl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,7 +36,7 @@ public class UserServiceImpl implements UserService {
      * 登录认证
      */
 	@Override
-	public String checkLogin(String username, String password, String selectionBox, HttpServletRequest request,HttpServletResponse response) {
+	public String checkLogin(String username, String password, String selectionBox, HttpServletRequest requestuest,HttpServletResponse response) {
 		// shiro拿到当前用户
 		Subject subject = SecurityUtils.getSubject();
 		//System.out.println(subject);
@@ -50,6 +53,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			//认证过程放在try里面 认证失败会抛出异常 去自定义的realm类里面认证 
 			subject.login(token);//因为spring-shrio.xml配置，所以会到自定义的realm去认证
+			System.out.println("认证成功");
 			//登录成功
 			//此刻对Cookie做处理
 			/* 为了完成记住密码的功能需要将用户名和密码保存到cookie里面
@@ -87,28 +91,24 @@ public class UserServiceImpl implements UserService {
 //				c5.setMaxAge(0);
 //				
 //				//回写给浏览器
-//				c4.saveTo(request, response);
-//				c5.saveTo(request, response);
+//				c4.saveTo(requestuest, response);
+//				c5.saveTo(requestuest, response);
 				
 				//因为是根据selectionBox的值来判断的，所以要分情况
 				c3.setValue(selectionBox);
 				//回写给浏览器
-				c1.saveTo(request, response);
-				c2.saveTo(request, response);
-				c3.saveTo(request, response);
+				c1.saveTo(requestuest, response);
+				c2.saveTo(requestuest, response);
+				c3.saveTo(requestuest, response);
 			}else {//此种情况为selectionBox.equals("NO")的情况，为了记住密码的展示功能而设计
 				
 				c3.setValue(selectionBox);
 				
 				//回写给浏览器
-				c1.saveTo(request, response);
-				c2.saveTo(request, response);
-				c3.saveTo(request, response);
+				c1.saveTo(requestuest, response);
+				c2.saveTo(requestuest, response);
+				c3.saveTo(requestuest, response);
 			}
-//			 String parameter = request.getParameter("username");
-//			 request.setAttribute("user",  parameter);
-//			 System.out.println( parameter);
-			//System.out.println("登录成功");
 			return "SUCCESS";
 			
 		} catch (AuthenticationException e) {
@@ -176,12 +176,12 @@ public class UserServiceImpl implements UserService {
      * 查询指定的cookie
      */
 	@Override
-	public String queryCookie(HttpServletRequest request, HttpServletResponse response) {
+	public String queryCookie(HttpServletRequest requestuest, HttpServletResponse response) {
 		User user = new User();
 		Gson gson = new Gson();
 		
-		//1、拿到所有的cookie对象 -->通过request
-		Cookie[] cookies = request.getCookies();
+		//1、拿到所有的cookie对象 -->通过requestuest
+		Cookie[] cookies = requestuest.getCookies();
 		
 		//2、遍历数组
 		/*
@@ -266,6 +266,44 @@ public class UserServiceImpl implements UserService {
 	public User selectUserByUserName(String userName) {
 		
 		return um.selectUserByUserName(userName);
+	}
+
+	@Override
+	public String showWelcome(HttpServletRequest request, HttpServletResponse response) {
+				/*
+				 * 用request的方法获得的信息
+				 */
+				String userIp = request.getRemoteAddr();// 拿到来访者的IP地址
+				String serverName = request. getServerName();//获得服务器的名字  
+				String localIp = request.getLocalAddr();//获得服务器ip
+				String userName = request.getRemoteUser();//获取当前缓存的用户，比如Spring Security做权限控制后就会将用户登录名缓存到这里
+				//int serverPort = request.getServerPort();//获得服务器端口
+				
+				System.out.println(userName);
+				Staff staff = sm.selectStaffByAccountId(userName);
+				
+			    Date date = new Date();//获得时间
+			    SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");//格式化时间,精确到秒
+			    SimpleDateFormat dateFormat2 = new SimpleDateFormat("YYYY-MM-dd");//格式化时间，精确到年
+			    //System.out.println("date=" + dateFormat.format(date.getTime()));
+			    String formatDate = dateFormat.format(date.getTime());
+			    String formatJoinTime = dateFormat2.format(staff.getStaffJoin());
+				/*
+				 * 用request的方法设置获得的信息的名字，好用于EL表达式
+				 */
+				request.setAttribute("userIp", userIp);//引号里的是自定义的名，EL表达式需要使用
+				request.setAttribute("serverName", serverName);//后面的是变量名
+				request.setAttribute("localIp", localIp);
+				request.setAttribute("accountId", staff.getAccountId());
+				request.setAttribute("userName", staff.getStaffName());
+				/*request.setAttribute("LOGINTIME", formatDate);*///获得登录时间并格式化
+				request.setAttribute("department", staff.getStaffDepart());
+				request.setAttribute("joinTime",formatJoinTime);
+				request.setAttribute("telNum", staff.getStaffTel());
+				request.setAttribute("Email", staff.getStaffEmail());
+				//request.setAttribute("name", "看不见我");
+		        
+				return null;
 	}
 
 }

@@ -25,7 +25,7 @@ public class UserController extends BaseController{
 	@RequestMapping("/checkLogin.ajax")
 	@ResponseBody
 	public String checkLogin(String username, String password, String selectionBox, HttpServletRequest request, HttpServletResponse response) {
-     // System.out.println("连接后台成功");
+      System.out.println("连接后台成功");
 		
      //	System.out.println(username +" "+ password +" "+ selectionBox);
 		//System.out.println(us);
@@ -36,9 +36,14 @@ public class UserController extends BaseController{
 		 * 2、必须要有方法重写
 		 * 3、父类引用指向子类对象或者接口引用指向实现类对象
 		 */
-		
-		String info = us.checkLogin(username,password,selectionBox, request, response);//接口引用指向实现类对象
-		return info;
+        if (username!=null) {//不知道为什么验证了两次，刷新后显示的用户名就不在了，因此这样写,原来刷新就会重新验证，现在不会了
+        	String info = us.checkLogin(username,password,selectionBox, request, response);//接口引用指向实现类对象
+    		System.out.println("后台返回的"+info);
+    		System.out.println("后台的用户名"+username);
+    		return info;
+		}
+		return null;
+		    
 	}
 	
 	@RequestMapping("index.do")
@@ -75,33 +80,10 @@ public class UserController extends BaseController{
 	}
 	
 	@RequestMapping("goWelcome.do")
-	public String goWelcome(HttpServletRequest req, HttpServletResponse response) {
-        //跳转展示页面
-		//准备一些服务器信息......用req
-		
-		/*
-		 * 用req的方法获得的信息
-		 */
-		String userIp = req.getRemoteAddr();// 拿到来访者的IP地址
-		String serverName = req. getServerName();//获得服务器的名字  
-		String localIp = req.getLocalAddr();//获得服务器ip
-		String userName = req.getRemoteUser();//获取当前缓存的用户，比如Spring Security做权限控制后就会将用户登录名缓存到这里
-		//int serverPort = req.getServerPort();//获得服务器端口
-		
-	    Date date = new Date();//获得时间
-	    SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");//格式化时间
-	    //System.out.println("date=" + dateFormat.format(date.getTime()));
-	    String formatDate = dateFormat.format(date.getTime());
-		/*
-		 * 用req的方法设置获得的信息的名字，好用于EL表达式
-		 */
-		
-		req.setAttribute("userIp", userIp);//引号里的是自定义的名，EL表达式需要使用
-		req.setAttribute("serverName", serverName);//后面的是变量名
-		req.setAttribute("localIp", localIp);
-		req.setAttribute("userName", userName);
-		req.setAttribute("LOGINTIME", formatDate);
-		req.setAttribute("name", "看不见我");
+	public String goWelcome(HttpServletRequest request, HttpServletResponse response) {
+		//跳转展示页面
+		//准备一些服务器信息......用request
+		us.showWelcome(request, response);
 		return "welcome";
 	}
 	

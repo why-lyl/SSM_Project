@@ -65,29 +65,40 @@ $.ajax({
 				<table class="layui-table">
 					<thead>
 						<tr>
-							<th colspan="2" scope="col">您的账户信息</th>
+							<th colspan="2" scope="col">您的基本信息</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<th width="30%">您的账号</th>
-							<td>${name}</td>
+							<td>${accountId}</td>
 						</tr>
 						<tr>
 							<td>您的姓名</td>
 							<td>${userName}</td>
 						</tr>
-						<tr>
-							<td>您的登录时间</td>
-							<td>${LOGINTIME }</td>
-						</tr>
-						<tr>
+						<!-- <tr>
 							<td>您的浏览器信息</td>
 							<td id="browserVersion"></td>
-						</tr>
+						</tr> -->
 						<tr>
+							<td>您的入职时间</td>
+							<td>${joinTime}</td>
+						</tr>
+						<%-- <tr>
 							<td>您的IP地址</td>
 							<td>${userIp}</td>
+						</tr> --%>
+						<tr>
+							<td>您的电话号码</td>
+							<td>${telNum}</td>
+						</tr><tr>
+							<td>您的邮箱地址</td>
+							<td>${Email}</td>
+						</tr>
+						<tr>
+							<td>您所属的部门</td>
+							<td>${department}</td>
 						</tr>
 					</tbody>
 				</table>

@@ -10,8 +10,11 @@ public interface StaffService {
 	
 	Staff selectStaffByStaffId(Integer StaffId);
 	
+	Staff selectStaffByAccountId(String userName);
+	
 	int addStaffAll(Staff Staff);
 	
 	int updateStaffDpartmentByDepartmentId(int staffId);
 	
+	int userAdd(String username,String password,String repassword);
 }

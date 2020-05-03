@@ -92,7 +92,7 @@
   <!--更新职员3 暂定 #{departmentName,jdbcType=VARCHAR}-->
   <update id="updateStaffDpartmentByDepartmentId" parameterType="java.lang.Integer">
 	    update t_staff
-	    set staff_depart = "未分配"
+	    set staff_depart = "待分配"
 	    where staff_id = #{staffId,jdbcType=INTEGER}
   </update>
 </mapper>
