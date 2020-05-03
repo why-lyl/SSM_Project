@@ -28,6 +28,7 @@ public interface UserMapper {
 	
 	int updateByPrimaryKeySelective(User record);//根据选择的用户信息更新用户
 	int updateByPrimaryKey(User record);//根据主键更新用户信息
+	int updateUserByUserName(@Param("userName")String userName,@Param("newUserName")String newUserName,@Param("password") String password);//根据用户属性更新用户信息
 	
 	/**
 	 * 添加方法

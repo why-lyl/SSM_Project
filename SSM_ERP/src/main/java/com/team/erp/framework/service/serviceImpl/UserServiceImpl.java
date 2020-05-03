@@ -287,23 +287,48 @@ public class UserServiceImpl implements UserService {
 			    SimpleDateFormat dateFormat2 = new SimpleDateFormat("YYYY-MM-dd");//格式化时间，精确到年
 			    //System.out.println("date=" + dateFormat.format(date.getTime()));
 			    String formatDate = dateFormat.format(date.getTime());
-			    String formatJoinTime = dateFormat2.format(staff.getStaffJoin());
 				/*
 				 * 用request的方法设置获得的信息的名字，好用于EL表达式
 				 */
+			    if (staff.getStaffJoin() != null) {
+			    	String formatJoinTime = dateFormat2.format(staff.getStaffJoin());
+			    	request.setAttribute("joinTime",formatJoinTime);
+				}else {
+					request.setAttribute("joinTime","未入职");
+				}
+			    if (staff.getAccountId() != null) {
+			    	request.setAttribute("accountId", staff.getAccountId());
+				}else {
+					request.setAttribute("accountId","未创建账户");
+				}
+			    if (staff.getStaffName() != null) {
+			    	request.setAttribute("userName", staff.getStaffName());
+				}else {
+					request.setAttribute("userName","未设置用户名");
+				}
+			    if (staff.getStaffDepart() != null) {
+			    	request.setAttribute("department", staff.getStaffDepart());
+				}else {
+					request.setAttribute("department","待分配");
+				}
+			    if (staff.getStaffTel() != null) {
+			    	request.setAttribute("telNum", staff.getStaffTel());
+				}else {
+					request.setAttribute("telNum","未填写手机号");
+				}
+			    if (staff.getStaffEmail() != null) {
+			    	request.setAttribute("Email", staff.getStaffEmail());
+				}else {
+					request.setAttribute("Email","未填写邮箱信息");
+				}
 				request.setAttribute("userIp", userIp);//引号里的是自定义的名，EL表达式需要使用
 				request.setAttribute("serverName", serverName);//后面的是变量名
 				request.setAttribute("localIp", localIp);
-				request.setAttribute("accountId", staff.getAccountId());
-				request.setAttribute("userName", staff.getStaffName());
 				/*request.setAttribute("LOGINTIME", formatDate);*///获得登录时间并格式化
-				request.setAttribute("department", staff.getStaffDepart());
-				request.setAttribute("joinTime",formatJoinTime);
-				request.setAttribute("telNum", staff.getStaffTel());
-				request.setAttribute("Email", staff.getStaffEmail());
 				//request.setAttribute("name", "看不见我");
-		        
 				return null;
 	}
+
+	
 
 }

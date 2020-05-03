@@ -82,4 +82,26 @@ public class StaffController extends BaseController{
   	    System.out.println("根据账号查出的staff"+staff);
   		return null;
   	}
+   
+   @RequestMapping("staffEidt.ajax")
+   @ResponseBody
+  	public String staffEidt(Staff staff,int staffId,String accountId,String newAccountId,String password) {
+	    System.out.println("获得修改员工的值"+staff);
+	    System.out.println("获得要修改员工的id:"+staffId);
+	    System.out.println("获得修改员工的旧账号"+accountId);
+	    System.out.println("获得修改员工的新账号"+newAccountId);
+	    System.out.println("获得修改员工的新密码"+password);
+	   ss.staffEidt(staff, staffId, accountId, newAccountId, password);
+  	    System.out.println("修改员工任务执行");
+  		return "SUCCESS";
+  	}
+   
+   @RequestMapping("staffDel.ajax")
+   @ResponseBody
+  	public String staffDel(int staffId) {
+	    ss.deleteStaffAndUser(staffId);
+  	    System.out.println("删除员工任务执行");
+  		return "SUCCESS";
+  	}
+  
 }

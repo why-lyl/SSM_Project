@@ -138,7 +138,7 @@
                   <span class="x-red">*</span>账号
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="staffAccountId" name="accountId" required="" onchange="checkAccountId(this)" lay-verify="nikename"
+                  <input type="text" id="staffAccountId" name="accountId" required="" onchange="checkAccountId(this)" lay-verify="accountIdRule"
                   autocomplete="off" class="layui-input">
               </div>
               <div id="account" class="layui-form-mid layui-word-aux">
@@ -154,7 +154,7 @@
                   autocomplete="off" class="layui-input">
               </div>
               <div id="password" class="layui-form-mid layui-word-aux ">
-                  至少6个字符
+                  至少3个字符
               </div>
           </div>
           <div class="layui-form-item">
@@ -188,13 +188,13 @@
     	function checkAccountId(doms){
     		if($("#staffAccountId").val().length<2){
     			$("#staffAccountId").select();
-    			$("#account").html("至少3个字符");
+    			$("#account").html("至少2个字符");
     		}else{
     			AccountAjax();
     		}			
 		};
 		function safePW(){
-			if($('#AccountPassword').val().length>5){
+			if($('#AccountPassword').val().length>2){
 				$("#password").html("<i class=\"layui-icon layui-anim layui-anim-scale \" style=\"color: #1E9FFF;\">&#xe618;</i>")
 			}
 		}
@@ -245,12 +245,12 @@
   		});
           //自定义验证规则
           form.verify({
-            nikename: function(value){
-              if(value.length < 3){
-                return '请至少添加3个字符';
+            accountIdRule: function(value){
+              if(value.length < 2){
+                return '请至少添加2个字符';
               }
             }
-            ,pass: [/(.+){6,12}$/, '密码必须6到12位']
+            ,pass: [/(.+){3,12}$/, '密码必须3到12位']
             ,repass: function(value){
                 if($('#AccountPassword').val()!=$('#ReAccountPassword').val()){
                     return '两次密码不一致';

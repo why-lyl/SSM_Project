@@ -52,7 +52,8 @@
 	</select>
 	<!-- 添加员工1 -->
     <insert id="addStaff" parameterType="com.team.erp.framework.model.Staff" useGeneratedKeys="true" keyProperty="staffId">
-  	    INSERT INTO t_staff values (null,#{staffName},#{staffPassword})
+  	     INSERT INTO t_staff values (#{staffId},#{staffName},#{staffSex},#{staffAge},
+  	    #{staffBirthday},#{staffTel},#{staffEmail},#{staffJoin},#{staffDepart},#{accountId})
     </insert>
     <!-- 添加员工2 -->
     <insert id="addStaffAll" parameterType="com.team.erp.framework.model.Staff" useGeneratedKeys="true" keyProperty="staffId">
@@ -64,10 +65,20 @@
   	    INSERT INTO t_staff(account_id) SELECT user_name FROM t_user
         where user_id = #{userId}
     </insert>
-     <!-- 删除用户 -->
-    <delete id="deleteStaffBystaffId" parameterType="java.lang.Integer">
+     <!-- 删除用户1 -->
+    <delete id="deleteStaffByStaffId" parameterType="java.lang.Integer">
 	    delete from t_staff
 	    where staff_id = #{staffId,jdbcType=INTEGER}
+    </delete>
+    <!-- 删除用户2 -->
+    <delete id="deleteStaffByStaffName" parameterType="java.lang.String">
+	    delete from t_staff
+	    where staff_id = #{staffId,jdbcType=VARCHAR}
+    </delete>
+    <!-- 删除用户3 -->
+    <delete id="deleteStaffByAccountId" parameterType="java.lang.String">
+	    delete from t_staff
+	    where account_id = #{accountId,jdbcType=VARCHAR}
     </delete>
     <!--更新职员1 -->
     <update id="updateByPrimaryKeySelective" parameterType="com.team.erp.framework.model.Staff">
@@ -94,5 +105,11 @@
 	    update t_staff
 	    set staff_depart = "待分配"
 	    where staff_id = #{staffId,jdbcType=INTEGER}
+  </update>
+  <!--更新职员4-->
+  <update id="updateStaffAccountIdBynewAccountId" parameterType="java.lang.String">
+	    update t_staff
+	    set account_id = #{newAccountId,jdbcType=VARCHAR}
+	    where account_id = #{accountId,jdbcType=VARCHAR}
   </update>
 </mapper>

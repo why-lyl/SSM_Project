@@ -104,7 +104,8 @@ var birthRange=null;
 var staffName=null;
 var total=0;
 //删除操作
-function delUser(userId){
+function delStaff(staffId){//这里staffId是通过遍历时产生的删除按钮那里得到的值，可以进行名字的更改
+	//alert(staffId);
 	layer.msg('确定删除吗？', {
 		  time: 0 //不自动关闭
 		  ,btn: ['确定删除','取消返回']
@@ -113,10 +114,10 @@ function delUser(userId){
 					type : "POST",
 					async:false,
 					data : {
-						userId:userId
+						staffId:staffId
 					},
 					dataType : "text",
-					url : "manageEmeController/userDel.ajax",
+					url : "staffController/staffDel.ajax",
 					success : function(result) {
 						console.log(result);
 						layer.msg("删除成功",{
@@ -257,7 +258,7 @@ form.verify({
 				    str+="<td>"+val.accountId+"</td>";
 				    str+="<td>"+val.staffTel+"</td>";
 				    str+="<td>"+val.staffEmail+"</td>";
-				    str+="<td><a class=\"layui-btn  layui-btn-mini\" onclick=\"x_admin_show('职工信息修改','staffController/goUserEdit.do?staffId="+val.staffId+"')\" ><i class=\"layui-icon\">&#xe642;</i>编辑</a> <button onclick=\"delUser('"+val.staffId+"')\" class=\"layui-btn  layui-btn-mini layui-btn-danger\"><i class=\"layui-icon\">&#xe640;</i>删除</button></td>"
+				    str+="<td><a class=\"layui-btn  layui-btn-mini\" onclick=\"x_admin_show('职工信息修改','staffController/goUserEdit.do?staffId="+val.staffId+"')\" ><i class=\"layui-icon\">&#xe642;</i>编辑</a> <button onclick=\"delStaff('"+val.staffId+"')\" class=\"layui-btn  layui-btn-mini layui-btn-danger\"><i class=\"layui-icon\">&#xe640;</i>删除</button></td>"
 				    str+="</tr>";
 					$("#staffs").append(str);
 				})

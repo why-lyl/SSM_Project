@@ -64,10 +64,15 @@
   	  insert into t_user_authority VALUES(NULL,#{userId},#{authorityId})
     </insert>
     
-     <!-- 删除用户 -->
+     <!-- 删除用户1 -->
     <delete id="deleteUserByUserId" parameterType="java.lang.Integer">
 	    delete from t_user
 	    where user_id = #{userId,jdbcType=INTEGER}
+    </delete>
+    <!-- 删除用户2 -->
+    <delete id="deleteUserByUserName" parameterType="java.lang.String">
+	    delete from t_user
+	    where user_name = #{userName,jdbcType=VARCHAR}
     </delete>
     <!--更新用户1 -->
     <update id="updateByPrimaryKeySelective" parameterType="com.team.erp.framework.model.User">
@@ -77,7 +82,7 @@
 	        user_name = #{userName,jdbcType=VARCHAR},
 	      </if>
 	      <if test="userPassword != null">
-	        user_password = #{userPassword,jdbcType=VARCHAR},
+	        password = #{password,jdbcType=VARCHAR},
 	      </if>
 	    </set>
 	    where user_id = #{userId,jdbcType=INTEGER}
@@ -86,7 +91,14 @@
   <update id="updateByPrimaryKey" parameterType="com.team.erp.framework.model.User">
 	    update t_user
 	    set user_name = #{userName,jdbcType=VARCHAR},
-	        user_password = #{userPassword,jdbcType=VARCHAR}
+	        password = #{password,jdbcType=VARCHAR}
 	    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <!--更新用户3-->
+  <update id="updateUserByUserName" parameterType="java.lang.String">
+	    update t_user
+	    set user_name = #{newUserName,jdbcType=VARCHAR},
+	       password = #{password,jdbcType=VARCHAR}
+	    where user_name = #{userName,jdbcType=VARCHAR}
   </update>
 </mapper>

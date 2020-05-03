@@ -17,4 +17,9 @@ public interface StaffService {
 	int updateStaffDpartmentByDepartmentId(int staffId);
 	
 	int userAdd(String username,String password,String repassword);
+	
+	String staffEidt(Staff staff, int staffId, String accountId, String newAccountId, String password);
+	
+	int deleteStaffAndUser(int staffId);
+
 }

@@ -37,12 +37,12 @@
               </div>
           </div>
           <div class="layui-form-item">
-              <label for="username" class="layui-form-label">
+              <label for="staffsex" class="layui-form-label">
                   <span class="x-red">*</span>性别
               </label>
               <div class="layui-input-inline">
-                  <input name="userSex" ${sta.staffSex=='男'? 'checked':''}  type="radio" value="男" lay-skin="primary" title="男">
-                  <input name="userSex" ${sta.staffSex=='女'? 'checked':''} type="radio" value="女" lay-skin="primary" title="女">
+                  <input name="staffSex" ${sta.staffSex=='男'? 'checked':''}  type="radio" value="男" lay-skin="primary" title="男">
+                  <input name="staffSex" ${sta.staffSex=='女'? 'checked':''} type="radio" value="女" lay-skin="primary" title="女">
               </div>
           </div>
           <div class="layui-form-item">
@@ -50,16 +50,16 @@
                   <span class="x-red">*</span>手机
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="phone" value="${sta.staffTel}" name="userTelephone" required="" lay-verify="phone"
+                  <input type="text" id="phone" value="${sta.staffTel}" name="staffTel" required="" lay-verify="phone"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
           <div class="layui-form-item">
-              <label for="phone" class="layui-form-label">
+              <label for="email" class="layui-form-label">
                   <span class="x-red">*</span>电子邮箱
               </label>
               <div class="layui-input-inline">
-                  <input type="text"  value="${sta.staffEmail }" name="userEmail" required="" lay-verify="email"
+                  <input type="text"  value="${sta.staffEmail }" name="staffEmail" required="" lay-verify="email"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
@@ -73,20 +73,20 @@
               </div>
           </div> --%>
           <div class="layui-form-item">
-              <label for="username" class="layui-form-label">
+              <label for="staffbirth" class="layui-form-label">
                   <span class="x-red">*</span>出生日期
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="date1" value="${sta.staffBirthday }" name="userBirthday" required="" lay-verify="required"
+                  <input type="text" id="date1" value="${sta.staffBirthday }" name="staffBirthday" required="" lay-verify="required"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
           <div class="layui-form-item">
-              <label for="username" class="layui-form-label">
+              <label for="staffjoin" class="layui-form-label">
                   <span class="x-red">*</span>入职时间
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="date2" value="${sta.staffJoin }" name="userEntrytime" required="" lay-verify="required"
+                  <input type="text" id="date2" value="${sta.staffJoin }" name="staffJoin" required="" lay-verify="required"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
@@ -104,11 +104,11 @@
               </div>
           </div> --%>
           <div class="layui-form-item">
-              <label for="username" class="layui-form-label">
+              <label for="staffdepart" class="layui-form-label">
                   <span class="x-red">*</span>部门安排
               </label>
               <div class="layui-input-inline">
-                  <select name="userDepartement">
+                  <select name="staffDepart">
                     <c:forEach items="${departs}" var="department">
               		<option ${sta.staffDepart==department.departmentName? 'selected':'' } value="${department.departmentName }">${department.departmentName} </option>
               </c:forEach>
@@ -125,28 +125,36 @@
               </div>
           </div> --%>
            <div class="layui-form-item">
-              <label for="L_username" class="layui-form-label">
+              <label for="staffaccount" class="layui-form-label">
                   <span class="x-red">*</span>账号
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="staffAccount" value="${sta.accountId }" name="accountNumber" required="" onchange="onlyUser(this)" lay-verify="nikename"
+                  <input type="text" id="oldstaffAccountId" value="${sta.accountId }" name="accountId" readonly = "readonly" "
                   autocomplete="off" class="layui-input">
-              </div>
-              <div id="account" class="layui-form-mid layui-word-aux">
-                 	至少3个字符
               </div>
           </div>
              <div class="layui-form-item">
               <label for="L_pass" class="layui-form-label">
-                  <span class="x-red">*</span>重置密码
+                  <span class="x-red">*</span>重置账号信息
               </label>
               <div class="layui-input-inline">
                  <input type="checkbox" name="zzz" lay-filter="filter" lay-skin="switch" lay-text="确定|取消">
               </div>
           </div>
-          
+            <div name="pwd" class="layui-form-item">
+              <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>账号
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="staffAccountId" value="${sta.accountId }" name="newAccountId" required="" onchange="checkAcountId(this)" lay-verify="accountIdRule"
+                  autocomplete="off" class="layui-input">
+              </div>
+              <div id="account" class="layui-form-mid layui-word-aux">
+                 	至少2个字符
+              </div>
+          </div>
             <div name="pwd" class="layui-form-item ">
-              <label for="L_pass" class="layui-form-label">
+              <label for="password" class="layui-form-label">
                   <span class="x-red">*</span>新密码
               </label>
               <div class="layui-input-inline">
@@ -154,15 +162,15 @@
                   autocomplete="off" class="layui-input">
               </div>
               <div id="password" class="layui-form-mid layui-word-aux ">
-                  至少6个字符
+                  至少3个字符
               </div>
           </div>
           <div name="pwd" class="layui-form-item">
-              <label for="L_repass" class="layui-form-label">
+              <label for="repassword" class="layui-form-label">
                   <span class="x-red">*</span>确认密码
               </label>
               <div class="layui-input-inline">
-                  <input onchange="confirm()" type="password" id="L_repass" name="repass"  
+                  <input onchange="confirm()" type="password" id="L_repass" name="repassword"  
                   autocomplete="off" class="layui-input">
               </div>
                <div id="confire" class="layui-form-mid layui-word-aux ">
@@ -196,16 +204,25 @@
 	})
 	
      /*这里是对相关格式的验证*/
-    	function onlyUser(doms){
-    		if($("#userAccount").val().length<3){
-    			$("#userAccount").select();
-    			$("#account").html("至少3个字符");
+    	function checkAcountId(doms){
+    		if($("#staffAccountId").val().length<2){
+    			$("#staffAccountId").select();
+    			$("#account").html("<span style=\"color: #FF5722\" class=\"layui-anim layui-anim-scale\">账号要求至少两个字符</span>");
+    		}else if($("#staffAccountId").val()==$("#oldstaffAccountId").val()){
+    			console.log($("#staffAccountId").val());
+    			console.log($("#oldstaffAccountId").val());
+    			oldAccoun();
     		}else{
     			AccountAjax();
     		}			
 		};
+		function oldAccoun(){//新旧账号比对
+				console.log("进入新旧账号比对方法");
+				$("#account").html("<i class=\"layui-icon layui-anim  layui-anim-scale\" style=\"color: #1E9FFF;\">&#xe618;</i>  ")
+			
+		}
 		function safePW(){
-			if($('#L_pass').val().length>5){
+			if($('#L_pass').val().length>2){
 				$("#password").html("<i class=\"layui-icon layui-anim layui-anim-scale \" style=\"color: #1E9FFF;\">&#xe618;</i>")
 			}
 		}
@@ -219,22 +236,22 @@
 				type : "POST",
 				async:false,
 				data : {
-					account:$("#userAccount").val()
+					account:$("#staffAccountId").val()
 				},
 				dataType : "text",
-				url : "manageEmeController//isRepeat.ajax",
+				url : "staffController/isRepeat.ajax",
 				success : function(result) {
 					console.log(result);
 					if(result=="NO"){
 						$("#account").html("<i class=\"layui-icon layui-anim  layui-anim-scale\" style=\"color: #1E9FFF;\">&#xe618;</i>  ")
 					}else{
-						$("#userAccount").select();
+						$("#staffAccountId").select();
 						$("#account").html("<span style=\"color: #FF5722\" class=\"layui-anim layui-anim-scale\">账号已存在!</span>")
 					}
 					
 				},
 				error : function() {
-					$("#userAccount").select();
+					$("#staffAccountId").select();
 					$("#account").html("<span style=\"color: #FF5722\" class=\"layui-anim layui-anim-scale\">无法连接服务器!</span>")
 					layer.msg('无法连接服务器', {icon: 2});
 				}
@@ -256,12 +273,12 @@
   		});
           //自定义验证规则
           form.verify({
-            nikename: function(value){
-              if(value.length < 5){
-                return '昵称至少得5个字符啊';
+            accountIdRule: function(value){
+              if(value.length < 2){
+                return '请至少添加2个字符作为您的账号';
               }
             }
-            ,pass: [/(.+){6,12}$/, '密码必须6到12位']
+            ,pass: [/(.+){3,12}$/, '密码必须6到12位']
             ,repass: function(value){
                 if($('#L_pass').val()!=$('#L_repass').val()){
                     return '两次密码不一致';
@@ -296,7 +313,7 @@
         		type : "POST",
         		data : $('#form1').serialize(),
         		dataType : "text",
-        		url :"manageEmeController/userChanged.ajax?userId=${user.userId}",
+        		url :"staffController/staffEidt.ajax?staffId=${sta.staffId}",
         		success : function(result) {
         		 //发异步，把数据提交给php
                  layer.msg("修改成功",{
