@@ -29,7 +29,7 @@
 <script type="text/javascript" src="js/xadmin.js"></script>
 <script type="text/javascript" src="js/jquery.ztree.all.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
-<script type="text/javascript" src="view/organization/organization-list.js"></script>
+<script type="text/javascript" src="organization/organization-list.js"></script>
 <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
 <!--[if lt IE 9]>
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -53,21 +53,21 @@
 		<div class="row">
 			
 			
-			<c:forEach items="${DwAs}" var="DWA">
+			<c:forEach items="${Departments}" var="Department">
 				<div class="col-md-4"  >
 				<div class="panel panel-default">
-				<div class="panel-heading">${DWA.departName } <div  style="float: right;"><a><i onclick="x_admin_show('修改','manageEmeController/toDeparInfo.do?departId=${DWA.departId}')"  class="layui-icon">&#xe642;</i></a>
-						<a  onclick="delUser('${DWA.departId}','${DWA.departName }')" name="close" ><i class="layui-icon">&#xe640;</i></a>
+				<div class="panel-heading">${Department.departmentName } <div  style="float: right;"><a><i onclick="x_admin_show('部门信息修改','departmentController/departmentEidt.do?departmentId=${Department.departmentId}')"  class="layui-icon">&#xe642;</i></a>
+						<a  onclick="delDepartment('${Department.departmentId}','${Department.departmentName }')" name="close" ><i class="layui-icon">&#xe640;</i></a>
 					</div> </div>
 					<div class="panel-body">
-					<span class="message-title">${DWA.departDesc }</span>
+					<span class="message-title">${Department.departmentDesc }</span>
 						<hr />
 					<table>
 						
 						<tr>
 							<th width="100px">部门权限 </th>
 					 		<td>
-								<span> ${DWA.authrs} </span>
+								<span> ${Department.authrs} </span>
 							</td>
 						</tr>	
 					</table>
@@ -93,7 +93,7 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-	function delUser(departId,departName){
+	function delDepartment(departmentId,departmentName){
 		layer.msg('确定删除吗？', {
 			  time: 0 //不自动关闭
 			  ,btn: ['确定删除','取消返回']
@@ -102,13 +102,13 @@
 						type : "POST",
 						async:false,
 						data : {
-							departId:departId
+							departmentId:departmentId
 						},
 						dataType : "text",
 						url : "manageEmeController/delDepart.ajax",
 						success : function(result) {
 							console.log(result);
-							layer.msg(departName+"已解散",{
+							layer.msg(departmentName+"已解散",{
 			              		icon : 1,
 			               		time: 500,
 			               	},function () {

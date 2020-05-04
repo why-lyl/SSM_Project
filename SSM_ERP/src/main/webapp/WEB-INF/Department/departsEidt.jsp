@@ -32,7 +32,7 @@
                         <span class="x-red">*</span>部门名称
                     </label>
                     <div class="layui-input-inline">
-                        <input id="departName" onchange="onlyUser()"  value="${depart.departName }" type="text"  name="departName" required="" lay-verify="required|repeat"
+                        <input id="departmentName" onchange="checkDepartment()"  value="${department.departmentName }" type="text"  name="departmentName" required="" lay-verify="required|repeat"
                         autocomplete="off" class="layui-input">
                     </div>
                     <div id="account" class="layui-form-mid layui-word-aux">
@@ -45,7 +45,7 @@
                         <span class="x-red">*</span>部门描述
                     </label>
                     <div class="layui-input-inline">
-                        <input  value="${depart.departDesc }" type="text"  name="departDesc" required="" lay-verify="required"
+                        <input  value="${department.departmentDesc }" type="text"  name="departmentDesc" required="" lay-verify="required"
                         autocomplete="off" class="layui-input">
                     </div>
                 </div>
@@ -83,32 +83,32 @@
               <a  class="layui-btn"  lay-filter="add" lay-submit="">
                  	 确定
               </a>
-              <a class="layui-btn layui-btn-normal" onclick="javascript:history.go(-1);" style="text-align:center">返回</a>
+              <a class="layui-btn layui-btn-normal" onclick="x_admin_close()" style="text-align:center">返回</a>
           </div>
             </form>
     </div>
 
 	</body>
 <script type="text/javascript">
-var departName="";
+var departmentName="";
 var isRepeat=false;
 $(function(){
-var d=$("#departName").val();
+var d=$("#departmentName").val();
 if(d!=null&&d!=""){
-	departName=d;
-	console.log("departName:"+departName);
-	url="updateDepart.ajax?departId=${depart.departId }";
+	departmentName=d;
+	console.log("departmentName:"+departmentName);
+	url="updateDepart.ajax?departmentId=${department.departmentId }";
 }else{
 	url="addDepart.ajax"
 }
 
 })
-function onlyUser(){
-	if($("#departName").val().length<3){
-		$("#departName").select();
+function checkDepartment(){
+	if($("#departmentName").val().length<3){
+		$("#departmentName").select();
 		$("#account").html("至少3个字符");
 	}else{
-		if($("#departName").val()==departName){
+		if($("#departmentName").val()==departmentName){
 			$("#account").html("<i class=\"layui-icon layui-anim  layui-anim-scale\" style=\"color: #1E9FFF;\">&#xe618;</i>");
 		}else{			
 				DepartAjax();			
@@ -123,7 +123,7 @@ function DepartAjax(){
 		type : "POST",
 		async:false,
 		data : {
-			departName:$("#departName").val()//发送当前输入框的名称
+			departmentName:$("#departmentName").val()//发送当前输入框的名称
 		},
 		dataType : "text",
 		url : "manageEmeController/isRepeatDepart.ajax",//请求后台验证是否已存在

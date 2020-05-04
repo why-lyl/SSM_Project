@@ -10,8 +10,8 @@ public interface DepartmentMapper {
 	 * 查询方法
 	 */
 	
-	Department selectDepartmentByDepartmentId(Integer DepartmentId); //根据部门id查询部门
-	Department selectDepartmentByDepartmentName(String DepartmentName);//根据部门名字查询部门信息
+	Department selectDepartmentByDepartmentId(Integer departmentId); //根据部门id查询部门
+	Department selectDepartmentByDepartmentName(String departmentName);//根据部门名字查询部门信息
 	List<Department> selectDepartmentAll();//无参数查出部门的所有信息
 	
 	/**
@@ -25,14 +25,14 @@ public interface DepartmentMapper {
 	 * 添加方法
 	 */
 	
-	int addDepartment(Department Department);//插入部门1
-	int addDepartmentAll(Department Department);//插入部门信息2
+	int addDepartment(Department department);//插入部门1
+	int addDepartmentAll(Department department);//插入部门信息2
 	
 	/**
 	 * 删除方法
 	 */
 	
-	int deleteDepartmentByDepartmentId(Integer DepartmentId);//根据部门id删除部门
-	int deleteDepartmentByDepartmentName(String DepartmentName);//根据部门name删除部门
+	int deleteDepartmentByDepartmentId(Integer departmentId);//根据部门id删除部门
+	int deleteDepartmentByDepartmentName(String departmentName);//根据部门name删除部门
 
 }

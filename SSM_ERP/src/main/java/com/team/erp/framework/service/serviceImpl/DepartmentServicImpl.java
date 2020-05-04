@@ -21,4 +21,22 @@ public class DepartmentServicImpl implements DepartmentService {
 		return dm.selectDepartmentAll();
 	}
 
+	@Override
+	public Department selectDepartmentByDepartmentId(Integer departmentId) {
+		
+		return dm.selectDepartmentByDepartmentId(departmentId);
+	}
+
+	@Override
+	public Department selectDepartmentByDepartmentName(String departmentName) {
+		
+		return dm.selectDepartmentByDepartmentName(departmentName);
+	}
+
+	@Override
+	public int addDepartment(Department department) {
+		
+		return dm.addDepartment(department);
+	}
+
 }

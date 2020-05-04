@@ -85,12 +85,22 @@ public class StaffServiceImpl implements StaffService {
 		int num1 = sm.deleteStaffByStaffId(staffId);
 		if (num1==1) {
 			int num2 = sm.addStaff(staff);
-			if(password!=null) {
+			User user = um.selectUserByUserName(accountId);
+			if (user==null) {//staff表中有账户，但是user表中没有相关账户，也要在user表中添加信息
+				//只要user为空就要添加
+				System.out.println("staff表中有账户,user表中无账户,添加信息到user表执行");
+				um.addUserByProperty(null, newAccountId, null);
+				sm.updateStaffAccountIdBynewAccountId(accountId, newAccountId);//更新职员信息
+				String userPassword = new MD5Util().getPasswordByMD5(password, newAccountId);//对密码进行加密
+				um.updateUserByUserName(newAccountId, newAccountId, userPassword);//对应的更新用户表
+			}
+			
+			if(password!=null) {//此种情况为User中存在userName，上面的为User中为空的情况
+				System.out.println("修改User表执行");
 				sm.updateStaffAccountIdBynewAccountId(accountId, newAccountId);
 				String userPassword = new MD5Util().getPasswordByMD5(password, newAccountId);//对密码进行加密
-				int num3 = um.updateUserByUserName(accountId, newAccountId, userPassword);//对应的更新用户表
-				String resetpassword = String.valueOf(num3);
-				return resetpassword;
+			    um.updateUserByUserName(accountId, newAccountId, userPassword);//对应的更新用户表
+				
 			}
 		}
 		return null;
