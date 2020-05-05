@@ -39,4 +39,16 @@ public class DepartmentServicImpl implements DepartmentService {
 		return dm.addDepartment(department);
 	}
 
+	@Override
+	public int deleteDepartmentByDepartmentId(Integer departmentId) {
+		
+		return dm.deleteDepartmentByDepartmentId(departmentId);
+	}
+
+	@Override
+	public int updateByPrimaryKey(Department department) {
+		
+		return dm.updateByPrimaryKey(department);
+	}
+
 }

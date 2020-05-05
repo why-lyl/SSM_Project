@@ -90,6 +90,7 @@
 
 	</body>
 <script type="text/javascript">
+/*进行验证与部门名相关的信息是否存在，即验证部门是否存在  */
 var departmentName="";
 var isRepeat=false;
 $(function(){
@@ -97,7 +98,7 @@ var d=$("#departmentName").val();
 if(d!=null&&d!=""){
 	departmentName=d;
 	console.log("departmentName:"+departmentName);
-	url="updateDepart.ajax?departmentId=${department.departmentId }";
+	url="departmentEidt.ajax?departmentId=${department.departmentId }";
 }else{
 	url="addDepart.ajax"
 }
@@ -106,7 +107,7 @@ if(d!=null&&d!=""){
 function checkDepartment(){
 	if($("#departmentName").val().length<3){
 		$("#departmentName").select();
-		$("#account").html("至少3个字符");
+		$("#account").html("请至少添加3个字符作为部门名 ");
 	}else{
 		if($("#departmentName").val()==departmentName){
 			$("#account").html("<i class=\"layui-icon layui-anim  layui-anim-scale\" style=\"color: #1E9FFF;\">&#xe618;</i>");
@@ -126,7 +127,7 @@ function DepartAjax(){
 			departmentName:$("#departmentName").val()//发送当前输入框的名称
 		},
 		dataType : "text",
-		url : "manageEmeController/isRepeatDepart.ajax",//请求后台验证是否已存在
+		url : "departmentController/isRepeatDepart.ajax",//请求后台验证是否已存在
 		success : function(result) {
 			console.log(result);
 			if(result=="NO"){
@@ -198,7 +199,7 @@ form.verify({
        		type : "POST",
        		data : $('#form1').serialize(),
        		dataType : "text",
-       		url :"manageEmeController/"+url,
+       		url :"departmentController/"+url,
        		success : function(result) {
        		 //发异步，把数据提交给php
                 layer.msg("修改成功",{

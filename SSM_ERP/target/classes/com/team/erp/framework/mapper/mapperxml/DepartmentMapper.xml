@@ -33,7 +33,7 @@
 		where department_name= #{departmentName,jdbcType=VARCHAR}
 	</select>
 	
-	<!-- 根据姓名查询department -->
+	<!-- 查出department的所有信息 -->
 	<select id="selectDepartmentAll" parameterType="java.lang.String" resultMap="BaseResultMap">
 		select 
 		*
@@ -45,10 +45,16 @@
   	    INSERT INTO t_department values (null,#{departmentName},#{departmentDesc},#{authrs})
     </insert>
     
-    <!-- 删除部门 -->
+    <!-- 删除部门1 -->
     <delete id="deleteDepartmentByDepartmentId" parameterType="java.lang.Integer">
 	    delete from t_department
 	    where department_id = #{departmentId,jdbcType=INTEGER}
+    </delete>
+    
+    <!-- 删除部门2 -->
+    <delete id="deleteDepartmentByDepartmentName" parameterType="java.lang.String">
+	    delete from t_department
+	    where department_name= #{departmentName,jdbcType=VARCHAR}
     </delete>
     <!--更新部门1 -->
     <update id="updateByPrimaryKeySelective" parameterType="com.team.erp.framework.model.Department">
@@ -64,6 +70,8 @@
   <update id="updateByPrimaryKey" parameterType="com.team.erp.framework.model.Department">
 	    update t_department
 	    set department_name = #{departmentName,jdbcType=VARCHAR},
+	        department_desc = #{departmentDesc,jdbcType=VARCHAR},
+	        authrs = #{authrs,jdbcType=VARCHAR}
 	    where department_id = #{departmentId,jdbcType=INTEGER}
   </update>
     

@@ -57,7 +57,7 @@
 				<div class="col-md-4"  >
 				<div class="panel panel-default">
 				<div class="panel-heading">${Department.departmentName } <div  style="float: right;"><a><i onclick="x_admin_show('部门信息修改','departmentController/departmentEidt.do?departmentId=${Department.departmentId}')"  class="layui-icon">&#xe642;</i></a>
-						<a  onclick="delDepartment('${Department.departmentId}','${Department.departmentName }')" name="close" ><i class="layui-icon">&#xe640;</i></a>
+						<!--删除按钮  --><a  onclick="delDepartment('${Department.departmentId}','${Department.departmentName }')" name="close" ><i class="layui-icon">&#xe640;</i></a>
 					</div> </div>
 					<div class="panel-body">
 					<span class="message-title">${Department.departmentDesc }</span>
@@ -105,7 +105,7 @@
 							departmentId:departmentId
 						},
 						dataType : "text",
-						url : "manageEmeController/delDepart.ajax",
+						url : "departmentController/delDepartment.ajax",
 						success : function(result) {
 							console.log(result);
 							layer.msg(departmentName+"已解散",{

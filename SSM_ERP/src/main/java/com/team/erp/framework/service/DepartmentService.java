@@ -14,5 +14,9 @@ public interface DepartmentService {
 	List<Department> selectDepartmentAll();
 	
 	int addDepartment(Department department);
+	
+	int deleteDepartmentByDepartmentId(Integer departmentId);//根据部门id删除部门
+	
+	int updateByPrimaryKey(Department department);//根据主键更新部门信息
 
 }

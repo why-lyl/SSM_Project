@@ -68,4 +68,28 @@ public class departmentController extends BaseController{
 		ds.addDepartment(department);
 		return null;
 	}
+	
+	@RequestMapping("departmentEidt.ajax")
+	@ResponseBody
+	public String departmentEidt(Department department) {
+		System.out.println("修改时拿到的部门信息"+department);
+		System.out.println("部门修改操作执行");
+		int updateByPrimaryKey = ds.updateByPrimaryKey(department);
+		if (updateByPrimaryKey==1) {
+			System.out.println("单表的部门更新成功");
+		}
+		return null;
+	}
+	
+	@RequestMapping("delDepartment.ajax")
+	@ResponseBody
+	public String delDepartment(int departmentId) {
+		System.out.println("拿到的部门Id"+departmentId);
+		System.out.println("部门删除操作执行");
+		int delDepartment = ds.deleteDepartmentByDepartmentId(departmentId);
+		if(delDepartment==1) {
+			System.out.println("单表删除部门信息成功");
+		}
+		return null;
+	}
 }

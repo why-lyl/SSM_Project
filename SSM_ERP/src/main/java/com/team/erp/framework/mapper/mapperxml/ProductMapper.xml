@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <!-- namespace命名空间，作用就是对sql进行分类化管理，即sql隔离
+       注意：使用mapper代理方法开发的话，namespace就有特殊重要的作用了-->
+    <mapper namespace = "com.team.erp.framework.mapper.ProductMapper">
+    <resultMap type="com.team.erp.framework.model.Product" id="BaseResultMap">
+		    <!--id column 是数据表中主键名，result column 是数据表中属性名 ;
+		    jdbcType 是数据表中的数据类型，注意要全部大写 ;property 是实体类名 -->
+			<id column="product_id" jdbcType="INTEGER" property="productId"/>
+		    <result column="product_name" jdbcType="VARCHAR" property="productName"/>
+		    <result column="product_type" jdbcType="VARCHAR" property="productType"/>
+		    <result column="product_sort" jdbcType="VARCHAR" property="productSort"/>
+		    <result column="product_amount" jdbcType="VARCHAR" property="productAmount"/>
+		    <result column="product_price" jdbcType="DECIMAL" property="productPrice"/>
+		    <result column="product_total" jdbcType="DECIMAL" property="productTotal"/>
+		</resultMap>
+		
+	<!-- sql片段的封装，可根据实际情况来改写 -->
+	    <sql id="Base_Column_List">
+	      	product_id, product_name,product_type,product_sort,
+	      	product_amount,product_price,product_total
+	    </sql>
+	    
+	<!-- 根据id查询product -->
+	<select id="selectProductByProductId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from t_product
+		where product_id = #{productId,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 根据名字查询product -->
+	<select id="selectProductByProductName" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from t_product
+		where product_name= #{productName,jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 查出product的所有信息 -->
+	<select id="selectProductAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select 
+		*
+		from t_product
+	</select>
+	
+	<!-- 添加产品1 -->
+    <insert id="addProduct" parameterType="com.team.erp.framework.model.Product" useGeneratedKeys="true" keyProperty="productId">
+  	    INSERT INTO t_product values (null,#{productName},#{productType},
+  	    #{productSort},#{productAmount},#{productPrice},#{productTotal})
+    </insert>
+    
+    <!-- 删除产品1 -->
+    <delete id="deleteProductByProductId" parameterType="java.lang.Integer">
+	    delete from t_product
+	    where product_id = #{productId,jdbcType=INTEGER}
+    </delete>
+    
+    <!-- 删除产品2 -->
+    <delete id="deleteProductByProductName" parameterType="java.lang.String">
+	    delete from t_product
+	    where product_name= #{productName,jdbcType=VARCHAR}
+    </delete>
+    <!--更新产品1 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.team.erp.framework.model.Product">
+	    update t_product
+	    <set>
+	      <if test="productName != null">
+	        product_name = #{productName,jdbcType=VARCHAR},
+	      </if>
+	    </set>
+	    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+  <!--更新产品2-->
+  <update id="updateByPrimaryKey" parameterType="com.team.erp.framework.model.Product">
+	    update t_product
+	    set product_name = #{productName,jdbcType=VARCHAR},
+	        product_type = #{productType,jdbcType=VARCHAR},
+	        product_sort = #{productSort,jdbcType=VARCHAR},
+	        product_amount = #{productAmount,jdbcType=VARCHAR},
+	        product_price = #{productPrice,jdbcType=DECIMAL},
+	        product_total = #{productTotl,jdbcType=DECIMAL}
+	    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+	
+	</mapper>

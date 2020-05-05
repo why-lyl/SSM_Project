@@ -20,12 +20,11 @@ public class StaffController extends BaseController{
 	
    @RequestMapping("selectStaff.ajax")
    @ResponseBody
-	public PageInfo<Staff> showStaff(SearchInfo searchInfo,String userDepart) {
+	public PageInfo<Staff> showStaff(SearchInfo searchInfo) {
 		System.out.println(searchInfo.getCurrentPage());
 		System.out.println("到达了职工层");
 		PageInfo<Staff> info = ss.selectStaffAll(searchInfo.getCurrentPage());
 		System.out.println(info);
-		System.out.println(userDepart);
 		return info;
 	}
    

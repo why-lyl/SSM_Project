@@ -124,9 +124,9 @@
 						class="iconfont nav_right">&#xe697;</i>
 				</a>
 					<ul class="sub-menu">
-						<li><a _href="roleController/goUserRole.do"> <i class="iconfont">&#xe6a7;</i> <cite>职工权限分配</cite>
+						<li><a _href="authorityController/goStaffAuthority.do"> <i class="iconfont">&#xe6a7;</i> <cite>职工权限分配</cite>
 						</a></li>
-						<li><a _href="roleController/goDepartsRole.do"> <i class="iconfont">&#xe6a7;</i> <cite>部门权限分配</cite>
+						<li><a _href="authorityController/goDepartsAuthority.do"> <i class="iconfont">&#xe6a7;</i> <cite>部门权限分配</cite>
 						</a></li>
 					</ul></li>
 				</shiro:hasRole>
@@ -191,9 +191,9 @@
 				<i class="iconfont nav_right">&#xe697;</i>
 				</a>
 					<ul class="sub-menu">
-						<li><a _href="propertyController/showAllProperty.do"> <i class="iconfont">&#xe6a7;</i> <cite>库存资产</cite>
+						<li><a _href="inventoryController/goAllInventory.do"> <i class="iconfont">&#xe6a7;</i> <cite>库存资产</cite>
 						</a></li>
-						<li><a _href="propertyController/showBorrowreturn.do"> <i class="iconfont">&#xe6a7;</i> <cite>资产流动记录</cite>
+						<li><a _href="inventoryController/showBorrowreturn.do"> <i class="iconfont">&#xe6a7;</i> <cite>资产流动记录</cite>
 						</a></li>
 					</ul></li>
 					</shiro:hasRole>
