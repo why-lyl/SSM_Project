@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.team.erp.framework.model.Department;
 import com.team.erp.framework.model.Product;
 import com.team.erp.framework.model.vo.SearchInfo;
 import com.team.erp.util.controller.BaseController;
@@ -28,6 +29,13 @@ public class InventoryController extends BaseController{
 		PageInfo<Product> info = ps.selectProductAll(searchInfo.getCurrentPage());
 		System.out.println(info);
 		return info;		
+	}
+	
+	@RequestMapping("goAddProduct.do")
+	public String goAddProduct() {
+		
+		return "Inventory/inventory_add";
+			
 	}
 
 }

@@ -12,6 +12,13 @@
 	    <result column="authority_name" jdbcType="VARCHAR" property="authorityName"/>
 	    <result column="authority_desc" jdbcType="VARCHAR" property="authorityDesc"/>
 	</resultMap>
+	
+	<resultMap type="com.team.erp.framework.model.vo.DepartmentAndAuthority" id="SelectDAAMap">
+	    <id column="department_authority_id" jdbcType="INTEGER" property="departmentAuthorityId"/>
+	    <result column="department_id" jdbcType="INTEGER" property="departmentId"/>
+	    <result column="authority_id" jdbcType="INTEGER" property="authorityId"/>
+	</resultMap>
+	
 	<!-- sql片段的封装，可根据实际情况来改写 -->
     <sql id="Base_Authority_List">
       	authority_id, authority_name, authority_desc
@@ -40,15 +47,42 @@
 		select* from t_authority
 	</select>
 	
+	<!-- 查询DAA中间表的所有信息装入封装集 -->
+	<select id="selectDAAAll"  resultMap="SelectDAAMap">
+		select * from t_department_authority
+	</select>
+	
+	<!-- 通过departmentId查询DAA中间表的相关信息装入封装集 -->
+	<select id="selectDAABydepartmentId"  resultMap="SelectDAAMap">
+		select * from t_department_authority
+		where department_id = #{departmentId,jdbcType=INTEGER}
+	</select>
+	
 	<!-- 添加权限 -->
     <insert id="addAuthority" parameterType="com.team.erp.framework.model.Authority" useGeneratedKeys="true" keyProperty="authorityId">
   	    INSERT INTO t_authority values (null,#{authorityName},#{authorityDesc})
     </insert>
     
-     <!-- 删除权限 -->
+    <!-- 添加部门与权限的中间表的信息 -->
+    <insert id="addDepartmentAndAuthority" parameterType="com.team.erp.framework.model.vo.DepartmentAndAuthority" useGeneratedKeys="true" keyProperty="departmentAndAuthorityId">
+  	    INSERT INTO t_department_authority values (null,#{departmentId},#{authorityId})
+    </insert>
+    
+    <!-- 通过属性添加部门与权限的中间表的信息 -->
+    <insert id="addDepartmentAndAuthorityByProperty" parameterType="com.team.erp.framework.model.vo.DepartmentAndAuthority" useGeneratedKeys="true" keyProperty="departmentAndAuthorityId">
+  	    INSERT INTO t_department_authority values (null,#{departmentId},#{authorityId})
+    </insert>
+    
+    <!-- 根据AuthorityId删除权限 -->
     <delete id="deleteAuthorityByAuthorityId" parameterType="java.lang.Integer">
 	    delete from t_authority
 	    where authority_id = #{authorityId,jdbcType=INTEGER}
+    </delete>
+    
+    <!-- 根据departmentId删除部门与权限的中间表信息 -->
+    <delete id="deleteDAABydepartmentId" parameterType="java.lang.Integer">
+	    delete from t_department_authority
+	    where department_id = #{departmentId,jdbcType=INTEGER}
     </delete>
     
      <!--更新权限1 -->

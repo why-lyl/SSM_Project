@@ -47,11 +47,11 @@
       <xblock>
          <table class="layui-table"  >
         <tbody>
-        <c:forEach items="${departs}" var="depart">
+        <c:forEach items="${departments}" var="department">
         	<tr >         
             <td >
-            <a   href="roleController/changeDepartRole.do?departId=${depart.departId}">
-                ${depart.departName} <i class="layui-icon">&#xe642;</i>
+            <a   href="authorityController/departsAuthorityEidt.do?departmentId=${department.departmentId}">
+                ${department.departmentName} <i class="layui-icon">&#xe642;</i>
               </a>
             </td>
             </tr>

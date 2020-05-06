@@ -32,7 +32,7 @@
                         <span class="x-red">*</span>部门名称
                     </label>
                     <div class="layui-input-inline">
-                        <input readonly value="${depart.departName }" type="text" id="name" name="name" required="" lay-verify="required"
+                        <input readonly value="${department.departmentName }" type="text" id="name" name="name" required="" lay-verify="required"
                         autocomplete="off" class="layui-input">
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                         <span class="x-red">*</span>部门描述
                     </label>
                     <div class="layui-input-inline">
-                        <input readonly value="${depart.departDesc }" type="text" id="name" name="name" required="" lay-verify="required"
+                        <input readonly value="${department.departmentDesc }" type="text" id="name" name="name" required="" lay-verify="required"
                         autocomplete="off" class="layui-input">
                     </div>
                 </div>
@@ -58,15 +58,14 @@
                                 <td>
                                 
                                     <div class="layui-input-block">
-                                    <c:forEach items="${AllAuthrs}" var="AllAuthr">
-                                    	<input name="roles" type="checkbox" value="${AllAuthr.authorityId }" 
-                                    	<c:forEach items="${authrs}" var="authr">
-                                    		<c:if test="${authr.authorityId==AllAuthr.authorityId }">checked</c:if>
-                                    	</c:forEach>
-                                    	lay-skin="primary" title="${AllAuthr.authorityDescription }">
+                                    <c:forEach items="${AllAuthorities}" var="Authority">
+                                    	<input name="authorityId" type="checkbox" value="${Authority.authorityId}" 
+                                    	 <c:forEach items="${authrs}" var="authr">
+                                    		<c:if test="${authr.authorityId==Authority.authorityId}"> checked="1"</c:if>
+                                    	</c:forEach> 
+                                    	lay-skin="primary" title="${Authority.authorityDesc}"><!--此处展示的是权限描述  -->
                                     </c:forEach>
                                     
-                                  
                                     </div>
                                 </td>
                             </tr>
@@ -134,7 +133,7 @@ form.verify({
        		type : "POST",
        		data : $('#form1').serialize(),
        		dataType : "text",
-       		url :"roleController/submitDepartRole.ajax?departId=${depart.departId }",
+       		url :"authorityController/departmentAuthorityEidt.ajax?departmentId=${department.departmentId }",
        		success : function(result) {
        		 //发异步，把数据提交给php
                 layer.msg("修改成功",{
@@ -143,6 +142,7 @@ form.verify({
               	},function () {
                     // 获得frame索引
                     history.go(-1);
+                   // window.location.href = "authorityController/departsAuthorityEidt.do"
                 });
        		},
        		error : function() {

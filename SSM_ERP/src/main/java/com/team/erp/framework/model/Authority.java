@@ -1,13 +1,16 @@
 package com.team.erp.framework.model;
 
 import java.io.Serializable;
+import java.util.List;
+
+import com.team.erp.framework.model.vo.DepartmentAndAuthority;
 
 public class Authority implements Serializable{
 	
 	private int authorityId;
 	private String authorityName;
 	private String authorityDesc;
-	
+	private List<DepartmentAndAuthority> daa;
 	
 	//无参构造
 	public Authority() {
@@ -15,11 +18,12 @@ public class Authority implements Serializable{
 	}
 
 	//有参构造
-	public Authority(int authorityId, String authorityName, String authorityDesc) {
+	public Authority(int authorityId, String authorityName, String authorityDesc, List<DepartmentAndAuthority> daa) {
 		super();
 		this.authorityId = authorityId;
 		this.authorityName = authorityName;
 		this.authorityDesc = authorityDesc;
+		this.daa = daa;
 	}
 
 	public int getAuthorityId() {
@@ -46,11 +50,20 @@ public class Authority implements Serializable{
 		this.authorityDesc = authorityDesc;
 	}
 
+	public List<DepartmentAndAuthority> getDaa() {
+		return daa;
+	}
+
+	public void setDaa(List<DepartmentAndAuthority> daa) {
+		this.daa = daa;
+	}
+
 	@Override
 	public String toString() {
 		return "Authority [authorityId=" + authorityId + ", authorityName=" + authorityName + ", authorityDesc="
-				+ authorityDesc + "]";
+				+ authorityDesc + ", daa=" + daa + "]";
 	}
+
 	
 	
 	

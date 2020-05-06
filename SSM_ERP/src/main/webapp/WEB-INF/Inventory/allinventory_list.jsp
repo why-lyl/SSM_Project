@@ -80,7 +80,7 @@ layui.use(['form', 'laypage', 'laydate'], function(){
 					    str+="<td>"+val.productSort+"</td>";
 					    str+="<td>"+val.productAmount+"</td>";
 					    str+="<td>"+val.productPrice+"</td>";
-					   //str+="<td>"+val.productTotal+"</td>";
+					    str+="<td>"+val.productTotal+"</td>";
 					   	str+="<td><a class=\"layui-btn  layui-btn-mini\" onclick=\"x_admin_show('职工信息修改','productController/goUserEdit.do?productId="+val.productId+"')\" ><i class=\"layui-icon\">&#xe642;</i>编辑</a> <button onclick=\"delStaff('"+val.productId+"')\" class=\"layui-btn  layui-btn-mini layui-btn-danger\"><i class=\"layui-icon\">&#xe640;</i>删除</button></td>"
 					    str+="</tr>";
 						$("#products").append(str);
@@ -168,7 +168,7 @@ layui.use(['form', 'laypage', 'laydate'], function(){
 		</div>
 
 		<xblock>
-		<button class="layui-btn" onclick="addProperty();">
+		<button class="layui-btn" onclick="addProduct();">
 			<i class="layui-icon">&#xe608;</i>新增资产
 		</button>
 		<span class="x-right" style="line-height: 40px">共有数据：<a id="total">88</a> 
@@ -177,10 +177,12 @@ layui.use(['form', 'laypage', 'laydate'], function(){
 			<thead>
 				<tr>
 					<th>资产名称</th>
-					<th>型号</th>
+					<!-- <th>型号</th> -->
 					<th>类型</th>
 					<th>分类</th>
 					<th>资产数量</th>
+					<th>资产单价</th>
+					<th>资产总价</th>
 					<th>操作</th>
 				</tr>
 			</thead>
@@ -307,8 +309,8 @@ layui.use(['form', 'laypage', 'laydate'], function(){
 				
 			});
 		}
-		function addProperty() {
-				window.location.href = "propertyController/addUIProperty.do";
+		function addProduct() {
+				window.location.href = "inventoryController/goAddProduct.do";
 		}
 
 	</script>
