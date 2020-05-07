@@ -46,7 +46,7 @@
             </select>
           </div>
           <div class="layui-input-inline">
-            <input id="entry" type="text" name="userEntry"  placeholder="入职时间" autocomplete="off" class="layui-input">
+            <input id="entry" type="text" name="staffJoin"  placeholder="入职时间" autocomplete="off" class="layui-input">
           </div>
           <div class="layui-input-inline">
             <select id="birthRange">
@@ -60,7 +60,7 @@
            <input type="text" id="staffName"  placeholder="员工姓名" autocomplete="off" class="layui-input">
           </div>
           
-          <a class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></a>
+          <a class="layui-btn"  lay-submit="" lay-filter="search"><i class="layui-icon">&#xe615;</i></a>
         </form>
       </div>
       <xblock>
@@ -171,29 +171,112 @@ form.verify({
       layedit.sync(editIndex);
     }
 }); 
-//查询分页（功能暂不完善）
-  form.on('submit(sreach)', function(data){
-      console.log("sreach数据"+data);
+//查询分页（功能暂不完善,暂时使用姓名查询）
+  form.on('submit(search)', function(list){
+      console.log("search数据"+list);
       userDepart=$("#userDepart").val();
       birthRange=$("#birthRange").val();
       staffName=$("#staffName").val();
     	EntryStart=start;
     	EntryEnd=end;
-       showPage(-1);
+       showStaffPage(-1);
        laypage.render({
     		  elem: 'test1'
     		  ,count: total //数据总数，从服务端得到
-    		  ,limit:1
+    		  ,limit:8
     		  ,jump: function(obj, first){
     		    //obj包含了当前分页的所有参数，比如：
-    		    console.log("sreach当前页"+obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-    		    console.log("sreach每页显示的条数"+obj.limit); //得到每页显示的条数
+    		    console.log("search当前页"+obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+    		    console.log("search每页显示的条数"+obj.limit); //得到每页显示的条数
     		    //首次不执行
     		    if(!first){
-    		    	showPage(obj.curr);
+    		    	showStaffPage(obj.curr);
     		    }
     		  }
     		});
+            function showStaffPage(n) {
+    		$.ajax({
+    			type : "POST",
+    			async:false,
+    			data : {
+    				userDepart:userDepart,
+    				EntryStart:EntryStart,
+    				EntryEnd:EntryEnd,
+    				birthRange:birthRange,
+    				staffName:staffName,
+    				currentPage:n
+    			},
+    			dataType : "text",
+    			url : "staffController/selectStaffByStaffName.ajax",
+    			success : function(result) {
+    				console.log("从后台拿到的值"+result);
+    				//alert(result);
+    				var tl = eval("(" + result + ")");
+    				if(n==-1){
+    					total=tl.total;
+    					$("#total").text(total);
+    				}
+    				$("#staffs").html("");
+    				//json遍历
+    				if(tl.list.length>0){
+    					$.each(tl.list, function(n,val){
+    						var str="";
+    						var jionTime = new Date(val.staffJoin).format("yyyy-MM-dd");
+    						var birthday = new Date(val.staffBirthday).format("yyyy-MM-dd");
+    						var staffName = val.staffName;
+    						var staffSex = val.staffSex;
+    						var staffDepart = val.staffDepart;
+    						var staffTel = val.staffTel;
+    						var staffEmail = val.staffEmail;
+    						//alert(jionTime);
+    						if (jionTime == "NaN-aN-aN") {
+    							jionTime = "未入职";
+    						}
+    						//alert(jionTime);
+    						if (birthday == "NaN-aN-aN") {
+    							birthday = "未填写生日";
+    						}
+    						if (staffName == null) {
+    							   staffName = "未入职";
+    							}
+    						//alert(staffName);
+    						if (staffSex == null) {
+    							staffSex = "未入职";
+    							}
+    						if (staffDepart == null) {
+    							staffDepart = "未入职";
+    							}
+    						if (staffTel == null) {
+    							staffTel = "未入职";
+    							}
+    						if (staffEmail == null) {
+    							staffEmail = "未入职";
+    							}
+    						//alert(typeof(jionTime));
+    					    str+="<tr>";
+    					    str+="<td>"+staffName+"</td>";
+    					    str+="<td>"+staffSex+"</td>";
+    					    str+="<td>"+staffDepart+"</td>";
+    					    str+="<td>"+jionTime+"</td>";
+    					    str+="<td>"+birthday+"</td>";
+    					   /*  str+="<td>"+val.staffAge+"</td>"; */
+    					    str+="<td>"+val.accountId+"</td>";
+    					    str+="<td>"+staffTel+"</td>";
+    					    str+="<td>"+staffEmail+"</td>";
+    					    str+="<td><a class=\"layui-btn  layui-btn-mini\" onclick=\"x_admin_show('职工信息修改','staffController/goUserEdit.do?staffId="+val.staffId+"')\" ><i class=\"layui-icon\">&#xe642;</i>编辑</a> <button onclick=\"delStaff('"+val.staffId+"')\" class=\"layui-btn  layui-btn-mini layui-btn-danger\"><i class=\"layui-icon\">&#xe640;</i>删除</button></td>"
+    					    str+="</tr>";
+    						$("#staffs").append(str);
+    					})
+    				}else{
+    					$("#staffs").append("<tr><td colspan=8 align=\"center\">暂时没有数据哦，快去添加一条吧</td></tr>");
+    				}
+    				
+    			},
+    			error : function() {
+    				layer.msg('无法连接服务器', {icon: 2});
+    			}
+    		});
+    	}
       return false;
     });
   
@@ -210,11 +293,6 @@ form.verify({
 		type : "POST",
 		async:false,
 		data : {
-			userDepart:userDepart,
-			EntryStart:EntryStart,
-			EntryEnd:EntryEnd,
-			birthRange:birthRange,
-			staffName:staffName,
 			currentPage:n
 		},
 		dataType : "text",
@@ -231,33 +309,48 @@ form.verify({
 			//json遍历
 			if(tl.list.length>0){
 				$.each(tl.list, function(n,val){
-					/* console.log(val.userEntrytime);
-					console.log(typeof(val.userEntrytime)); 
-					
-				   
-				    */
 					var str="";
 					var jionTime = new Date(val.staffJoin).format("yyyy-MM-dd");
 					var birthday = new Date(val.staffBirthday).format("yyyy-MM-dd");
-					//alert(jionTime);
+					var staffName = val.staffName;
+					var staffSex = val.staffSex;
+					var staffDepart = val.staffDepart;
+					var staffTel = val.staffTel;
+					var staffEmail = val.staffEmail;
+					//alert(staffName);
 					if (jionTime == "NaN-aN-aN") {
 						jionTime = "未入职";
 					}
-					//alert(jionTime);
 					if (birthday == "NaN-aN-aN") {
 						birthday = "未填写生日";
 					}
+					if (staffName == null) {
+						   staffName = "未入职";
+						}
+					//alert(staffName);
+					if (staffSex == null) {
+						staffSex = "未入职";
+						}
+					if (staffDepart == null) {
+						staffDepart = "未入职";
+						}
+					if (staffTel == null) {
+						staffTel = "未入职";
+						}
+					if (staffEmail == null) {
+						staffEmail = "未入职";
+						}
 					//alert(typeof(jionTime));
 				    str+="<tr>";
-				    str+="<td>"+val.staffName+"</td>";
-				    str+="<td>"+val.staffSex+"</td>";
-				    str+="<td>"+val.staffDepart+"</td>";
+				    str+="<td>"+staffName+"</td>";
+				    str+="<td>"+staffSex+"</td>";
+				    str+="<td>"+staffDepart+"</td>";
 				    str+="<td>"+jionTime+"</td>";
 				    str+="<td>"+birthday+"</td>";
 				   /*  str+="<td>"+val.staffAge+"</td>"; */
 				    str+="<td>"+val.accountId+"</td>";
-				    str+="<td>"+val.staffTel+"</td>";
-				    str+="<td>"+val.staffEmail+"</td>";
+				    str+="<td>"+staffTel+"</td>";
+				    str+="<td>"+staffEmail+"</td>";
 				    str+="<td><a class=\"layui-btn  layui-btn-mini\" onclick=\"x_admin_show('职工信息修改','staffController/goUserEdit.do?staffId="+val.staffId+"')\" ><i class=\"layui-icon\">&#xe642;</i>编辑</a> <button onclick=\"delStaff('"+val.staffId+"')\" class=\"layui-btn  layui-btn-mini layui-btn-danger\"><i class=\"layui-icon\">&#xe640;</i>删除</button></td>"
 				    str+="</tr>";
 					$("#staffs").append(str);

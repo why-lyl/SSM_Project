@@ -67,13 +67,14 @@
         <thead>
           <tr>
             <th>姓名</th>
+            <th>性别</th>
             <th>所属部门</th>
-            <th>职位</th>
+            <!-- <th>职位</th> -->
             <th>加入时间</th>
             <th >操作</th>
             </tr>
         </thead>
-        <tbody id="roles">
+        <tbody id="staffs">
           <tr>          
             <td>老王:18925139194</td>
             <td>7829.10</td>
@@ -177,11 +178,11 @@ form.verify({
 			authr:authr,
 			depart:depart,
 			userName:userName,
-			index:n
+			currentPage:n
 			
 		},
 		dataType : "text",
-		url : "roleController/getUserRole.ajax",
+		url : "staffController/selectStaff.ajax",
 		success : function(result) {
 			console.log(result);
 			var tl = eval("(" + result + ")");
@@ -189,23 +190,24 @@ form.verify({
 				total=tl.total;
 				$("#total").text(total);
 			}
-			$("#roles").html("");
+			$("#staffs").html("");
 			//json遍历
-			if(tl.data.length>0){
-				$.each(tl.data, function(n,val){
+			if(tl.list.length>0){
+				
+				$.each(tl.list, function(n,val){
 					console.log(n);
 					var str="";
 				    str+="<tr>";
-				    str+="<td>"+val.userName+"</td>"
-				    str+="<td>"+val.userDepartement+"</td>"
-				    str+="<td>"+val.userPosition+"</td>"
-				    str+="<td>"+new Date(val.userEntrytime).format("yyyy-MM-dd hh:mm")+"</td>"
-				    str+="<td><a class=\"layui-btn  layui-btn-mini\" onclick=\"x_admin_show('日志预览','roleController/changeUserRole.do?userId="+val.userId+"')\" ><i class=\"layui-icon\">&#xe642;</i>编辑</a></td>"
+				    str+="<td>"+val.staffName+"</td>"
+				    str+="<td>"+val.staffSex+"</td>"
+				    str+="<td>"+val.staffDepart+"</td>"
+				    str+="<td>"+new Date(val.staffJoin).format("yyyy-MM-dd")+"</td>"
+				    str+="<td><a class=\"layui-btn  layui-btn-mini\" onclick=\"x_admin_show('职员权限分配','authorityController/staffAuthorityEidt.do?staffId="+val.staffId+"&departmentName="+val.staffDepart+"')\" ><i class=\"layui-icon\">&#xe642;</i>编辑</a></td>"
 				    str+="</tr>";
-					$("#roles").append(str);
+					$("#staffs").append(str);
 				})
 			}else{
-				$("#roles").append("<tr><td colspan=5 align=\"center\">暂时没有数据哦，快去添加一条吧</td></tr>");
+				$("#staffs").append("<tr><td colspan=5 align=\"center\">暂时没有数据哦，快去添加一条吧</td></tr>");
 			}
 			
 		},
@@ -219,7 +221,7 @@ form.verify({
   laypage.render({
 	  elem: 'test1'
 	  ,count: total //数据总数，从服务端得到
-	  ,limit:1
+	  ,limit:8
 	  ,jump: function(obj, first){
 	    //obj包含了当前分页的所有参数，比如：
 	    console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。

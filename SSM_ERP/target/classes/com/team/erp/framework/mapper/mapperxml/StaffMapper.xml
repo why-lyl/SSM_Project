@@ -43,13 +43,20 @@
 		from t_staff
 		where account_id= #{userName,jdbcType=VARCHAR}
 	</select>
-	
 	<!-- 查出staff的所有有关信息 -->
 	<select id="selectStaffAll" resultMap="BaseResultMap">
 		select 
 		*
 		from t_staff
 	</select>
+	<!-- 根据名字查出staff的所有有关信息 -->
+	<select id="selectStaffBystaffNameL" resultMap="BaseResultMap">
+		select 
+		*
+		from t_staff
+		where staff_name= #{staffName,jdbcType=VARCHAR}
+	</select>
+	
 	<!-- 添加员工1 -->
     <insert id="addStaff" parameterType="com.team.erp.framework.model.Staff" useGeneratedKeys="true" keyProperty="staffId">
   	     INSERT INTO t_staff values (#{staffId},#{staffName},#{staffSex},#{staffAge},

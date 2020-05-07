@@ -102,5 +102,13 @@ public class StaffController extends BaseController{
   	    System.out.println("删除员工任务执行");
   		return "SUCCESS";
   	}
+  	
+  	@RequestMapping("selectStaffByStaffName.ajax")
+    @ResponseBody
+   	public PageInfo<Staff> selectStaffByStaffName(String staffName,SearchInfo searchInfo) {
+ 	    System.out.println("查询框里的名字是"+staffName);
+ 	    PageInfo<Staff> info = ss.selectStaffBystaffNameL(staffName, searchInfo.getCurrentPage());
+   		return info;
+   	}
   
 }

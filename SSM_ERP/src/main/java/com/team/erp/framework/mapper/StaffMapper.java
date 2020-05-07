@@ -15,6 +15,7 @@ public interface StaffMapper {
 	Staff selectStaffByStaffName(String StaffName);//根据用户名字查询用户
 	Staff selectStaffByAccountId(String userName);//根据用户名字查询职员（单表查询）
 	List<Staff> selectStaffAll();//查询出所有与员工有关的信息
+	List<Staff> selectStaffBystaffNameL(@Param("staffName")String staffName);//根据员工名查询出与员工的相关信息
 	
 	/**
 	 * 更新方法

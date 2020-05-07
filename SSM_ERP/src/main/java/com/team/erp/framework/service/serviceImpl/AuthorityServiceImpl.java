@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.team.erp.framework.mapper.AuthorityMapper;
 import com.team.erp.framework.model.Authority;
 import com.team.erp.framework.model.vo.DepartmentAndAuthority;
+import com.team.erp.framework.model.vo.UserAndAuthority;
 import com.team.erp.framework.service.AuthorityService;
 /*
  * ServiceImpl层的编写
@@ -69,6 +70,24 @@ public class AuthorityServiceImpl implements AuthorityService{
 	public int addDepartmentAndAuthorityByProperty(int departmentId, int authorityId) {
 		
 		return am.addDepartmentAndAuthorityByProperty(0, departmentId, authorityId);
+	}
+
+	@Override
+	public List<UserAndAuthority> selectUAAByuserId(Integer userId) {
+		
+		return am.selectUAAByuserId(userId);
+	}
+
+	@Override
+	public int deleteUAAByUserId(int userId) {
+		
+		return am.deleteUAAByUserId(userId);
+	}
+
+	@Override
+	public int addUserAndAuthorityByProperty(int userId, int authorityId) {
+		
+		return am.addUserAndAuthorityByProperty(0,userId, authorityId);
 	}
 
 }

@@ -29,20 +29,20 @@
         <form id="form1" class="layui-form layui-form-pane">
                 <div class="layui-form-item">
                     <label for="name" class="layui-form-label">
-                        <span class="x-red">*</span>角色姓名
+                        <span class="x-red"></span>职工姓名
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" readOnly value="${user.userName }" name="name" required="" lay-verify="required"
+                        <input type="text" readOnly value="${staff.staffName }" name="name" required="" lay-verify="required"
                         autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 
                  <div class="layui-form-item">
                     <label for="name" class="layui-form-label">
-                        <span class="x-red">*</span>角色职务
+                        <span class="x-red"></span>所属部门
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" readOnly id="name" value="${user.userPosition }" name="name" required="" lay-verify="required"
+                        <input type="text" readOnly id="name" value="${staff.staffDepart }" name="name" required="" lay-verify="required"
                         autocomplete="off" class="layui-input">
                     </div>
                 </div>
@@ -54,26 +54,44 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    	用户个人权限
+                                    	职工个人权限
                                 </td>
                                 <td>
-                                    <div class="layui-input-block">
+                                   <%--  <div class="layui-input-block">
                                     
                                         <input id="name2" name="roles" type="checkbox" 
-											<c:forEach items="${role}" var="user">
-                                        	<c:if test="${user.positionId==3}">
+											<c:forEach items="${role}" var="staff">
+                                        	<c:if test="${staff.positionId==3}">
                                         	 checked
                                         	</c:if>
                                         </c:forEach>
 										value="3" lay-skin="primary" title="超级管理员"> 
                                         <input  type="checkbox" value="2" checked lay-skin="primary" title="普通职工"> 
                                         <input name="roles" type="checkbox" value="4" 
-                                        <c:forEach items="${role}" var="user">
-                                        	<c:if test="${user.positionId==4}">
+                                        <c:forEach items="${role}" var="staff">
+                                        	<c:if test="${staff.positionId==4}">
                                         	 checked
                                         	</c:if>
                                          </c:forEach>
                                         lay-skin="primary" title="部门管理者"> 
+                                    </div> --%>
+                                    <div class="layui-input-block">
+                                      <c:forEach items="${Authorities}" var="Authority">
+                                      <c:forEach items="${DAA}" var="daa">
+                                     
+                                      <c:if test="${daa.authorityId==Authority.authorityId}">
+                                    	<input name="authorityId" type="checkbox" value="${Authority.authorityId}" 
+                                    	 <c:forEach items="${UAA}" var="uaa">
+                                    	 <c:if test="${uaa.authorityId !=null}"> 
+                                    	 <c:if test="${uaa.authorityId==Authority.authorityId}"> checked="1"</c:if>
+                                    	 </c:if>
+                                    	 </c:forEach>
+                                    		lay-skin="primary" title="${Authority.authorityDesc}"
+                                    	></input><!--此处展示的是权限描述  --> 
+                                    	</c:if> 
+                                    	
+                                    	</c:forEach>
+                                    </c:forEach> 
                                     </div>
                                 </td>
                             </tr>
@@ -82,7 +100,7 @@
                 </div>
              <div class="layui-form-item" style="text-align: center;">
          
-              <a  class="layui-btn"  lay-filter="add" lay-submit="">
+              <a  class="layui-btn"  lay-filter="eidt" lay-submit="">
                  	 确定修改
               </a>
               <a class="layui-btn layui-btn-normal" onclick="x_admin_close()" style="text-align:center">返回</a>
@@ -92,8 +110,6 @@
 
 	</body>
 <script type="text/javascript">
-
-  
 
 layui.use(['form', 'layedit', 'laydate'], function(){
   var form = layui.form
@@ -134,13 +150,13 @@ form.verify({
   });
   
   //监听提交
- form.on('submit(add)', function(data){
+ form.on('submit(eidt)', function(data){
            console.log(data);
            $.ajax({
        		type : "POST",
        		data : $('#form1').serialize(),
        		dataType : "text",
-       		url :"roleController/submitUserRole.ajax?userId=${user.userId}",
+       		url :"authorityController/staffAuthorityEidt.ajax?accountId=${staff.accountId}",
        		success : function(result) {
        		 //发异步，把数据提交给php
                 layer.msg("修改成功",{
@@ -161,7 +177,6 @@ form.verify({
            return false;
          });
        //监听提交
-  
   
 });
 

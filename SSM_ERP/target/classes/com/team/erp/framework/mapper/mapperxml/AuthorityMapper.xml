@@ -13,9 +13,17 @@
 	    <result column="authority_desc" jdbcType="VARCHAR" property="authorityDesc"/>
 	</resultMap>
 	
+	<!-- 对DAA中间表的封装 -->
 	<resultMap type="com.team.erp.framework.model.vo.DepartmentAndAuthority" id="SelectDAAMap">
 	    <id column="department_authority_id" jdbcType="INTEGER" property="departmentAuthorityId"/>
 	    <result column="department_id" jdbcType="INTEGER" property="departmentId"/>
+	    <result column="authority_id" jdbcType="INTEGER" property="authorityId"/>
+	</resultMap>
+	
+	<!-- 对UAA中间表的封装 -->
+	<resultMap type="com.team.erp.framework.model.vo.UserAndAuthority" id="SelectUAAMap">
+	    <id column="user_authority_id" jdbcType="INTEGER" property="userAuthorityId"/>
+	    <result column="user_id" jdbcType="INTEGER" property="userId"/>
 	    <result column="authority_id" jdbcType="INTEGER" property="authorityId"/>
 	</resultMap>
 	
@@ -35,7 +43,7 @@
 	</select>
 	
 	<!-- 根据name查询authority信息 -->
-	<select id="selectAuthorityByAuthoritByName" parameterType="java.lang.String" resultMap="SelectAuthorityMap">
+	<select id="selectAuthorityByAuthoritName" parameterType="java.lang.String" resultMap="SelectAuthorityMap">
 		select 
 		<include refid="Base_Authority_List" />
 		from t_authority
@@ -52,24 +60,52 @@
 		select * from t_department_authority
 	</select>
 	
+	<!-- 查询UAA中间表的所有信息装入封装集 -->
+	<select id="selectUAAAll"  resultMap="SelectUAAMap">
+		select * from t_user_authority
+	</select>
+	
+	<!--根据用户名查询出权限表中的属性-->
+   <select id="selectAuthoritysByUserName" parameterType="java.lang.String" resultMap="SelectAuthorityMap">
+			select t_authority.authority_id,t_authority.authority_name,t_authority.authority_desc
+			FROM t_user,t_authority,t_user_authority
+			where 
+			t_user.user_id = t_user_authority.user_id 
+			and 
+			t_authority.authority_id = t_user_authority.authority_id
+			and
+			t_user.user_name= #{userName,jdbcType=VARCHAR}
+	</select>
+	
 	<!-- 通过departmentId查询DAA中间表的相关信息装入封装集 -->
 	<select id="selectDAABydepartmentId"  resultMap="SelectDAAMap">
 		select * from t_department_authority
 		where department_id = #{departmentId,jdbcType=INTEGER}
 	</select>
 	
+	<!-- 通过userId查询UAA中间表的相关信息装入封装集 -->
+	<select id="selectUAAByuserId"  resultMap="SelectUAAMap">
+		select * from t_user_authority
+		where user_id = #{userId,jdbcType=INTEGER}
+	</select>
+	
 	<!-- 添加权限 -->
     <insert id="addAuthority" parameterType="com.team.erp.framework.model.Authority" useGeneratedKeys="true" keyProperty="authorityId">
   	    INSERT INTO t_authority values (null,#{authorityName},#{authorityDesc})
     </insert>
-    
+   
     <!-- 添加部门与权限的中间表的信息 -->
-    <insert id="addDepartmentAndAuthority" parameterType="com.team.erp.framework.model.vo.DepartmentAndAuthority" useGeneratedKeys="true" keyProperty="departmentAndAuthorityId">
+    <insert id="addDepartmentAndAuthority" parameterType="com.team.erp.framework.model.vo.DepartmentAndAuthority" useGeneratedKeys="true" keyProperty="departmentAuthorityId">
   	    INSERT INTO t_department_authority values (null,#{departmentId},#{authorityId})
     </insert>
     
+     <!-- 添加用户与权限的中间表的信息 -->
+    <insert id="addUserAndAuthorityByProperty" parameterType="com.team.erp.framework.model.vo.UserAndAuthority" useGeneratedKeys="true" keyProperty="userAuthorityId">
+  	    INSERT INTO t_user_authority values (null,#{userId},#{authorityId})
+    </insert>
+    
     <!-- 通过属性添加部门与权限的中间表的信息 -->
-    <insert id="addDepartmentAndAuthorityByProperty" parameterType="com.team.erp.framework.model.vo.DepartmentAndAuthority" useGeneratedKeys="true" keyProperty="departmentAndAuthorityId">
+    <insert id="addDepartmentAndAuthorityByProperty" parameterType="com.team.erp.framework.model.vo.DepartmentAndAuthority" useGeneratedKeys="true" keyProperty="departmentAuthorityId">
   	    INSERT INTO t_department_authority values (null,#{departmentId},#{authorityId})
     </insert>
     
@@ -83,6 +119,12 @@
     <delete id="deleteDAABydepartmentId" parameterType="java.lang.Integer">
 	    delete from t_department_authority
 	    where department_id = #{departmentId,jdbcType=INTEGER}
+    </delete>
+    
+     <!-- 根据userId删除用户与权限的中间表信息 -->
+    <delete id="deleteUAAByUserId" parameterType="java.lang.Integer">
+	    delete from t_user_authority
+	    where user_id = #{userId,jdbcType=INTEGER}
     </delete>
     
      <!--更新权限1 -->
@@ -103,15 +145,4 @@
 	    where authority_id = #{authorityId,jdbcType=INTEGER}
    </update>
    
-   <!--根据用户名查询出权限表中的属性-->
-   <select id="selectAuthoritysByUserName" parameterType="java.lang.String" resultMap="SelectAuthorityMap">
-			select t_authority.authority_id,t_authority.authority_name,t_authority.authority_desc
-			FROM t_user,t_authority,t_user_authority
-			where 
-			t_user.user_id = t_user_authority.user_id 
-			and 
-			t_authority.authority_id = t_user_authority.authority_id
-			and
-			t_user.user_name= #{userName,jdbcType=VARCHAR}
-	</select>
 	</mapper>

@@ -116,5 +116,23 @@ public class StaffServiceImpl implements StaffService {
 		return 0;
 	}
 
+	@Override
+	public Staff selectStaffByStaffName(String StaffName) {
+		
+		return sm.selectStaffByStaffName(StaffName);
+	}
+
+	@Override
+	public PageInfo<Staff> selectStaffBystaffNameL(String staffName, int pageNum) {
+		
+		System.out.println(pageNum);
+		PageHelper ph = new PageHelper();
+		ph.startPage(pageNum, 8);//这里修改每页展示的条数
+		List<Staff> staffs = sm.selectStaffBystaffNameL(staffName);
+		PageInfo<Staff> info = new PageInfo<>(staffs);
+		System.out.println(info + "根据名字查出职员");
+		return info;
+	}
+
 	
 }

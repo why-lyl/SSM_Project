@@ -329,6 +329,12 @@ public class UserServiceImpl implements UserService {
 				return null;
 	}
 
+	@Override
+	public int addUserByProperty(String userName) {
+		
+		return um.addUserByProperty(null, userName, null);
+	}
+
 	
 
 }
