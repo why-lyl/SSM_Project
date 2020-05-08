@@ -172,8 +172,8 @@ form.verify({
       }
     }
     ,repeat:function(value){
-    	if(value.length < 3){
-            return '至少三个字啊';
+    	if(value.length < 2){
+            return '部门名至少包含两个字符';
           }else if(isRepeat){
         	  return '名称已存在';  
           }

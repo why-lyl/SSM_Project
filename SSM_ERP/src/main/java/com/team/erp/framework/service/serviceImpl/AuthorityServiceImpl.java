@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.team.erp.framework.mapper.AuthorityMapper;
+import com.team.erp.framework.mapper.UserMapper;
 import com.team.erp.framework.model.Authority;
+import com.team.erp.framework.model.User;
 import com.team.erp.framework.model.vo.DepartmentAndAuthority;
 import com.team.erp.framework.model.vo.UserAndAuthority;
 import com.team.erp.framework.service.AuthorityService;
@@ -29,6 +31,9 @@ public class AuthorityServiceImpl implements AuthorityService{
 	
 	@Autowired
 	private AuthorityMapper am;
+	
+	@Autowired
+	private UserMapper um;
 	
 	@Override
 	public Authority selectAuthorityByAuthoritById(Integer AuthorityId) {//1号
@@ -88,6 +93,29 @@ public class AuthorityServiceImpl implements AuthorityService{
 	public int addUserAndAuthorityByProperty(int userId, int authorityId) {
 		
 		return am.addUserAndAuthorityByProperty(0,userId, authorityId);
+	}
+
+	@Override
+	public User isUserNull(List<String> authorityId, String accountId) {
+		User user = um.selectUserByUserName(accountId);
+		System.out.println("得到的复选框信息是:"+authorityId);
+		if (user==null) {//通过账户名查得的user信息，为空则表示未有这个用户名(账号名),所以要添加账户
+			System.out.println("user表为空");
+			//想法:在user表中插入一个Id，然后进行后面的操作，还是要添加上对应的userName，否者无法添加对应的账号
+			int addUser = um.addUserByProperty(null,accountId,null);//添加userId，无其它属性
+			if (addUser != 0) {
+				System.out.println("添加userId及userName成功");
+				User userNew = um.selectUserByUserName(accountId);
+				return userNew;
+			}
+		}
+		return user;
+	}
+
+	@Override
+	public String disAut(List<String> authorityId, String accountId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

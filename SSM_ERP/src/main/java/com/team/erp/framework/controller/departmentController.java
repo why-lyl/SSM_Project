@@ -75,7 +75,7 @@ public class departmentController extends BaseController{
 		System.out.println("修改时拿到的部门信息"+department);
 		System.out.println("部门修改操作执行");
 		int updateByPrimaryKey = ds.updateByPrimaryKey(department);
-		if (updateByPrimaryKey==1) {
+		if (updateByPrimaryKey!=0) {
 			System.out.println("单表的部门更新成功");
 		}
 		return null;
@@ -87,8 +87,9 @@ public class departmentController extends BaseController{
 		System.out.println("拿到的部门Id"+departmentId);
 		System.out.println("部门删除操作执行");
 		int delDepartment = ds.deleteDepartmentByDepartmentId(departmentId);
-		if(delDepartment==1) {
-			System.out.println("单表删除部门信息成功");
+		int deleteDAABydepartmentId = as.deleteDAABydepartmentId(departmentId);
+		if(delDepartment!=0 && deleteDAABydepartmentId != 0) {
+			System.out.println("连表删除部门信息成功，包含DAA中间表");
 		}
 		return null;
 	}

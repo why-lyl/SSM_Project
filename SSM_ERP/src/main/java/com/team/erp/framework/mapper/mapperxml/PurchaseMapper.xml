@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--表明是实现mapper接口层的xml文件  -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.team.erp.framework.mapper.PurchaseMapper">
+
+    <!--封装集在下=============================================================  -->
+    
+	<resultMap type="com.team.erp.framework.model.Purchase" id="SelectPurchaseMap">
+	    <!--id column 是数据表中主键名，result column 是数据表中属性名 ;
+	    jdbcType 是数据表中的数据类型，注意要全部大写 ;property 是实体类名 -->
+		<id column="purchase_id" jdbcType="INTEGER" property="purchaseId"/>
+	    <result column="purchase_name" jdbcType="VARCHAR" property="purchaseName"/>
+	    <result column="purchase_staff" jdbcType="VARCHAR" property="purchaseStaff"/>
+	    <result column="purchase_sort" jdbcType="VARCHAR" property="purchaseSort"/>
+	    <result column="purchase_amount" jdbcType="VARCHAR" property="purchaseAmount"/>
+	    <result column="purchase_price" jdbcType="DECIMAL" property="purchasePrice"/>
+	    <result column="purchase_total" jdbcType="DECIMAL" property="purchaseTotal"/>
+	    <result column="apply_status" jdbcType="VARCHAR" property="applyStatus"/>
+	    <result column="apply_time" jdbcType="DATE" property="applyTime"/>
+	    <result column="purchase_time" jdbcType="DATE" property="purchaseTime"/>
+	</resultMap>
+   <!--封装集在上=============================================================  -->
+   
+   
+   <!--sql封装片段在下=============================================================  -->
+	
+	<!-- sql片段的封装，可根据实际情况来改写 -->
+    <sql id="Base_Purchase_List">
+      	purchase_id, purchase_name,purchase_staff,purchase_sort,purchase_amount,purchase_price,
+      	purchase_total,apply_status,apply_time,purchase_time
+    </sql>
+    
+    <!--sql封装片段在上=============================================================  -->
+    
+    
+    <!--查询方法在下=============================================================  -->
+	
+    <!-- 根据id查询purchase信息 -->
+    <!--parameterType 表示传入参数类型;  resultType 表示返回值类型; resultMap表示返回的封装集
+     #{purchaseId}中为PurchaseMapper接口中定义的传入变量名 -->
+	<select id="selectPurchaseByAuthoritById" parameterType="java.lang.Integer" resultMap="SelectPurchaseMap">
+		select 
+		<include refid="Base_Purchase_List" />
+		from t_purchase
+		where purchase_id = #{purchaseId,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 根据name查询purchase信息 -->
+	<select id="selectPurchaseByAuthoritName" parameterType="java.lang.String" resultMap="SelectPurchaseMap">
+		select 
+		<include refid="Base_Purchase_List" />
+		from t_purchase
+		where purchase_name = #{purchaseName,jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 查询purchase的所有信息装入封装集 -->
+	<select id="selectPurchaseAll"  resultMap="SelectPurchaseMap">
+		select * from t_purchase
+	</select>
+	
+	<!--查询方法在上=============================================================  -->
+	
+	
+	<!--添加方法在下=============================================================  -->
+	
+	<!-- 添加信息 -->
+    <insert id="addPurchase" parameterType="com.team.erp.framework.model.Purchase" useGeneratedKeys="true" keyProperty="purchaseId">
+  	    INSERT INTO t_purchase values (null,#{purchaseName},#{purchaseStaff},
+  	    #{purchaseSort},#{purchaseAmount},#{purchasePrice},#{purchaseTotal},
+  	    #{applyStatus},#{applyTime},#{purchaseTime})
+    </insert>
+    <!--添加方法在上=============================================================  -->
+    
+    
+    <!--删除方法在下=============================================================  -->
+    
+    <!-- 根据PurchaseId删除信息 -->
+    <delete id="deletePurchaseByPurchaseId" parameterType="java.lang.Integer">
+	    delete from t_purchase
+	    where purchase_id = #{purchaseId,jdbcType=INTEGER}
+    </delete>
+     <!-- 根据PurchaseName删除信息 -->
+   <delete id="deletePurchaseByPurchaseName" parameterType="java.lang.String">
+	    delete from t_purchase
+	    where purchase_name = #{purchaseName,jdbcType=VARCHAR}
+    </delete>
+    <!--删除方法在上=============================================================  -->
+    
+    
+    <!--更新方法在下=============================================================  -->
+     
+    <!--更新商品表1 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.team.erp.framework.model.Purchase">
+	    update t_purchase
+	    <set>
+	      <if test="purchaseName != null">
+	        purchase_name = #{purchaseName,jdbcType=VARCHAR},
+	      </if>
+	    </set>
+	    where purchase_id = #{purchaseId,jdbcType=INTEGER}
+   </update>
+   
+   <!--更新商品表2-->
+   <update id="updateByPrimaryKey" parameterType="com.team.erp.framework.model.Purchase">
+	    update t_purchase
+	    set purchase_name = #{purchaseName,jdbcType=VARCHAR},
+	    where purchase_id = #{purchaseId,jdbcType=INTEGER}
+   </update>
+   <!--更新方法在上=============================================================  -->
+	
+</mapper>

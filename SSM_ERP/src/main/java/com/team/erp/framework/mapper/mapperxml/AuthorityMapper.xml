@@ -5,6 +5,9 @@
     <mapper namespace = "com.team.erp.framework.mapper.AuthorityMapper">
     <!-- resultMap是对要查询表的部分属性或全部属性的封装，可以是多个连表查询的属性封装，
     resultMap可以根据实际情况封装无数个，但是id名不能重复  type 是封装类的路径-->
+    
+    <!--封装集在下=============================================================  -->
+    
 	<resultMap type="com.team.erp.framework.model.Authority" id="SelectAuthorityMap">
 	    <!--id column 是数据表中主键名，result column 是数据表中属性名 ;
 	    jdbcType 是数据表中的数据类型，注意要全部大写 ;property 是实体类名 -->
@@ -27,10 +30,20 @@
 	    <result column="authority_id" jdbcType="INTEGER" property="authorityId"/>
 	</resultMap>
 	
+	<!--封装集在上=============================================================  -->
+	
+	
+	<!--sql封装片段在下=============================================================  -->
+	
 	<!-- sql片段的封装，可根据实际情况来改写 -->
     <sql id="Base_Authority_List">
       	authority_id, authority_name, authority_desc
     </sql>
+    
+    <!--sql封装片段在上=============================================================  -->
+    
+    
+	<!--查询方法在下=============================================================  -->
 	
     <!-- 根据id查询authority信息 -->
     <!--parameterType 表示传入参数类型;  resultType 表示返回值类型; resultMap表示返回
@@ -89,6 +102,11 @@
 		where user_id = #{userId,jdbcType=INTEGER}
 	</select>
 	
+	<!--查询方法在上=============================================================  -->
+	
+	
+	<!--添加方法在下=============================================================  -->
+	
 	<!-- 添加权限 -->
     <insert id="addAuthority" parameterType="com.team.erp.framework.model.Authority" useGeneratedKeys="true" keyProperty="authorityId">
   	    INSERT INTO t_authority values (null,#{authorityName},#{authorityDesc})
@@ -109,6 +127,11 @@
   	    INSERT INTO t_department_authority values (null,#{departmentId},#{authorityId})
     </insert>
     
+    <!--添加方法在上=============================================================  -->
+    
+    
+    <!--删除方法在下=============================================================  -->
+    
     <!-- 根据AuthorityId删除权限 -->
     <delete id="deleteAuthorityByAuthorityId" parameterType="java.lang.Integer">
 	    delete from t_authority
@@ -121,13 +144,16 @@
 	    where department_id = #{departmentId,jdbcType=INTEGER}
     </delete>
     
-     <!-- 根据userId删除用户与权限的中间表信息 -->
+    <!-- 根据userId删除用户与权限的中间表信息 -->
     <delete id="deleteUAAByUserId" parameterType="java.lang.Integer">
 	    delete from t_user_authority
 	    where user_id = #{userId,jdbcType=INTEGER}
     </delete>
+    <!--删除方法在上=============================================================  -->
     
-     <!--更新权限1 -->
+    <!--更新方法在下=============================================================  -->
+     
+    <!--更新权限1 -->
     <update id="updateByPrimaryKeySelective" parameterType="com.team.erp.framework.model.Authority">
 	    update t_authority
 	    <set>
@@ -137,6 +163,7 @@
 	    </set>
 	    where authority_id = #{authorityId,jdbcType=INTEGER}
    </update>
+   
   <!--更新权限2-->
    <update id="updateByPrimaryKey" parameterType="com.team.erp.framework.model.Authority">
 	    update t_authority
@@ -145,4 +172,5 @@
 	    where authority_id = #{authorityId,jdbcType=INTEGER}
    </update>
    
+   <!--更新方法在上=============================================================  -->
 	</mapper>

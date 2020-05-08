@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.team.erp.framework.mapper.AuthorityMapper;
 import com.team.erp.framework.mapper.StaffMapper;
 import com.team.erp.framework.mapper.UserMapper;
 import com.team.erp.framework.model.Staff;
@@ -25,6 +26,9 @@ public class StaffServiceImpl implements StaffService {
 	
 	@Autowired
 	private UserMapper um;
+	
+	@Autowired
+	private AuthorityMapper am;
 
 	@Override
 	public PageInfo<Staff> selectStaffAll(int pageNum) {
@@ -105,14 +109,38 @@ public class StaffServiceImpl implements StaffService {
 		}
 		return null;
 	}
+	
+    /*根据查询来进行删除的话要注意顺序，否者为空将无法删除所有想删除的表
+     * 这里的删除顺序:
+     * 1)首先删除中间表的相关信息
+     * 2)然后删除user表的相关信息
+     * 3)最后删除staff表的相关信息
+     * 代码比较混乱，还需要优化整理
+     */
 	@Override
 	public int deleteStaffAndUser(int staffId) {
 		Staff staff = sm.selectStaffByStaffId(staffId);
 		System.out.println("删除查询"+staff);
-		if (staff.getAccountId()!=null) {
-			um.deleteUserByUserName(staff.getAccountId());
+		String userName = staff.getAccountId();
+		User user = um.selectUserByUserName(userName);
+		System.out.println("得到的要删除的user是:"+user);
+		if (user!=null) {
+			System.out.println("user表不为空");
+			int userId = user.getUserId();
+			System.out.println("得到的要删除的userId是:"+userId);
+			int deleteUAAByUserId = am.deleteUAAByUserId(userId);//1)删除user和authority的中间表
+			if (deleteUAAByUserId!=0) {
+				System.out.println("删除user和authority的中间表成功");
+			}
+			if (userName!=null) {//账号不为空时，执行删除user表的操作
+				int deleteUserByUserName = um.deleteUserByUserName(userName);//2)删除user表与staff的相关信息
+				if (deleteUserByUserName!=0) {
+					System.out.println("删除user表信息成功");
+		   }
 		}
-		sm.deleteStaffByStaffId(staffId);
+	}
+		sm.deleteStaffByStaffId(staffId);//3)删除staff表的相关信息
+		System.out.println("删除staff表信息成功");
 		return 0;
 	}
 
