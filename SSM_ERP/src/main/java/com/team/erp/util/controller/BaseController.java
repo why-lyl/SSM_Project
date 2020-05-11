@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.team.erp.framework.service.AuthorityService;
 import com.team.erp.framework.service.DepartmentService;
 import com.team.erp.framework.service.ProductService;
+import com.team.erp.framework.service.PurchaseService;
 import com.team.erp.framework.service.StaffService;
 import com.team.erp.framework.service.UserService;
 
@@ -32,5 +33,8 @@ public class BaseController {
 	
 	@Autowired
 	public ProductService ps;
+	
+	@Autowired
+	public PurchaseService prs;
 
 }

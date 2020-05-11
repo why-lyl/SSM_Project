@@ -324,7 +324,7 @@ public class UserServiceImpl implements UserService {
 				request.setAttribute("userIp", userIp);//引号里的是自定义的名，EL表达式需要使用
 				request.setAttribute("serverName", serverName);//后面的是变量名
 				request.setAttribute("localIp", localIp);
-				/*request.setAttribute("LOGINTIME", formatDate);*///获得登录时间并格式化
+				request.setAttribute("LOGINTIME", formatDate);//获得登录时间并格式化
 				//request.setAttribute("name", "看不见我");
 				return null;
 	}

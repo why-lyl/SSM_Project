@@ -31,10 +31,69 @@
       <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-
+<script type="text/javascript">
+layui.use(['form','layer','laydate'], function(){
+    $ = layui.jquery;
+  var form = layui.form
+  ,layer = layui.layer
+  ,laydate=layui.laydate;
+	
+	
+  //日期
+  laydate.render({
+	elem: '#date1'
+	});
+laydate.render({
+	elem: '#date2'
+	});
+  //自定义验证规则
+  form.verify({
+    accountIdRule: function(value){
+      if(value.length < 2){
+        return '请至少添加2个字符';
+      }
+    }
+    ,pass: [/(.+){3,12}$/, '密码必须3到12位']
+    ,repass: function(value){
+        if($('#AccountPassword').val()!=$('#ReAccountPassword').val()){
+            return '两次密码不一致';
+        }
+    }
+  }); 
+  //监听提交
+  form.on('submit(add)', function(data){
+    console.log(data);
+    //发异步，把数据提交给php
+    console.log(data);
+    $.ajax({
+		type : "POST",
+		data : $('#form1').serialize(),
+		dataType : "text",
+		url :"purchaseController/purchaseAdd.ajax",
+		success : function(result) {
+		 //发异步，把数据提交给php
+         layer.msg("添加成功",{
+      		icon : 1,
+       		time: 500,
+       	},function () {
+             // 获得frame索引
+             var index = parent.layer.getFrameIndex(window.name);
+             //关闭当前frame
+             parent.location.reload();
+             parent.layer.close(index);
+         });
+		},
+		error : function() {
+			layer.msg('无法连接服务器', {icon: 2});
+		}
+	});   
+    return false;
+  });
+  });
+  </script>
 <body>
 	<div class="x-body">
-		<form class="layui-form" method="post"
+		<!-- <form class="layui-form" method="post"
 			action="porchaseController/addPorchase.do">
 			<div class="layui-form-item">
 				<div class="layui-form-item">
@@ -129,7 +188,93 @@
 						onclick="returnUserPorchase()">返回</button>
 				</div>
 		</form>
-	</div>
+ -->	
+  <form id="form1" class="layui-form">
+          <div class="layui-form-item">
+              <label for="staffname" class="layui-form-label">
+                  <span class="x-red"></span>申请人姓名
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="staffname" name="purchaseStaff" required="" lay-verify="required"
+                  autocomplete="off" class="layui-input">
+              </div>
+         </div>
+         <div class="layui-form-item">
+              <label for="purchasesort" class="layui-form-label">
+                  <span class="x-red"></span>采购物品种类
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="staffname" name="purchaseSort" required="" lay-verify="required"
+                  autocomplete="off" class="layui-input">
+              </div>
+         </div>
+         <div class="layui-form-item">
+              <label for="purchasename" class="layui-form-label">
+                  <span class="x-red"></span>采购物品名称
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="staffname" name="purchaseName" required="" lay-verify="required"
+                  autocomplete="off" class="layui-input">
+              </div>
+         </div>
+          <div class="layui-form-item">
+              <label for="purchaseamount" class="layui-form-label">
+                  <span class="x-red"></span>采购物品数量
+              </label>
+              <div class="layui-input-inline">
+                  <input type="number" id="staffname" name="purchaseAmount" required="" lay-verify="required"
+                  autocomplete="off" class="layui-input">
+              </div>
+         </div>
+         <div class="layui-form-item">
+              <label for="purchaseprice" class="layui-form-label">
+                  <span class="x-red"></span>采购物品单价
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="staffname" name="purchasePrice" required="" lay-verify="required"
+                  autocomplete="off" class="layui-input">
+              </div>
+         </div><div class="layui-form-item">
+              <label for="purchasetotal" class="layui-form-label">
+                  <span class="x-red"></span>申请总资金
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="staffname" name="purchaseTotal" required="" lay-verify="required"
+                  autocomplete="off" class="layui-input">
+              </div>
+         </div>
+               <div class="layui-form-item">
+              <label for="applytime" class="layui-form-label">
+                  <span class="x-red"></span>申请日期
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="date1" name="applyTime" required="" lay-verify="required"
+                  autocomplete="off" class="layui-input">
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="purchasetime" class="layui-form-label">
+                  <span class="x-red"></span>采购日期
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="date2" name="purchaseTime" required="" lay-verify="required"
+                  autocomplete="off" class="layui-input">
+              </div>
+          </div>
+          
+               <div class="layui-form-item">
+              <label for="ReAccountPassword" class="layui-form-label">
+              </label>
+              <button  class="layui-btn" lay-filter="add" lay-submit="">
+                 提交申请
+              </button>
+          </div>
+      </form>
+ 
+ 
+ 
+ 
+ </div>
 	<script>
 		/* layui.use('laydate', function() {
 			var laydate = layui.laydate;

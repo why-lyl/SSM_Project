@@ -19,6 +19,10 @@ public interface PurchaseMapper {
 	/** 更新方法在下====================================================================*/
 	int updateByPrimaryKeySelective(Purchase record);//根据选择的采购信息主键更新采购信息
 	int updateByPrimaryKey(Purchase record);//根据主键更新采购信息
+	//根据Id更新采购表里面的申请状态为同意
+	int updatePurchaseByPurchaseIdAgree(@Param("purchaseId")int purchaseId,@Param("applyStatus")String applyStatus);
+	//根据Id更新采购表里面的申请状态为不采纳
+	int updatePurchaseByPurchaseIdDisagree(@Param("purchaseId")int purchaseId,@Param("applyStatus")String applyStatus);
 	/** 更新方法在上====================================================================*/
 	
 	

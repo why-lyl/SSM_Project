@@ -85,6 +85,7 @@ Authentication(认证),Authorization(授权),Cache(缓存)等的管理,可以理
 			  /staffController/** = anon
 			  /roleController/** = anon
 			  /purchaseController/** = anon
+			  /purchaseController/goApply.do = anon
 			  /**Controller/** = anon 
 			  /auth/login = anon
               /css/** = anon

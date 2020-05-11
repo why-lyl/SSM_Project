@@ -99,11 +99,24 @@
 	    </set>
 	    where purchase_id = #{purchaseId,jdbcType=INTEGER}
    </update>
-   
+    
    <!--更新商品表2-->
    <update id="updateByPrimaryKey" parameterType="com.team.erp.framework.model.Purchase">
 	    update t_purchase
 	    set purchase_name = #{purchaseName,jdbcType=VARCHAR},
+	    where purchase_id = #{purchaseId,jdbcType=INTEGER}
+   </update>
+   
+    <!--更新商品表申请状态为同意-->
+   <update id="updatePurchaseByPurchaseIdAgree" parameterType="com.team.erp.framework.model.Purchase">
+	    update t_purchase
+	    set apply_status = "同意"
+	    where purchase_id = #{purchaseId,jdbcType=INTEGER}
+   </update>
+    <!--更新商品表申请状态为不采纳-->
+   <update id="updatePurchaseByPurchaseIdDisagree" parameterType="com.team.erp.framework.model.Purchase">
+	    update t_purchase
+	    set apply_status = "不采纳"
 	    where purchase_id = #{purchaseId,jdbcType=INTEGER}
    </update>
    <!--更新方法在上=============================================================  -->

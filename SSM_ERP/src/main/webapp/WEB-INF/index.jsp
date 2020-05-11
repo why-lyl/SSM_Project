@@ -160,7 +160,7 @@
 					<ul class="sub-menu">
 						<li><a _href="purchaseController/goPurchase.do"> <i class="iconfont">&#xe6a7;</i> <cite>采购批准</cite>
 						</a></li>
-						<li><a _href="applyController/showAllapply.do"> <i class="iconfont">&#xe6a7;</i> <cite>申请批准</cite>
+						<li><a _href="purchaseController/goApply.do"> <i class="iconfont">&#xe6a7;</i> <cite>申请批准</cite>
 						</a></li>
 						<li><a _href="assetsController/goAllAsseets.do"> <i class="iconfont">&#xe6a7;</i> <cite>申请报废批准</cite>
 						</a></li>
