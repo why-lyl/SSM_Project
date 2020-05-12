@@ -43,7 +43,7 @@
 	</style>
 <body>
      <div class="x-nav">
-		<span class="layui-breadcrumb"> <a>人员管理</a> <a> <cite>组织管理</cite></a>
+		<span class="layui-breadcrumb"> <a>人员管理</a> <a> <cite>部门管理</cite></a>
 		</span> <a class="layui-btn layui-btn-small"
 			style="line-height: 1.6em; margin-top: 3px; float: right"
 			href="javascript:location.replace(location.href);" title="刷新"> <i
@@ -62,7 +62,7 @@
 					<div class="panel-body">
 					<span class="message-title">${Department.departmentDesc }</span>
 						<hr />
-					<table>
+					<%-- <table>
 						
 						<tr>
 							<th width="100px">部门权限 </th>
@@ -70,7 +70,7 @@
 								<span> ${Department.authrs} </span>
 							</td>
 						</tr>	
-					</table>
+					</table> --%>
 					</div>
 				</div>
 			</div>

@@ -72,7 +72,7 @@ laydate.render({
 		url :"purchaseController/purchaseAdd.ajax",
 		success : function(result) {
 		 //发异步，把数据提交给php
-         layer.msg("添加成功",{
+         layer.msg("申请提交成功,请等待管理员审核",{
       		icon : 1,
        		time: 500,
        	},function () {
@@ -92,7 +92,18 @@ laydate.render({
   });
   </script>
 <body>
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">采购管理</a>
+        <a>
+          <cite>申请采购</cite></a><!--这里是小的导航栏上面的显示  -->
+      </span>
+      <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+    </div>
 	<div class="x-body">
+	
+   
 		<!-- <form class="layui-form" method="post"
 			action="porchaseController/addPorchase.do">
 			<div class="layui-form-item">

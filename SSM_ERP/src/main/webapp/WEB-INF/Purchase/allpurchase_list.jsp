@@ -194,13 +194,13 @@ layui.use(['form', 'laypage', 'laydate'], function(){
 	</script>
 <body>
 	<div class="x-nav">
-		<span class="layui-breadcrumb"> <a>采购管理</a> <a> <cite>采购信息</cite></a>
+		<span class="layui-breadcrumb"> <a>采购管理</a> <a> <cite>采购批准</cite></a>
 		</span> <a class="layui-btn layui-btn-small"
 			style="line-height: 1.6em; margin-top: 3px; float: right"
 			href="purchaseController/goPurchase.do" title="刷新"> <i
 			class="layui-icon" style="line-height: 30px">ဂ</i></a>
 	</div>
-	<div class="x-body">
+	<!-- <div class="x-body">
 		<div class="layui-row">
 			<form class="layui-form layui-col-md12 x-so" method="post" action="porchaseController/showPorchase.do">
 				<span>快速查询：</span> <input class="layui-input" placeholder="请输入名称"
@@ -210,9 +210,9 @@ layui.use(['form', 'laypage', 'laydate'], function(){
 					<i class="layui-icon">&#xe615;</i>
 				</button>
 			</form>
-		</div>
+		</div> -->
 		<xblock>
-		<button class="layui-btn" onclick="x_admin_show('采购申请','purchaseController/goPurchaseAdd.do')"><i class="layui-icon"></i>采购申请</button>
+		<!-- <button class="layui-btn" onclick="x_admin_show('采购申请','purchaseController/goPurchaseAdd.do')"><i class="layui-icon"></i>采购申请</button> -->
 		<span class="x-right" style="line-height: 40px">共有数据：<a id="total">88</a>条</span> </xblock>
 		<table class="layui-table">
 			<thead>

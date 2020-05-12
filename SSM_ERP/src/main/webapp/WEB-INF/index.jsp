@@ -11,7 +11,7 @@
 <head>
 <base href="<%=basePath%>">
 <meta charset="UTF-8">
-<title>医药管理系统主页</title>
+<title>若愚企管系统主页</title>
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -51,7 +51,7 @@
 	<!-- 顶部开始 -->
 	<div class="container">
 		<div class="logo">
-			<a href="index.jsp">医药管理系统</a>
+			<a href="index.jsp">若愚企管系统</a>
 		</div>
 		<div class="left_open">
 			<i title="展开左侧栏" class="iconfont">&#xe699;</i>
@@ -75,11 +75,11 @@
 				</dl></li>
 		</ul> -->
 		<ul class="layui-nav right">
-			<li class="layui-nav-item"><a href="javascript:;">${USERNAME}</a>
+			<li class="layui-nav-item"><a href="javascript:;"><span style="color:blue ">登录账号:</span>${USERNAME}</a>
 				<dl class="layui-nav-child">
 					<!-- 二级菜单 -->
 					<dd>
-						<a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人中心</a>
+						<a onclick="x_admin_show('个人信息','userController/goWelcome.do')">个人中心</a>
 					</dd>
 					<dd>
 						<a href="userController/loginOut.do">退出登录</a>
@@ -107,9 +107,9 @@
 								class="iconfont">&#xe6a7;</i> <cite>职工管理</cite>
 						</a></li>
 						<!-- 按钮结束 -->
-						<li><a _href="departmentController/goOrganization.do"> <i
+						<!-- <li><a _href="departmentController/goOrganization.do"> <i
 								class="iconfont">&#xe6a7;</i> <cite>组织结构</cite>
-						</a></li>
+						</a></li> -->
 						<li><a _href="departmentController/goDepartment.do"> <i
 								class="iconfont">&#xe6a7;</i> <cite>部门管理</cite>
 						</a></li>
@@ -158,12 +158,13 @@
 						class="iconfont nav_right">&#xe697;</i>
 				</a>
 					<ul class="sub-menu">
+					<!--写在这里表示写过这个接口，但是后面进行了修改 "purchaseController/goApply.do  -->
+					    <li><a _href=purchaseController/goPurchaseAdd.do"> <i class="iconfont">&#xe6a7;</i> <cite>申请采购</cite>
+						</a></li>
 						<li><a _href="purchaseController/goPurchase.do"> <i class="iconfont">&#xe6a7;</i> <cite>采购批准</cite>
 						</a></li>
-						<li><a _href="purchaseController/goApply.do"> <i class="iconfont">&#xe6a7;</i> <cite>申请批准</cite>
-						</a></li>
-						<li><a _href="assetsController/goAllAsseets.do"> <i class="iconfont">&#xe6a7;</i> <cite>申请报废批准</cite>
-						</a></li>
+						<!-- <li><a _href="assetsController/goAllAsseets.do"> <i class="iconfont">&#xe6a7;</i> <cite>申请报废批准</cite>
+						</a></li> -->
 					</ul></li>
 			    </shiro:hasRole>
 				<!-- 示例结束 -->
@@ -193,8 +194,8 @@
 					<ul class="sub-menu">
 						<li><a _href="inventoryController/goAllInventory.do"> <i class="iconfont">&#xe6a7;</i> <cite>库存资产</cite>
 						</a></li>
-						<li><a _href="inventoryController/showBorrowreturn.do"> <i class="iconfont">&#xe6a7;</i> <cite>资产流动记录</cite>
-						</a></li>
+						<!-- <li><a _href="inventoryController/showBorrowreturn.do"> <i class="iconfont">&#xe6a7;</i> <cite>资产流动记录</cite>
+						</a></li> -->
 					</ul></li>
 					</shiro:hasRole>
 				<!-- 示例结束 -->
@@ -208,7 +209,7 @@
 		<div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
 			<!-- 打开的标签页，无需手动添加 -->
 			<ul class="layui-tab-title">
-				<li>欢迎进入医药系统</li>
+				<li>欢迎进入若愚企管系统</li>
 			</ul>
 			<div class="layui-tab-content">
 				<div class="layui-tab-item layui-show">

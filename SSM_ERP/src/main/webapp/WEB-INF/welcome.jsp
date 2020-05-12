@@ -11,7 +11,7 @@
 <head>
 <base href="<%=basePath%>">
 <meta charset="UTF-8">
-<title>欢迎进入医药系统</title>
+<title>欢迎进入若愚企管系统</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
@@ -58,7 +58,7 @@ $.ajax({
 <% User user = (User)request.getAttribute("user");%>
 <!-- %<user.getUserName();%> 现在获得的userName是空值，所以会报空指针异常 -->
 	<div class="x-body">
-		<blockquote class="layui-elem-quote">欢迎${userName}进入医药管理系统v1.0！登录时间:${LOGINTIME}；祝您拥有美好的一天！</blockquote>
+		<blockquote class="layui-elem-quote">欢迎${userName}进入若愚企官系统v1.0！登录时间:${LOGINTIME}；祝您拥有美好的一天！</blockquote>
 		<fieldset class="layui-elem-field">
 			<legend>信息总览</legend>
 			<div class="layui-field-box">
@@ -100,9 +100,15 @@ $.ajax({
 							<td>您所属的部门</td>
 							<td>${department}</td>
 						</tr>
+						<tr class="spanLinkTr">
+							<td>当前时间</td>
+							<td><span id="st">加载中...</span>&nbsp; <span id="rstBtn"
+								onclick="reServerTime()" class="spanLink"></span>
+							</td>
+						</tr>
 					</tbody>
 				</table>
-				<table class="layui-table">
+				<%-- <table class="layui-table">
 					<thead>
 						<tr>
 							<th colspan="2" scope="col">服务器信息</th>
@@ -139,15 +145,15 @@ $.ajax({
 							</td>
 						</tr>
 					</tbody>
-				</table>
+				</table> --%>
 			</div>
 		</fieldset>
 		<!-- 示例：调用父窗口的某个方法 -->
 		<blockquote class="layui-elem-quote layui-quote-nm">
 			本系统前端框架支持：X-admin（<a
 				onclick="parent.x_admin_show('X-admin主页','http://x.xuebingsi.com/')">http://x.xuebingsi.com/</a>）；
-			前端框架调整：liu（liuyulonggz@163.com）； 项目开发：医药管理系统（<a
-				onclick="parent.x_admin_show('医药管理系统主页','http://localhost:8080/SSM_ERP/userController/index.do')">http://localhost:8080/SSM_ERP/userController/index.do</a>）java
+			前端框架调整：liu（liuyulonggz@163.com）； 项目开发：若愚企官系统（<a
+				onclick="parent.x_admin_show('若愚企官系统主页','http://localhost:8080/SSM_ERP/userController/index.do')">http://localhost:8080/SSM_ERP/userController/index.do</a>）java
 			EE项目组
 		</blockquote>
 	</div>
@@ -219,8 +225,7 @@ $.ajax({
 		reServerTime();
 	});
 	
-	
-	/*  var T = document.getElementById("st")
+	 /* var T = document.getElementById("st")
 	 getFNTime();
 	 function getFNTime(){	
 			var nd = new Date();

@@ -117,7 +117,7 @@ layui.use(['form', 'laypage', 'laydate'], function(){
 	</script>
 <body >
 	<div class="x-nav">
-		<span class="layui-breadcrumb"> <a>库存管理</a> <a> <cite>资产情况</cite></a>
+		<span class="layui-breadcrumb"> <a>库存管理</a> <a> <cite>库存资产</cite></a>
 		</span> <a class="layui-btn layui-btn-small"
 			style="line-height: 1.6em; margin-top: 3px; float: right"
 			href="inventoryController/goAllInventory.do" title="刷新"> <i

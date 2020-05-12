@@ -26,7 +26,7 @@
       <span class="layui-breadcrumb">
         <a href="">职工管理</a>
         <a>
-          <cite>用户管理</cite></a>
+          <cite>职工管理</cite></a><!--这里是小的导航栏上面的显示  -->
       </span>
       <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
@@ -35,24 +35,24 @@
       <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so">
           <div class="layui-input-inline">
-            <select id="userDepart">
+            <%-- <select id="userDepart">
               <option value="">员工所在部门</option>
               <c:forEach items="${departs}" var="department">
               		<option value="${department.departmentName}">${department.departmentName} </option>
               </c:forEach>
               
-            </select>
+            </select> --%>
           </div>
           <div class="layui-input-inline">
-            <input id="entry" type="text" name="staffJoin"  placeholder="入职时间" autocomplete="off" class="layui-input">
+            <!-- <input id="entry" type="text" name="staffJoin"  placeholder="入职时间" autocomplete="off" class="layui-input"> -->
           </div>
           <div class="layui-input-inline">
-            <select id="birthRange">
+           <!--  <select id="birthRange">
             	<option value="">员工生日</option>
             	<option value="30">最近一个月</option>
             	<option value="90">最近三个月 </option>
             	<option value="180">最近半年</option>
-            </select>
+            </select> -->
           </div>
           <div class="layui-input-inline">
            <input type="text" id="staffName"  placeholder="员工姓名" autocomplete="off" class="layui-input">

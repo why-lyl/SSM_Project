@@ -33,7 +33,7 @@
       <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
     </div>
-    <div class="x-body">
+   <!--  <div class="x-body">
       <div class="layui-row">
         <form id="filter" method="post" class="layui-form layui-col-md12 x-so">
           <div class="layui-input-inline">
@@ -58,7 +58,7 @@
           <input type="text" id="userName" name="userName"  placeholder="员工姓名" autocomplete="off" class="layui-input">
           <a class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></a>
         </form>
-      </div>
+      </div> -->
       <xblock>
         <button class="layui-btn" onclick="x_admin_show('添加用户','./order-add.html')"><i class="layui-icon"></i>添加</button>
         <span class="x-right" style="line-height:40px">共有数据：<a onclick="test()" id="total">?</a> 条</span>
